@@ -17,9 +17,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: 'https://www.pngall.com/wp-content/uploads/5/Profile-Avatar-PNG-Free-Download.png'
     },
+    role: {
+        type: String,
+        default: 'user' // admin
+    },
     type: {
         type: String,
-        default: 'normal'
+        default: 'normal' // fast
     }
 }, {
     timestamps: true
