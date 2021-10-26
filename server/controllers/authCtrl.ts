@@ -2,6 +2,10 @@ import {Request, Response} from 'express'
 import Users from '../models/userModel'
 import bcrypt from 'bcrypt'
 import {generateActiveToken} from '../config/generateToken'
+import sendEmail from '../config/sendMail'
+import {validateEmail} from '../middleware/validate'
+
+const CLIENT_URL = `${process.env.BASE_URL}`
 
 const authCtrl = {
     register: async (req: Request, res: Response) => {
@@ -17,12 +21,12 @@ const authCtrl = {
 
             const active_token = generateActiveToken({newUser})
 
-            res.json({
-                status: "OK",
-                msg: "Вы успешно зарегистрировались",
-                data: newUser,
-                active_token
-            })
+            const url = `${CLIENT_URL}/active/${active_token}`
+
+            if (validateEmail(account)) {
+                sendEmail(account, url, 'Подтвердите свой адрес электронной почты')
+                return res.json({msg: "Успешно. Пожалуйста, проверьте свою электронную почту"})
+            }
         } catch (err: any) {
             return res.status(500).json({msg: err.message})
         }
