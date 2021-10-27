@@ -39,10 +39,10 @@ const sendEmail = async (to: string, url: string, text: string) => {
             subject: 'Блог веб-разработки',
             html: `
                 <div style="max-width: 700px; margin: auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%">
-                    <h2 style="text-align: center; text-transform: uppercase; color: teal;">
-                        Добро пожаловать на сайт веб-разработки
+                    <h2 style="text-transform: uppercase; color: teal;">
+                        Добро пожаловать на блог по веб-разработке
                     </h2>
-                    <p>Поздравляем. Почти готово</p>
+                    <p>Почти готово</p>
                     <a href="${url}" style="background: crimson; text-decoration: none; color: white; padding: 10px 20px;
                         margin: 10px 0; display: inline-block;">
                         ${text}
