@@ -53,8 +53,7 @@ const sendEmail = async (to: string, url: string, text: string) => {
             `
         }
 
-        const result = await transport.sendMail(mailOptions)
-        return result;
+        return await transport.sendMail(mailOptions);
     } catch (e) {
         console.log(e)
     }

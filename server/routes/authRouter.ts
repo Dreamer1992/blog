@@ -2,10 +2,16 @@ import express from 'express'
 import authCtrl from '../controllers/authCtrl'
 import {validateRegister} from '../middleware/validate'
 
-const authRouter = express.Router()
+const router = express.Router();
 
-authRouter.post('/register', validateRegister, authCtrl.register)
+router.post('/register', validateRegister, authCtrl.register);
 
-authRouter.post('/active', authCtrl.activeAccount)
+router.post('/active', authCtrl.activeAccount);
 
-export default authRouter;
+router.post('/login', authCtrl.login);
+
+router.get('/logout', authCtrl.logout);
+
+router.get('/refresh_token', authCtrl.refreshToken);
+
+export default router;
