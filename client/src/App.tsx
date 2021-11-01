@@ -1,10 +1,20 @@
 import React from 'react';
-import './App.css';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {routes} from './routes';
 
-function App() {
-  return (
-    <div className="App">App</div>
-  );
-}
+const App = () => {
+    return (
+        <div className="container">
+            <Router>
+                <Switch>
+                    {
+                        routes.map(({path, Component}) =>
+                            <Route key={path} exact path={path} component={Component}/>)
+                    }
+                </Switch>
+            </Router>
+        </div>
+    );
+};
 
 export default App;
