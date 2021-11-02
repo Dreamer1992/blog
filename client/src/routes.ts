@@ -1,14 +1,17 @@
 import {HOME, LOGIN, REGISTER} from './utils/consts';
-import {Home, Login, NotFound, Register} from './pages/index';
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import Register from "./pages/Register";
 
 export const routes = [
     {
         path: HOME,
-        Component: Home,
+        Component: HomePage,
     },
     {
         path: LOGIN,
-        Component: Login,
+        Component: LoginPage,
     },
     {
         path: REGISTER,
@@ -16,6 +19,6 @@ export const routes = [
     },
     {
         path: '*',
-        Component: NotFound
+        Component: NotFoundPage,
     },
 ]

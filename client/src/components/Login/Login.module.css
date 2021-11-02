@@ -1,0 +1,15 @@
+.authPage {
+    width: 100%;
+    padding: 2.5rem 0;
+    background: #fdfdfd;
+    display: flex;
+    justify-content: center;
+}
+
+.authBox {
+    background: #fff;
+    max-width: 400px;
+    width: 100%;
+    border: 1px solid #ddd;
+    padding: 2.5rem 1.7rem;
+}

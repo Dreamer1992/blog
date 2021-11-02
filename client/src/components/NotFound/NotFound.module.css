@@ -1,0 +1,10 @@
+.wrapperPage {
+    display: flex;
+    min-height: calc(100vh - 185px);
+    justify-content: center;
+    align-items: center;
+}
+
+.innerText {
+    color: #6c757d;
+}

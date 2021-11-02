@@ -27,9 +27,9 @@ body {
 #root {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
 main.main {
   flex-grow: 1;
+  min-height: calc(100vh - 185px);
 }
