@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
-import {InputChange} from '../../../types/CommonType'
+import {useDispatch} from "react-redux";
+import {InputChange, FormSubmit} from '../../../types/Types';
 import cn from './LoginPass.module.css';
+import {login} from '../../../redux/actions/authAction';
 
 const LoginPass = () => {
     const initialState = {account: '', password: ''};
@@ -9,13 +11,20 @@ const LoginPass = () => {
 
     const [typePass, setTypePass] = useState(false);
 
+    const dispatch = useDispatch();
+
     const handleChangeInput = (e: InputChange) => {
         const {value, name} = e.target;
         setUserLogin({...userLogin, [name]: value});
     }
 
+    const handleSubmit = (e: FormSubmit) => {
+        e.preventDefault();
+        dispatch(login(userLogin));
+    }
+
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <div className="form-group mb-1">
                 <label htmlFor="account">Почта или номер телефона</label>
                 <input

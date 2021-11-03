@@ -3,6 +3,7 @@ import LoginPass from "./LoginPass/LoginPass";
 import {Link} from 'react-router-dom';
 import {REGISTER} from "../../utils/consts";
 import cn from './Login.module.css';
+import LoginSMS from './LoginSMS/LoginSMS';
 
 const Login = () => {
     const [sms, setSms] = useState(false);
@@ -11,9 +12,9 @@ const Login = () => {
         <div className="container">
             <div className={cn.authPage}>
                 <div className={cn.authBox}>
-                    <h3 className="text-uppercase text-center mb-4">Войти</h3>
+                    <h3 className="text-uppercase text-center mb-4">Авторизоваться</h3>
 
-                    <LoginPass/>
+                    {sms ? <LoginSMS/> : <LoginPass/>}
 
                     <small className="row my-2 text-primary">
                         <div className="col-6">
