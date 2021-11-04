@@ -41,7 +41,9 @@ const Login = () => {
                         <Link
                             style={{color: 'crimson', marginLeft: '8px'}}
                             to={REGISTER}
-                        >Зарегистрироваться</Link>
+                        >
+                            Зарегистрироваться
+                        </Link>
                     </p>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
 import cn from './Toast.module.css';
+import {ALERT} from "../../../redux/types/alertType";
 
 interface IProps {
     title: string;
@@ -12,7 +13,7 @@ const Toast = ({title, body, bgColor}: IProps) => {
     const dispatch = useDispatch();
 
     const handleClose = () => {
-
+        dispatch({type: ALERT, payload: {}})
     }
 
     return (

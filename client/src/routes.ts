@@ -2,7 +2,7 @@ import {HOME, LOGIN, REGISTER} from './utils/consts';
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import Register from "./pages/Register";
+import RegisterPage from "./pages/RegisterPage";
 
 export const routes = [
     {
@@ -15,7 +15,7 @@ export const routes = [
     },
     {
         path: REGISTER,
-        Component: Register,
+        Component: RegisterPage,
     },
     {
         path: '*',
