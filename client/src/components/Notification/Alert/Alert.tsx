@@ -3,8 +3,9 @@ import Loading from "../Loading/Loading";
 import {useSelector} from "react-redux";
 import {RootStore} from "../../../types/Types";
 import Toast from "../Toast/Toast";
+import cn from './Alert.module.css';
 
-const Alert = () => {
+export const Alert = () => {
     const {alert} = useSelector((state: RootStore) => state);
 
     return (
@@ -30,4 +31,10 @@ const Alert = () => {
     );
 };
 
-export default Alert;
+export const showErrMsg = (msg: string) => {
+    return <div className={cn.errMsg}>{msg}</div>
+};
+
+export const showSuccessMsg = (msg: string) => {
+    return <div className={cn.successMsg}>{msg}</div>
+};

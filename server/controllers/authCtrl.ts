@@ -28,10 +28,10 @@ const authCtrl = {
 
             if (validateEmail(account)) {
                 sendEmail(account, url, 'Подтвердите свой адрес электронной почты')
-                return res.json({msg: "Успешно. Пожалуйста, проверьте свою электронную почту"})
+                return res.json({msg: "Пожалуйста, проверьте свою электронную почту"})
             } else if (validatePhone(account)) {
                 sendSms(account, url, 'Подтвердите номер телефона')
-                return res.json({msg: "Успешно. Сообщение отправлено на номер телефона"})
+                return res.json({msg: "Сообщение отправлено на номер телефона"})
             }
         } catch (err: any) {
             return res.status(500).json({msg: err.message})
@@ -45,23 +45,19 @@ const authCtrl = {
             const decoder = <IDecodedToken>jwt.verify(active_token, `${process.env.ACTIVE_TOKEN_SECRET}`);
 
             const {newUser} = decoder;
-            if (!newUser) return res.status(400).json({msg: 'Неверная идентификация'})
+            if (!newUser) return res.status(400).json({msg: 'Неверная идентификация'});
+
+            console.log('newUser', newUser);
+
+            const userCheck = await Users.findOne({account: newUser.account});
+            if (userCheck) return res.status(400).json({msg: "Этот аккаунт уже существует"})
 
             const user = new Users(newUser);
-
             await user.save();
-            res.json({msg: 'Аккаунт был активирован'})
+
+            return res.json({msg: 'Аккаунт был активирован'});
         } catch (err: any) {
-            let errMsg;
-
-            if (err.code === 11000) {
-                errMsg = 'Аккаунт уже существует';
-            } else {
-                let name = Object.keys(err.errors)[0];
-                errMsg = err.errors[`${name}`].message;
-            }
-
-            return res.status(500).json({msg: errMsg})
+            return res.status(500).json({msg: err.message});
         }
     },
 
