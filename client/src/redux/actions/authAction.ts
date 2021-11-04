@@ -2,11 +2,12 @@ import {Dispatch} from 'react';
 import {IUserLogin} from "../../types/Types";
 import {postAPI} from "../../api/FetchData";
 import {AUTH, AuthType} from "../types/authType";
+import {ALERT, AlertType} from "../types/alertType";
 
-export const login = (userLogin: IUserLogin) => async (dispatch: Dispatch<AuthType>) => {
+export const login = (userLogin: IUserLogin) => async (dispatch: Dispatch<AuthType | AlertType>) => {
     try {
+        dispatch({type: ALERT, payload: {loading: true}});
         const res = await postAPI('login', userLogin);
-        console.log(res);
 
         dispatch({
             type: AUTH,
@@ -14,8 +15,10 @@ export const login = (userLogin: IUserLogin) => async (dispatch: Dispatch<AuthTy
                 token: res.data.access_token,
                 user: res.data.user,
             },
-        })
+        });
+
+        dispatch({type: ALERT, payload: {success: "Успешно зарегистрированы"}});
     } catch (e: any) {
-        console.log(e.response.data.msg);
+        dispatch({type: ALERT, payload: {errors: e.response.data.msg}});
     }
 }

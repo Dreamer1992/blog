@@ -1,8 +1,11 @@
 import {ChangeEvent, FormEvent} from 'react';
+import rootReducer from '../redux/reducers/index';
 
 export type InputChange = ChangeEvent<HTMLInputElement>;
 
 export type FormSubmit = FormEvent<HTMLFormElement>;
+
+export type RootStore = ReturnType<typeof rootReducer>
 
 export interface IUserLogin {
     account: string;

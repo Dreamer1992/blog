@@ -3,11 +3,13 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {routes} from './routes';
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import Alert from "./components/Notification/Alert/Alert";
 
 const App = () => {
     return (
         <React.Fragment>
             <Router>
+                <Alert/>
                 <Header/>
 
                 <main className="main">

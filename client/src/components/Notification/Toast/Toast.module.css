@@ -1,0 +1,7 @@
+.toastWrapper {
+    position: fixed;
+    top: 5px;
+    right: 5px;
+    z-index: 50;
+    min-width: 200px;
+}
