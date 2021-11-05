@@ -47,8 +47,6 @@ const authCtrl = {
             const {newUser} = decoder;
             if (!newUser) return res.status(400).json({msg: 'Неверная идентификация'});
 
-            console.log('newUser', newUser);
-
             const userCheck = await Users.findOne({account: newUser.account});
             if (userCheck) return res.status(400).json({msg: "Этот аккаунт уже существует"})
 
@@ -77,7 +75,7 @@ const authCtrl = {
 
     logout: async (req: Request, res: Response) => {
         try {
-            res.clearCookie('refreshtoken', {path: `api/refresh_token`});
+            res.clearCookie('refresh_token', {path: `api/refresh_token`});
             return res.json({msg: 'Успешно разлогинены'});
         } catch (e: any) {
             return res.status(500).json({msg: e.message});
@@ -86,7 +84,7 @@ const authCtrl = {
 
     refreshToken: async (req: Request, res: Response) => {
         try {
-            const rf_token = req.cookies.refreshtoken;
+            const rf_token = req.cookies.refresh_token;
             if (!rf_token) return res.status(400).json({msg: "Пожалуйста, авторизуйтесь на сайте"});
 
             const decoded = <IDecodedToken>jwt.verify(rf_token, `${process.env.REFRESH_TOKEN_SECRET}`);
@@ -97,11 +95,11 @@ const authCtrl = {
 
             const access_token = generateAccessToken({id: user._id});
 
-            res.json({access_token});
+            return res.json({access_token});
         } catch (e: any) {
             return res.status(500).json({msg: e.message});
         }
-    }
+    },
 }
 
 const loginUser = async (user: IUser, password: string, res: Response) => {
@@ -111,7 +109,7 @@ const loginUser = async (user: IUser, password: string, res: Response) => {
     const access_token = generateAccessToken({id: user._id});
     const refresh_token = generateRefreshToken({id: user._id});
 
-    res.cookie('refreshtoken', refresh_token, {
+    res.cookie('refresh_token', refresh_token, {
         httpOnly: true,
         path: `api/refresh_token`,
         maxAge: 30 * 24 * 60 * 60 * 1000, // 30days
