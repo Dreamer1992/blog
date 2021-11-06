@@ -1,14 +1,16 @@
-import {Request, Response} from 'express'
-import Users from '../models/userModel'
-import bcrypt from 'bcrypt'
-import {generateActiveToken, generateAccessToken, generateRefreshToken} from '../config/generateToken'
-import sendEmail from '../config/sendMail'
-import sendSms from '../config/sendSMS'
-import {validateEmail, validatePhone} from '../middleware/validate'
-import jwt from 'jsonwebtoken'
-import {IDecodedToken, IUser} from '../config/interfaces'
+import {Request, Response} from 'express';
+import Users from '../models/userModel';
+import bcrypt from 'bcrypt';
+import {generateActiveToken, generateAccessToken, generateRefreshToken} from '../config/generateToken';
+import sendEmail from '../config/sendMail';
+import sendSms from '../config/sendSMS';
+import {validateEmail, validatePhone} from '../middleware/validate';
+import jwt from 'jsonwebtoken';
+import {IDecodedToken, IGgPayload, IUser, IUserParams} from '../config/interfaces';
+import {OAuth2Client} from "google-auth-library";
 
-const CLIENT_URL = `${process.env.BASE_URL}`
+const client = new OAuth2Client(`${process.env.MAIL_CLIENT_ID}`);
+const CLIENT_URL = `${process.env.BASE_URL}`;
 
 const authCtrl = {
     register: async (req: Request, res: Response) => {
@@ -75,7 +77,7 @@ const authCtrl = {
 
     logout: async (req: Request, res: Response) => {
         try {
-            res.clearCookie('refresh_token', {path: `api/refresh_token`});
+            res.clearCookie('refresh_token', {path: `/`});
             return res.json({msg: 'Успешно разлогинены'});
         } catch (e: any) {
             return res.status(500).json({msg: e.message});
@@ -95,7 +97,40 @@ const authCtrl = {
 
             const access_token = generateAccessToken({id: user._id});
 
-            return res.json({access_token});
+            res.json({access_token});
+        } catch (e: any) {
+            return res.status(500).json({msg: e.message});
+        }
+    },
+
+    googleLogin: async (req: Request, res: Response) => {
+        try {
+            const {tokenId} = req.body;
+
+            const verify = await client.verifyIdToken({
+                idToken: tokenId, audience: `${process.env.MAIL_CLIENT_ID}`
+            });
+
+            const {email, email_verified, name, picture} = <IGgPayload>verify.getPayload();
+            if (!email_verified) return res.status(500).json({msg: 'Ошибка проверки электронной почты'});
+
+            const password = email + 'your google secret password';
+            const passwordHash = await bcrypt.hash(password, 12);
+
+            const user = await Users.findOne({account: email});
+
+            if (user) {
+                await loginUser(user, password, res);
+            } else {
+                const user = {
+                    name,
+                    account: email,
+                    password: passwordHash,
+                    avatar: picture,
+                    type: 'login'
+                };
+                await registerUser(user, res);
+            }
         } catch (e: any) {
             return res.status(500).json({msg: e.message});
         }
@@ -111,7 +146,7 @@ const loginUser = async (user: IUser, password: string, res: Response) => {
 
     res.cookie('refresh_token', refresh_token, {
         httpOnly: true,
-        path: `api/refresh_token`,
+        path: `/`,
         maxAge: 30 * 24 * 60 * 60 * 1000, // 30days
     })
 
@@ -119,6 +154,26 @@ const loginUser = async (user: IUser, password: string, res: Response) => {
         msg: 'Успешно авторизованы',
         access_token,
         user: {...user._doc, password: ''}
+    })
+}
+
+const registerUser = async (user: IUserParams, res: Response) => {
+    const newUser = new Users(user);
+    await newUser.save()
+
+    const access_token = generateAccessToken({id: newUser._id});
+    const refresh_token = generateRefreshToken({id: newUser._id});
+
+    res.cookie('refresh_token', refresh_token, {
+        httpOnly: true,
+        path: `/`,
+        maxAge: 30 * 24 * 60 * 60 * 1000, // 30days
+    })
+
+    res.json({
+        msg: 'Успешно авторизованы',
+        access_token,
+        user: {...newUser._doc, password: ''}
     })
 }
 

@@ -6,6 +6,7 @@ import {HOME, REGISTER} from "../../utils/consts";
 import cn from './Login.module.css';
 import LoginSMS from './LoginSMS/LoginSMS';
 import {RootStore} from "../../types/Types";
+import SocialLogin from "./SocialLogin/SocialLogin";
 
 const Login = () => {
     const [sms, setSms] = useState(false);
@@ -22,6 +23,8 @@ const Login = () => {
             <div className={cn.authPage}>
                 <div className={cn.authBox}>
                     <h3 className="text-uppercase text-center mb-4">Авторизоваться</h3>
+
+                    <SocialLogin/>
 
                     {sms ? <LoginSMS/> : <LoginPass/>}
 

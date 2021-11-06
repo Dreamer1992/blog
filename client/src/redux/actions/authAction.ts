@@ -63,3 +63,17 @@ export const logout = () => async (dispatch: Dispatch<AuthType | AlertType>) => 
         dispatch({type: ALERT, payload: {errors: e.response.data.msg}});
     }
 }
+
+export const googleLogin = (tokenId: string) => async (dispatch: Dispatch<AuthType | AlertType>) => {
+    try {
+        dispatch({type: ALERT, payload: {loading: true}});
+        const res = await postAPI('google_login', {tokenId});
+
+        dispatch({type: AUTH, payload: res.data});
+
+        dispatch({type: ALERT, payload: {success: res.data.msg}});
+        localStorage.setItem('logged', 'true');
+    } catch (e: any) {
+        dispatch({type: ALERT, payload: {errors: e.response.data.msg}});
+    }
+}
