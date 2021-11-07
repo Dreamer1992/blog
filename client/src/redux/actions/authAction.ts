@@ -3,7 +3,7 @@ import {IUserLogin, IUserRegister} from "../../types/Types";
 import {getAPI, postAPI} from "../../api/FetchData";
 import {AUTH, AuthType} from "../types/authType";
 import {ALERT, AlertType} from "../types/alertType";
-import validateRegister from "../../utils/validate";
+import validateRegister, {validatePhone} from "../../utils/validate";
 
 export const login = (userLogin: IUserLogin) => async (dispatch: Dispatch<AuthType | AlertType>) => {
     try {
@@ -73,6 +73,21 @@ export const googleLogin = (tokenId: string) => async (dispatch: Dispatch<AuthTy
 
         dispatch({type: ALERT, payload: {success: res.data.msg}});
         localStorage.setItem('logged', 'true');
+    } catch (e: any) {
+        dispatch({type: ALERT, payload: {errors: e.response.data.msg}});
+    }
+}
+export const loginSMS = (phone: string) => async (dispatch: Dispatch<AuthType | AlertType>) => {
+    try {
+        const check = validatePhone(phone);
+        if (!check) return dispatch({type: ALERT, payload: {errors: 'Неверный формат номера телефона'}});
+        // dispatch({type: ALERT, payload: {loading: true}});
+        // const res = await postAPI('google_login', {phone});
+        //
+        // dispatch({type: AUTH, payload: res.data});
+        //
+        // dispatch({type: ALERT, payload: {success: res.data.msg}});
+        // localStorage.setItem('logged', 'true');
     } catch (e: any) {
         dispatch({type: ALERT, payload: {errors: e.response.data.msg}});
     }
