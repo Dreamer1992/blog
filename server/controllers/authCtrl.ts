@@ -1,9 +1,9 @@
 import {Request, Response} from 'express';
 import Users from '../models/userModel';
 import bcrypt from 'bcrypt';
-import {generateActiveToken, generateAccessToken, generateRefreshToken} from '../config/generateToken';
+import {generateAccessToken, generateActiveToken, generateRefreshToken} from '../config/generateToken';
 import sendEmail from '../config/sendMail';
-import sendSms from '../config/sendSMS';
+import {sendSms, smsOTP, smsVerify} from '../config/sendSMS';
 import {validateEmail, validatePhone} from '../middleware/validate';
 import jwt from 'jsonwebtoken';
 import {IDecodedToken, IGgPayload, IUser, IUserParams} from '../config/interfaces';
@@ -130,6 +130,46 @@ const authCtrl = {
                     type: 'login'
                 };
                 await registerUser(user, res);
+            }
+        } catch (e: any) {
+            return res.status(500).json({msg: e.message});
+        }
+    },
+
+    loginSMS: async (req: Request, res: Response) => {
+        try {
+            const {phone} = req.body;
+            const data = await smsOTP(phone, 'sms');
+
+            res.json(data);
+        } catch (e: any) {
+            return res.status(500).json({msg: e.message});
+        }
+    },
+
+    smsVerify: async (req: Request, res: Response) => {
+        try {
+            const {phone, code} = req.body;
+            const data = await smsVerify(phone, code);
+
+            if (!data?.valid) return res.status(400).json({msg: "Введен неверный код"});
+
+            const password = phone + 'your phone secret password';
+            const passwordHash = await bcrypt.hash(password, 12);
+
+            const user = await Users.findOne({account: phone});
+
+            if (user) {
+                loginUser(user, password, res);
+            } else {
+                const user = {
+                    name: phone,
+                    account: phone,
+                    password: passwordHash,
+                    type: 'login',
+                };
+
+                registerUser(user, res);
             }
         } catch (e: any) {
             return res.status(500).json({msg: e.message});

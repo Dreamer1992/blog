@@ -78,17 +78,37 @@ export const googleLogin = (tokenId: string) => async (dispatch: Dispatch<AuthTy
     }
 }
 export const loginSMS = (phone: string) => async (dispatch: Dispatch<AuthType | AlertType>) => {
+    const check = validatePhone(phone);
+    if (!check) return dispatch({type: ALERT, payload: {errors: 'Неверный формат номера телефона'}});
+
     try {
-        const check = validatePhone(phone);
-        if (!check) return dispatch({type: ALERT, payload: {errors: 'Неверный формат номера телефона'}});
-        // dispatch({type: ALERT, payload: {loading: true}});
-        // const res = await postAPI('google_login', {phone});
-        //
-        // dispatch({type: AUTH, payload: res.data});
-        //
-        // dispatch({type: ALERT, payload: {success: res.data.msg}});
-        // localStorage.setItem('logged', 'true');
+        dispatch({type: ALERT, payload: {loading: true}});
+        const res = await postAPI('login_sms', {phone});
+
+        if (!res.data.valid) verifySMS(phone, dispatch);
     } catch (e: any) {
         dispatch({type: ALERT, payload: {errors: e.response.data.msg}});
+    }
+}
+
+const verifySMS = async (phone: string, dispatch: Dispatch<AuthType | AlertType>) => {
+    const code = prompt('Введите ваш код');
+    if (!code) return;
+
+    try {
+        dispatch({type: ALERT, payload: {loading: true}});
+        const res = await postAPI('sms_verify', {phone, code});
+
+        dispatch({type: AUTH, payload: res.data});
+
+        dispatch({type: ALERT, payload: {success: res.data.msg}});
+        localStorage.setItem('logged', 'true');
+        console.log('res', res)
+    } catch (e: any) {
+        dispatch({type: ALERT, payload: {errors: e.response.data.msg}});
+
+        setTimeout(() => {
+            verifySMS(phone, dispatch);
+        }, 100);
     }
 }
