@@ -92,12 +92,12 @@ const authCtrl = {
             const decoded = <IDecodedToken>jwt.verify(rf_token, `${process.env.REFRESH_TOKEN_SECRET}`);
             if (!decoded.id) return res.status(400).json({msg: "Пожалуйста, авторизуйтесь на сайте"});
 
-            const user = await Users.findById(decoded.id).select("-password");
+            const user = await Users.findById(decoded.id);
             if (!user) return res.status(400).json({msg: "Такого аккаунта не существует"});
 
             const access_token = generateAccessToken({id: user._id});
 
-            res.json({access_token});
+            res.json({access_token, user});
         } catch (e: any) {
             return res.status(500).json({msg: e.message});
         }

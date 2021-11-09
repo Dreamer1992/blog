@@ -52,7 +52,7 @@ const LoginPass = () => {
                         className={cn.small}
                         onClick={() => setTypePass(!typePass)}
                     >
-                        {typePass ? 'Hide' : 'Show'}
+                        {typePass ? <i className="far fa-eye-slash"></i> : <i className="far fa-eye"></i>}
                     </small>
                 </div>
             </div>

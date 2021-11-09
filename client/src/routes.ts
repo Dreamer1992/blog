@@ -1,9 +1,10 @@
-import {ACTIVATION, HOME, LOGIN, REGISTER} from './utils/consts';
+import {ACTIVATION, HOME, LOGIN, PROFILE, REGISTER} from './utils/consts';
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import RegisterPage from "./pages/RegisterPage";
 import ActivationPage from "./pages/ActivationPage";
+import ProfilePage from "./pages/ProfilePage";
 
 export const routes = [
     {
@@ -24,6 +25,11 @@ export const routes = [
     {
         path: `${ACTIVATION}/:active_token`,
         Component: ActivationPage,
+        exact: false,
+    },
+    {
+        path: PROFILE,
+        Component: ProfilePage,
         exact: false,
     },
     {
