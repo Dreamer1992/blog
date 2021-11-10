@@ -27,6 +27,10 @@ export interface IUser extends IUserLogin {
     _id: string;
 }
 
+export interface IUserProfile extends IUserRegister {
+    avatar: string | File;
+}
+
 export interface IActivationParams {
     active_token: string;
 }
