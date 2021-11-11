@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {InputChange, IUserProfile, RootStore} from "../../../types/Types";
+import {FormSubmit, InputChange, IUserProfile, RootStore} from "../../../types/Types";
 import cn from './UserInfo.module.css';
 import NotFoundPage from "../../../pages/NotFoundPage";
+import {updateUser} from "../../../redux/actions/profileAction";
 
 const UserInfo = () => {
     const initialState = {
@@ -25,11 +26,17 @@ const UserInfo = () => {
         const target = e.target as HTMLInputElement;
         const files = target.files;
 
-        console.log('files', files);
-
         if (files) {
             const file = files[0];
             setUser({...user, avatar: file});
+        }
+    }
+
+    const handleSubmit = (e: FormSubmit) => {
+        e.preventDefault();
+
+        if (avatar || name) {
+            dispatch(updateUser((avatar as File), name, auth));
         }
     }
 
@@ -38,7 +45,7 @@ const UserInfo = () => {
     if (!auth.user) return <NotFoundPage/>
 
     return (
-        <form className={cn.profileInfo}>
+        <form className={cn.profileInfo} onSubmit={handleSubmit}>
             <div className={cn.profileInfoAvatar}>
                 <img
                     className={cn.avatarImage}
@@ -114,7 +121,7 @@ const UserInfo = () => {
 
                 <div className={cn.pass}>
                     <input
-                        type={typePass ? "text" : "password"}
+                        type={typeCfPass ? "text" : "password"}
                         className="form-control"
                         id="cf_password"
                         name="cf_password"
@@ -125,7 +132,7 @@ const UserInfo = () => {
                         className={cn.small}
                         onClick={() => setTypeCfPass(!typeCfPass)}
                     >
-                        {typePass ? <i className="far fa-eye-slash"/> : <i className="far fa-eye"/>}
+                        {typeCfPass ? <i className="far fa-eye-slash"/> : <i className="far fa-eye"/>}
                     </small>
                 </div>
             </div>
