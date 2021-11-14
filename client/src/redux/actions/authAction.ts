@@ -3,7 +3,7 @@ import {IUserLogin, IUserRegister} from "../../types/Types";
 import {getAPI, postAPI} from "../../api/FetchData";
 import {AUTH, AuthType} from "../types/authType";
 import {ALERT, AlertType} from "../types/alertType";
-import validateRegister, {validatePhone} from "../../utils/validate";
+import {validateRegister, validatePhone} from "../../utils/validate";
 
 export const login = (userLogin: IUserLogin) => async (dispatch: Dispatch<AuthType | AlertType>) => {
     try {

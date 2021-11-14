@@ -1,26 +1,29 @@
 import {IUserRegister} from "../types/Types";
 
-const validateRegister = (data: IUserRegister) => {
+export const validateRegister = (data: IUserRegister) => {
     const {name, account, password, cf_password} = data;
     let errors: string | string[] = [];
 
     if (!name) {
-        errors.push("Укажите Ваше имя")
+        errors.push("Укажите Ваше имя");
     } else if (name.length > 20) {
-        errors.push("Имя должно быть не больше 20-ти символов")
+        errors.push("Имя должно быть не больше 20-ти символов");
     }
 
     if (!account) {
-        errors.push("Укажите почту или номер телефона")
+        errors.push("Укажите почту или номер телефона");
     } else if ((!validatePhone(account) && !validateEmail(account))) {
-        errors.push("Неверный формат электронной почты или номера телефона")
+        errors.push("Неверный формат электронной почты или номера телефона");
     }
 
     if (password.length < 6) {
-        errors.push("Пароль должен быть больше 5 символов")
+        errors.push("Пароль должен быть больше 5 символов");
     } else if (password !== cf_password) {
-        errors.push("Пароли должны быть одинаковыми")
+        errors.push("Пароли должны быть одинаковыми");
     }
+
+    const msg = checkPassword(password, cf_password);
+    if (msg) errors.push(msg);
 
     return {
         errMsg: errors,
@@ -28,11 +31,17 @@ const validateRegister = (data: IUserRegister) => {
     }
 }
 
-export default validateRegister;
+export const checkPassword = (password: string, cf_password: string) => {
+    if (password.length < 6) {
+        return ("Пароль должен быть больше 5 символов");
+    } else if (password !== cf_password) {
+        return ("Пароли должны быть одинаковыми");
+    }
+}
 
 export function validatePhone(phone: string) {
     const res = /^[+]/g;
-    return res.test(phone)
+    return res.test(phone);
 }
 
 export function validateEmail(email: string) {

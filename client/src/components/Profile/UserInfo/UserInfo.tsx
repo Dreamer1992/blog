@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {FormSubmit, InputChange, IUserProfile, RootStore} from "../../../types/Types";
 import cn from './UserInfo.module.css';
 import NotFoundPage from "../../../pages/NotFoundPage";
-import {updateUser} from "../../../redux/actions/profileAction";
+import {resetPassword, updateUser} from "../../../redux/actions/profileAction";
 
 const UserInfo = () => {
     const initialState = {
@@ -37,6 +37,10 @@ const UserInfo = () => {
 
         if (avatar || name) {
             dispatch(updateUser((avatar as File), name, auth));
+        }
+
+        if (password && auth.access_token) {
+            dispatch(resetPassword(password, cf_password, auth.access_token))
         }
     }
 
@@ -104,7 +108,7 @@ const UserInfo = () => {
                         className="form-control"
                         id="password"
                         name="password"
-                        value="password"
+                        value={password}
                         onChange={handleChangeInput}
                     />
                     <small
@@ -125,7 +129,7 @@ const UserInfo = () => {
                         className="form-control"
                         id="cf_password"
                         name="cf_password"
-                        value="password"
+                        value={cf_password}
                         onChange={handleChangeInput}
                     />
                     <small
