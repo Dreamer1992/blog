@@ -1,6 +1,7 @@
 import {Response} from 'express';
 import {IReqAuth} from "../config/interfaces";
 import Users from '../models/userModel';
+import bcrypt from 'bcrypt';
 
 const userCtrl = {
     updateUser: async (req: IReqAuth, res: Response) => {
@@ -13,7 +14,25 @@ const userCtrl = {
                 avatar, name
             });
 
-            res.json({msg: "Успешно обновлено"});
+            res.json({msg: "Данные пользователя обновлены"});
+        } catch (e: any) {
+            return res.status(500).json({msg: e.message});
+        }
+    },
+
+    resetPassword: async (req: IReqAuth, res: Response) => {
+        console.log(req.user)
+        if (!req.user) return res.status(500).json({msg: "Ошибка обновления пароля"});
+
+        try {
+            const {password} = req.body;
+            const passwordHash = await bcrypt.hash(password, 12);
+
+            await Users.findOneAndUpdate({_id: req.user.id}, {
+                password: passwordHash,
+            });
+
+            res.json({msg: "Пароль обновлен"});
         } catch (e: any) {
             return res.status(500).json({msg: e.message});
         }
