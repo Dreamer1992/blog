@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 import LoginPass from "./LoginPass/LoginPass";
 import {Link, useHistory} from 'react-router-dom';
-import {HOME, REGISTER} from "../../utils/consts";
+import {CONSTANTS} from "../../utils/consts";
 import cn from './Login.module.css';
 import LoginSMS from './LoginSMS/LoginSMS';
 import {RootStore} from "../../types/Types";
@@ -12,11 +12,13 @@ const Login = () => {
     const [sms, setSms] = useState(false);
     const history = useHistory();
 
+    const {HOME, REGISTER} = CONSTANTS.ROUTES;
+
     const {auth} = useSelector((state: RootStore) => state);
 
     useEffect(() => {
         if (auth.access_token) history.push(HOME);
-    }, [auth.access_token, history]);
+    }, [auth.access_token, history, HOME]);
 
     return (
         <div className="container">

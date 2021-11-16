@@ -16,12 +16,6 @@ export const validateRegister = (data: IUserRegister) => {
         errors.push("Неверный формат электронной почты или номера телефона");
     }
 
-    if (password.length < 6) {
-        errors.push("Пароль должен быть больше 5 символов");
-    } else if (password !== cf_password) {
-        errors.push("Пароли должны быть одинаковыми");
-    }
-
     const msg = checkPassword(password, cf_password);
     if (msg) errors.push(msg);
 

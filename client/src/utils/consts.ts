@@ -1,6 +1,15 @@
-export const HOME = '/';
-export const LOGIN = '/login';
-export const REGISTER = '/register';
-export const ACTIVATION = '/active';
-export const CREATE_BLOG = '/create_blog';
-export const PROFILE = '/profile/:id';
+export const CONSTANTS = {
+    ROUTES: {
+        HOME: '/',
+        LOGIN: '/login',
+        REGISTER: '/register',
+        ACTIVATION: '/active',
+        CREATE_BLOG: '/create_blog',
+        PROFILE: '/profile/:id',
+    },
+    REGISTER_TYPES: {
+        REGISTER: 'register',
+        GOOGLE: 'google',
+        SMS: 'sms',
+    },
+}

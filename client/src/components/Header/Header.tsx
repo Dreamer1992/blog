@@ -1,5 +1,5 @@
 import React from 'react';
-import {HOME} from "../../utils/consts";
+import {CONSTANTS} from "../../utils/consts";
 import {Link} from 'react-router-dom';
 import Search from "./Search/Search";
 import Menu from "./Menu/Menu";
@@ -9,7 +9,7 @@ const Header = () => {
         <header>
             <nav className="navbar navbar-expand-lg navbar-light bg-light p-3">
                 <div className="container">
-                    <Link className="navbar-brand" to={HOME}>Блог веб-разработки</Link>
+                    <Link className="navbar-brand" to={CONSTANTS.ROUTES.HOME}>Блог веб-разработки</Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarNav" aria-controls="navbarNav"
                             aria-expanded="false" aria-label="Toggle navigation">

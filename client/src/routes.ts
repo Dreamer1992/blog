@@ -1,10 +1,12 @@
-import {ACTIVATION, HOME, LOGIN, PROFILE, REGISTER} from './utils/consts';
+import {CONSTANTS} from './utils/consts';
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import RegisterPage from "./pages/RegisterPage";
 import ActivationPage from "./pages/ActivationPage";
 import ProfilePage from "./pages/ProfilePage";
+
+const {HOME, LOGIN, REGISTER, ACTIVATION, PROFILE} = CONSTANTS.ROUTES;
 
 export const routes = [
     {

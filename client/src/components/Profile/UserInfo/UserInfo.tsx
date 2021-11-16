@@ -5,22 +5,24 @@ import cn from './UserInfo.module.css';
 import NotFoundPage from "../../../pages/NotFoundPage";
 import {resetPassword, updateUser} from "../../../redux/actions/profileAction";
 
+import {CONSTANTS} from "../../../utils/consts";
+
 const UserInfo = () => {
-    const initialState = {
-        name: '', account: '', avatar: '', password: '', cf_password: '',
-    }
+        const initialState = {
+            name: '', account: '', avatar: '', password: '', cf_password: '',
+        }
 
-    const dispatch = useDispatch();
-    const {auth} = useSelector((state: RootStore) => state);
+        const dispatch = useDispatch();
+        const {auth} = useSelector((state: RootStore) => state);
 
-    const [user, setUser] = useState<IUserProfile>(initialState);
-    const [typePass, setTypePass] = useState(false);
-    const [typeCfPass, setTypeCfPass] = useState(false);
+        const [user, setUser] = useState<IUserProfile>(initialState);
+        const [typePass, setTypePass] = useState(false);
+        const [typeCfPass, setTypeCfPass] = useState(false);
 
-    const handleChangeInput = (e: InputChange) => {
-        const {name, value} = e.target;
-        setUser({...user, [name]: value});
-    }
+        const handleChangeInput = (e: InputChange) => {
+            const {name, value} = e.target;
+            setUser({...user, [name]: value});
+        }
 
     const handleChangeAvatar = (e: InputChange) => {
         const target = e.target as HTMLInputElement;
@@ -44,7 +46,7 @@ const UserInfo = () => {
         }
     }
 
-    const {name, account, avatar, password, cf_password} = user;
+        const {name, avatar, password, cf_password} = user;
 
     if (!auth.user) return <NotFoundPage/>
 
@@ -99,6 +101,13 @@ const UserInfo = () => {
                 />
             </div>
 
+            {
+                auth.user.type !== CONSTANTS.REGISTER_TYPES.REGISTER &&
+                <small className="text-danger">
+                    *Изменение пароля недоступно с учетной записью {auth.user.type}
+                </small>
+            }
+
             <div className="form-group my-2">
                 <label htmlFor="password">Пароль</label>
 
@@ -110,6 +119,7 @@ const UserInfo = () => {
                         name="password"
                         value={password}
                         onChange={handleChangeInput}
+                        disabled={auth.user.type !== CONSTANTS.REGISTER_TYPES.REGISTER}
                     />
                     <small
                         className={cn.small}
@@ -131,6 +141,7 @@ const UserInfo = () => {
                         name="cf_password"
                         value={cf_password}
                         onChange={handleChangeInput}
+                        disabled={auth.user.type !== CONSTANTS.REGISTER_TYPES.REGISTER}
                     />
                     <small
                         className={cn.small}
@@ -146,6 +157,7 @@ const UserInfo = () => {
             </button>
         </form>
     );
-};
+    }
+;
 
 export default UserInfo;

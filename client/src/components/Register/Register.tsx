@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {LOGIN} from "../../utils/consts";
+import {CONSTANTS} from "../../utils/consts";
 import cn from './Register.module.css';
 import RegisterForm from "./RegisterForm/RegisterForm";
 
@@ -17,7 +17,7 @@ const Register = () => {
                         Есть аккаунт?
                         <Link
                             style={{color: 'crimson', marginLeft: '8px'}}
-                            to={LOGIN}
+                            to={CONSTANTS.ROUTES.LOGIN}
                         >
                             Авторизоваться
                         </Link>

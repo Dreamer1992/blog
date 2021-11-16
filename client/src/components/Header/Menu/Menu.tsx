@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link, useLocation} from "react-router-dom";
-import {CREATE_BLOG, HOME, LOGIN, REGISTER} from "../../../utils/consts";
+import {CONSTANTS} from "../../../utils/consts";
 import {useDispatch, useSelector} from 'react-redux';
 import {RootStore} from "../../../types/Types";
 import {logout} from "../../../redux/actions/authAction";
@@ -9,6 +9,8 @@ const Menu = () => {
     const {auth} = useSelector((state: RootStore) => state);
     const {pathname} = useLocation();
     const dispatch = useDispatch();
+
+    const {CREATE_BLOG, HOME, LOGIN, REGISTER} = CONSTANTS.ROUTES;
 
     const isActive = (pn: string) => {
         if (pn === pathname) return 'active';

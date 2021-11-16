@@ -103,7 +103,6 @@ const verifySMS = async (phone: string, dispatch: Dispatch<AuthType | AlertType>
 
         dispatch({type: ALERT, payload: {success: res.data.msg}});
         localStorage.setItem('logged', 'true');
-        console.log('res', res)
     } catch (e: any) {
         dispatch({type: ALERT, payload: {errors: e.response.data.msg}});
 
