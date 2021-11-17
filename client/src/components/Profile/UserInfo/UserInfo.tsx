@@ -15,14 +15,14 @@ const UserInfo = () => {
         const dispatch = useDispatch();
         const {auth} = useSelector((state: RootStore) => state);
 
-        const [user, setUser] = useState<IUserProfile>(initialState);
-        const [typePass, setTypePass] = useState(false);
-        const [typeCfPass, setTypeCfPass] = useState(false);
+    const [user, setUser] = useState<IUserProfile>(initialState);
+    const [typePass, setTypePass] = useState(false);
+    const [typeCfPass, setTypeCfPass] = useState(false);
 
-        const handleChangeInput = (e: InputChange) => {
-            const {name, value} = e.target;
-            setUser({...user, [name]: value});
-        }
+    const handleChangeInput = (e: InputChange) => {
+        const {name, value} = e.target;
+        setUser({...user, [name]: value});
+    }
 
     const handleChangeAvatar = (e: InputChange) => {
         const target = e.target as HTMLInputElement;
@@ -46,7 +46,7 @@ const UserInfo = () => {
         }
     }
 
-        const {name, avatar, password, cf_password} = user;
+    const {name, avatar, password, cf_password} = user;
 
     if (!auth.user) return <NotFoundPage/>
 
