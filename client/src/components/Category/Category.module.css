@@ -1,0 +1,47 @@
+.category {
+    max-width: 500px;
+    margin: 2rem auto;
+}
+
+.categoryForm {
+    width: 100%;
+    margin-bottom: 1.2rem;
+}
+
+.categoryForm label {
+    display: block;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.categoryForm input,
+.categoryForm button {
+    height: 35px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #555;
+}
+
+.categoryForm input {
+    flex: 1;
+}
+
+.categoryForm button {
+    width: 70px;
+    background-color: #555;
+    color: white;
+    margin-left: 10px;
+}
+
+.categoryList {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+

@@ -10,7 +10,7 @@ const Menu = () => {
     const {pathname} = useLocation();
     const dispatch = useDispatch();
 
-    const {CREATE_BLOG, HOME, LOGIN, REGISTER} = CONSTANTS.ROUTES;
+    const {CREATE_BLOG, LOGIN, REGISTER} = CONSTANTS.ROUTES;
 
     const isActive = (pn: string) => {
         if (pn === pathname) return 'active';
@@ -22,7 +22,6 @@ const Menu = () => {
     ];
 
     const afLoginLinks = [
-        {label: 'Главная', path: HOME},
         {label: 'Создать блог', path: CREATE_BLOG},
     ];
 
@@ -41,6 +40,13 @@ const Menu = () => {
                         </Link>
                     </li>
                 ))
+            }
+
+            {
+                auth.user?.role === CONSTANTS.ROLE.ADMIN &&
+                <li className={`nav-item ${isActive("/category")}`}>
+                    <Link to="/category" className="nav-link">Категории</Link>
+                </li>
             }
 
             {

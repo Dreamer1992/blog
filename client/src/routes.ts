@@ -5,8 +5,9 @@ import NotFoundPage from "./pages/NotFoundPage";
 import RegisterPage from "./pages/RegisterPage";
 import ActivationPage from "./pages/ActivationPage";
 import ProfilePage from "./pages/ProfilePage";
+import CategoryPage from "./pages/CategoryPage";
 
-const {HOME, LOGIN, REGISTER, ACTIVATION, PROFILE} = CONSTANTS.ROUTES;
+const {HOME, LOGIN, REGISTER, ACTIVATION, PROFILE, CATEGORY} = CONSTANTS.ROUTES;
 
 export const routes = [
     {
@@ -33,6 +34,11 @@ export const routes = [
         path: PROFILE,
         Component: ProfilePage,
         exact: false,
+    },
+    {
+        path: CATEGORY,
+        Component: CategoryPage,
+        exact: true,
     },
     {
         path: '*',
