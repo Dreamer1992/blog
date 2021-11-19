@@ -29,10 +29,10 @@
 }
 
 .categoryForm button {
-    width: 70px;
     background-color: #555;
     color: white;
     margin-left: 10px;
+    padding: 0 15px;
 }
 
 .categoryList {
