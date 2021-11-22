@@ -1,39 +1,50 @@
-import React, {useEffect} from 'react';
-import {useDispatch} from 'react-redux';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import {routes} from './routes';
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
-import {Alert} from "./components/Notification/Alert/Alert";
-
-import {refreshToken} from './redux/actions/authAction'
+import React, { Fragment, useEffect } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { refreshToken } from "./redux/actions/authAction";
+import { RootStore } from "./types/Types";
+import { Alert, Footer, Header, Sidebar } from "./components";
+import { routes } from "./routes";
 
 const App = () => {
-    const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(refreshToken());
-    }, [dispatch]);
+	useEffect(() => {
+		dispatch(refreshToken());
+	}, [dispatch]);
 
-    return (
-        <React.Fragment>
-            <Router>
-                <Alert/>
-                <Header/>
+	const { auth } = useSelector((state: RootStore) => state);
 
-                <main className="main">
-                    <Switch>
-                        {
-                            routes.map(({path, Component, exact}) =>
-                                <Route key={path} exact={exact} path={path} component={Component}/>)
-                        }
-                    </Switch>
-                </main>
+	return (
+		<Fragment>
+			<Router>
+				<Alert />
+				<Header />
 
-                <Footer/>
-            </Router>
-        </React.Fragment>
-    );
+				<main className="main">
+					<div className="container-fluid">
+						<div className="row">
+							<Sidebar />
+
+							<div
+								className={`${
+									!auth.access_token ? "col-12" : "col-md-9 col-lg-10"
+								} ms-sm-auto px-md-4`}
+							>
+								<Switch>
+									{routes.map(({ path, Component, exact }) => (
+										<Route key={path} exact={exact} path={path} component={Component} />
+									))}
+								</Switch>
+							</div>
+						</div>
+					</div>
+				</main>
+
+				<Footer />
+			</Router>
+		</Fragment>
+	);
 };
 
 export default App;

@@ -1,14 +1,14 @@
-export const ALERT = 'ALERT';
+export const ALERT = "ALERT";
 
 export interface IAlert {
-    loading?: boolean;
-    success?: string | string[];
-    errors?: string | string[];
+	loading?: boolean;
+	success?: string | string[];
+	errors?: string | string[];
 }
 
 export interface IAlertAction {
-    type: typeof ALERT;
-    payload: IAlert;
+	type: typeof ALERT;
+	payload: IAlert;
 }
 
 export type AlertType = IAlertAction;

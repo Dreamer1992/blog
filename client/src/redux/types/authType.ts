@@ -1,16 +1,16 @@
-import {IUser} from "../../types/Types";
+import { IUser } from "../../types/Types";
 
-export const AUTH = 'AUTH';
+export const AUTH = "AUTH";
 
 export interface IAuth {
-    msg?: string;
-    access_token?: string;
-    user?: IUser;
+	msg?: string;
+	access_token?: string;
+	user?: IUser;
 }
 
 export interface IAuthAction {
-    type: typeof AUTH;
-    payload: IAuth;
+	type: typeof AUTH;
+	payload: IAuth;
 }
 
 export type AuthType = IAuthAction;
