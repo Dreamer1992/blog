@@ -14,7 +14,6 @@ const App = () => {
 	}, [dispatch]);
 
 	const { auth } = useSelector((state: RootStore) => state);
-	console.log('auth', auth);
 
 	return (
 		<Fragment>

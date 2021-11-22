@@ -29,7 +29,8 @@
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"eslint": "node_modules/.bin/eslint src/"
+		"eslint": "node_modules/.bin/eslint src/",
+		"fix": "npx eslint --fix src"
 	},
 	"eslintConfig": {
 		"extends": [
