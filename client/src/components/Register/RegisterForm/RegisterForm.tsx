@@ -62,9 +62,9 @@ const RegisterForm = () => {
 				<div className={cn.pass}>
 					<input
 						type={typePass ? 'text' : 'password'}
-						className="form-control"
-						id="password"
-						name="password"
+						className='form-control'
+						id='password'
+						name='password'
 						value={password}
 						onChange={handleChangeInput}
 					/>
@@ -79,9 +79,9 @@ const RegisterForm = () => {
 				<div className={cn.pass}>
 					<input
 						type={typePass ? 'text' : 'password'}
-						className="form-control"
-						id="cf_password"
-						name="cf_password"
+						className='form-control'
+						id='cf_password'
+						name='cf_password'
 						value={cf_password}
 						onChange={handleChangeInput}
 					/>

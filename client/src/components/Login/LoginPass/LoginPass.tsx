@@ -42,14 +42,14 @@ const LoginPass = () => {
 				<div className={cn.pass}>
 					<input
 						type={typePass ? 'text' : 'password'}
-						className="form-control"
-						id="password"
-						name="password"
+						className='form-control'
+						id='password'
+						name='password'
 						value={password}
 						onChange={handleChangeInput}
 					/>
 					<small className={cn.small} onClick={() => setTypePass(!typePass)}>
-						{typePass ? <i className="far fa-eye-slash" /> : <i className="far fa-eye" />}
+						{typePass ? <i className='far fa-eye-slash' /> : <i className='far fa-eye' />}
 					</small>
 				</div>
 			</div>

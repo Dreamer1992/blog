@@ -15,7 +15,7 @@ const categoryReducer = (state: ICategory[] = [], action: CategoryTypes): ICateg
 			return action.payload;
 		case UPDATE_CATEGORY:
 			return state.map((item) =>
-				item._id === action.payload._id ? { ...item, name: action.payload.name } : item
+				item._id === action.payload._id ? { ...item, name: action.payload.name } : item,
 			);
 		case DELETE_CATEGORY:
 			return state.filter((item) => item._id !== action.payload);

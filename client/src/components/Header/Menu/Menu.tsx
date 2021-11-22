@@ -9,7 +9,6 @@ const Menu = () => {
 	const { auth } = useSelector((state: RootStore) => state);
 	const { pathname } = useLocation();
 	const dispatch = useDispatch();
-
 	const { LOGIN, REGISTER } = CONSTANTS.ROUTES;
 
 	const isActive = (pn: string) => {
@@ -25,7 +24,7 @@ const Menu = () => {
 		<ul className="navbar-nav mb-2 mb-lg-0">
 			{!auth.access_token &&
 				bfLoginLinks.map((link, index) => (
-					<li key={index} className={`nav-item ${isActive(link.path)}`}>
+					<li key={index} className='nav-item'>
 						<Link
 							className={`nav-link ${isActive(link.path) ? 'text-danger' : 'text-secondary'}`}
 							style={{ whiteSpace: 'nowrap' }}

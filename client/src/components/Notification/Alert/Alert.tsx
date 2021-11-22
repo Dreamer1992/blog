@@ -12,7 +12,7 @@ export const Alert = () => {
 		<div>
 			{alert.loading && <Loading />}
 
-			{alert.errors && <Toast title="Ошибка" body={alert.errors} bgColor="bg-danger" />}
+			{alert.errors && <Toast title='Ошибка' body={alert.errors} bgColor='bg-danger' />}
 
 			{alert.success && <Toast title="Успешно" body={alert.success} bgColor="bg-success" />}
 		</div>

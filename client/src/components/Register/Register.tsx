@@ -6,10 +6,10 @@ import RegisterForm from './RegisterForm/RegisterForm';
 
 const Register = () => {
 	return (
-		<div className="container">
+		<div className='container'>
 			<div className={cn.authPage}>
 				<div className={cn.authBox}>
-					<h3 className="text-uppercase text-center mb-4">Зарегистрироваться</h3>
+					<h3 className='text-uppercase text-center mb-4'>Зарегистрироваться</h3>
 
 					<RegisterForm />
 

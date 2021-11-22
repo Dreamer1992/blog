@@ -41,7 +41,7 @@ export const updateUser =
 					avatar: url ? url : auth.user.avatar,
 					name: name ? name : auth.user.name,
 				},
-				auth.access_token
+				auth.access_token,
 			);
 
 			dispatch({ type: ALERT, payload: { success: res.data.msg } });
@@ -52,20 +52,20 @@ export const updateUser =
 
 export const resetPassword =
 	(password: string, cf_password: string, token: string) =>
-	async (dispatch: Dispatch<AlertType | AuthType>) => {
-		const msg = checkPassword(password, cf_password);
-		if (msg) return dispatch({ type: ALERT, payload: { errors: msg } });
+		async (dispatch: Dispatch<AlertType | AuthType>) => {
+			const msg = checkPassword(password, cf_password);
+			if (msg) return dispatch({ type: ALERT, payload: { errors: msg } });
 
-		try {
-			dispatch({ type: ALERT, payload: { loading: true } });
+			try {
+				dispatch({ type: ALERT, payload: { loading: true } });
 
-			const res = await patchAPI('reset_password', { password }, token);
+				const res = await patchAPI('reset_password', { password }, token);
 
-			dispatch({ type: ALERT, payload: { success: res.data.msg } });
-		} catch (e: any) {
-			dispatch({ type: ALERT, payload: { errors: e.response.data.msg } });
-		}
-	};
+				dispatch({ type: ALERT, payload: { success: res.data.msg } });
+			} catch (e: any) {
+				dispatch({ type: ALERT, payload: { errors: e.response.data.msg } });
+			}
+		};
 
 export const imageUpload = async (file: File) => {
 	const formData = new FormData();

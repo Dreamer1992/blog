@@ -28,7 +28,7 @@ const Sidebar = () => {
 							<li className={`nav-item ${isActive('/category')}`}>
 								<Link
 									className={`nav-link ${isActive(CATEGORY) ? 'text-danger' : 'text-secondary'}`}
-									to="/category"
+									to='/category'
 								>
 									Категории
 								</Link>

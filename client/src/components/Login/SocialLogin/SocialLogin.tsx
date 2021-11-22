@@ -12,13 +12,13 @@ const SocialLogin = () => {
 	};
 
 	return (
-		<div className="mb-2">
+		<div className='mb-2'>
 			<GoogleLogin
-				client_id="694747118110-80cd6s4q1fun47v0groo2k74squiu22c.apps.googleusercontent.com"
-				cookiepolicy="single_host_origin"
+				client_id='694747118110-80cd6s4q1fun47v0groo2k74squiu22c.apps.googleusercontent.com'
+				cookiepolicy='single_host_origin'
 				onSuccess={onSuccess}
 				longtitle={false}
-				theme="light"
+				theme='light'
 			/>
 		</div>
 	);
