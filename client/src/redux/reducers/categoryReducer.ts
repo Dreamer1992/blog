@@ -4,8 +4,8 @@ import {
 	DELETE_CATEGORY,
 	GET_CATEGORIES,
 	UPDATE_CATEGORY,
-} from "../types/categoryTypes";
-import { ICategory } from "../../types/CategoryTypes";
+} from '../types/categoryTypes';
+import { ICategory } from '../../types/CategoryTypes';
 
 const categoryReducer = (state: ICategory[] = [], action: CategoryTypes): ICategory[] => {
 	switch (action.type) {

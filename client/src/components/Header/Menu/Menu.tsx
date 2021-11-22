@@ -1,9 +1,9 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import { CONSTANTS } from "../../../utils/consts";
-import { useDispatch, useSelector } from "react-redux";
-import { RootStore } from "../../../types/Types";
-import { logout } from "../../../redux/actions/authAction";
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { CONSTANTS } from '../../../utils/consts';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootStore } from '../../../types/Types';
+import { logout } from '../../../redux/actions/authAction';
 
 const Menu = () => {
 	const { auth } = useSelector((state: RootStore) => state);
@@ -13,12 +13,12 @@ const Menu = () => {
 	const { LOGIN, REGISTER } = CONSTANTS.ROUTES;
 
 	const isActive = (pn: string) => {
-		if (pn === pathname) return "active";
+		if (pn === pathname) return 'active';
 	};
 
 	const bfLoginLinks = [
-		{ label: "Войти", path: LOGIN },
-		{ label: "Зарегистрироваться", path: REGISTER },
+		{ label: 'Войти', path: LOGIN },
+		{ label: 'Зарегистрироваться', path: REGISTER },
 	];
 
 	return (
@@ -27,8 +27,8 @@ const Menu = () => {
 				bfLoginLinks.map((link, index) => (
 					<li key={index} className={`nav-item ${isActive(link.path)}`}>
 						<Link
-							className={`nav-link ${isActive(link.path) ? "text-danger" : "text-secondary"}`}
-							style={{ whiteSpace: "nowrap" }}
+							className={`nav-link ${isActive(link.path) ? 'text-danger' : 'text-secondary'}`}
+							style={{ whiteSpace: 'nowrap' }}
 							to={link.path}
 						>
 							{link.label}
@@ -50,10 +50,10 @@ const Menu = () => {
 							className="img-thumbnail"
 							alt="avatar"
 							style={{
-								width: "30px",
-								height: "30px",
-								borderRadius: "50%",
-								marginRight: "5px",
+								width: '30px',
+								height: '30px',
+								borderRadius: '50%',
+								marginRight: '5px',
 							}}
 						/>
 						{auth.user.name}

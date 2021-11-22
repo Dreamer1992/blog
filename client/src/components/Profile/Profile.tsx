@@ -1,10 +1,10 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootStore } from "../../types/Types";
-import UserInfo from "./UserInfo/UserInfo";
-import OtherInfo from "./OtherInfo/OtherInfo";
-import UserBlogs from "./UserBlogs/UserBlogs";
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootStore } from '../../types/Types';
+import UserInfo from './UserInfo/UserInfo';
+import OtherInfo from './OtherInfo/OtherInfo';
+import UserBlogs from './UserBlogs/UserBlogs';
 
 interface IParams {
 	id: string;

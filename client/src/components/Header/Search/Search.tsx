@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const Search = () => {
-	const [search, setSearch] = useState("");
+	const [search, setSearch] = useState('');
 
 	return (
 		<div className="search w-50 position-relative mx-auto">

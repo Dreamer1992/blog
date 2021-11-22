@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { FormSubmit } from "../../../types/Types";
-import { useDispatch } from "react-redux";
-import { loginSMS } from "../../../redux/actions/authAction";
+import React, { useState } from 'react';
+import { FormSubmit } from '../../../types/Types';
+import { useDispatch } from 'react-redux';
+import { loginSMS } from '../../../redux/actions/authAction';
 
 const LoginSms = () => {
 	const dispatch = useDispatch();
-	const [phone, setPhone] = useState("");
+	const [phone, setPhone] = useState('');
 
 	const handleSubmit = (e: FormSubmit) => {
 		e.preventDefault();

@@ -1,10 +1,10 @@
-import React, { Fragment, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { refreshToken } from "./redux/actions/authAction";
-import { RootStore } from "./types/Types";
-import { Alert, Footer, Header, Sidebar } from "./components";
-import { routes } from "./routes";
+import React, { Fragment, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { refreshToken } from './redux/actions/authAction';
+import { RootStore } from './types/Types';
+import { Alert, Footer, Header, Sidebar } from './components';
+import { routes } from './routes';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const App = () => {
 
 							<div
 								className={`${
-									!auth.access_token ? "col-12" : "col-md-9 col-lg-10"
+									!auth.access_token ? 'col-12' : 'col-md-9 col-lg-10'
 								} ms-sm-auto px-md-4`}
 							>
 								<Switch>

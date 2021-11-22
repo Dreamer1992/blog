@@ -1,8 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { CONSTANTS } from "../../utils/consts";
-import cn from "./Register.module.css";
-import RegisterForm from "./RegisterForm/RegisterForm";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { CONSTANTS } from '../../utils/consts';
+import cn from './Register.module.css';
+import RegisterForm from './RegisterForm/RegisterForm';
 
 const Register = () => {
 	return (
@@ -15,7 +15,7 @@ const Register = () => {
 
 					<p>
 						Есть аккаунт?
-						<Link style={{ color: "crimson", marginLeft: "8px" }} to={CONSTANTS.ROUTES.LOGIN}>
+						<Link style={{ color: 'crimson', marginLeft: '8px' }} to={CONSTANTS.ROUTES.LOGIN}>
 							Авторизоваться
 						</Link>
 					</p>

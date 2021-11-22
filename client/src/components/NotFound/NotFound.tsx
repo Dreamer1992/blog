@@ -1,5 +1,5 @@
-import React from "react";
-import cn from "./NotFound.module.css";
+import React from 'react';
+import cn from './NotFound.module.css';
 
 const NotFound = () => {
 	return (

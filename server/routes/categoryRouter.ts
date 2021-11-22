@@ -4,12 +4,14 @@ import categoryCtrl from "../controllers/categoryCtrl";
 
 const router = express.Router();
 
-router.route('/category')
-    .get(categoryCtrl.getCategories)
-    .post(auth, categoryCtrl.createCategory);
+router
+  .route("/category")
+  .get(categoryCtrl.getCategories)
+  .post(auth, categoryCtrl.createCategory);
 
-router.route('/category/:id')
-    .patch(auth, categoryCtrl.updateCategory)
-    .delete(auth, categoryCtrl.deleteCategory);
+router
+	.rou'/category/:id'id")
+	.patch(auth, categoryCtrl.updateCategory)
+	.delete(auth, categoryCtrl.deleteCategory);
 
 export default router;

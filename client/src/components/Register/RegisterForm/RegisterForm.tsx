@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { FormSubmit, InputChange } from "../../../types/Types";
-import cn from "./RegisterForm.module.css";
-import { register } from "../../../redux/actions/authAction";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { FormSubmit, InputChange } from '../../../types/Types';
+import cn from './RegisterForm.module.css';
+import { register } from '../../../redux/actions/authAction';
 
 const RegisterForm = () => {
 	const initialState = {
-		name: "",
-		account: "",
-		password: "",
-		cf_password: "",
+		name: '',
+		account: '',
+		password: '',
+		cf_password: '',
 	};
 	const [userRegister, setUserRegister] = useState(initialState);
 	const { name, account, password, cf_password } = userRegister;
@@ -61,7 +61,7 @@ const RegisterForm = () => {
 				<label htmlFor="account">Пароль</label>
 				<div className={cn.pass}>
 					<input
-						type={typePass ? "text" : "password"}
+						type={typePass ? 'text' : 'password'}
 						className="form-control"
 						id="password"
 						name="password"
@@ -69,7 +69,7 @@ const RegisterForm = () => {
 						onChange={handleChangeInput}
 					/>
 					<small className={cn.small} onClick={() => setTypePass(!typePass)}>
-						{typePass ? "Hide" : "Show"}
+						{typePass ? 'Hide' : 'Show'}
 					</small>
 				</div>
 			</div>
@@ -78,7 +78,7 @@ const RegisterForm = () => {
 				<label htmlFor="cf_account">Подтвердите пароль</label>
 				<div className={cn.pass}>
 					<input
-						type={typePass ? "text" : "password"}
+						type={typePass ? 'text' : 'password'}
 						className="form-control"
 						id="cf_password"
 						name="cf_password"
@@ -86,7 +86,7 @@ const RegisterForm = () => {
 						onChange={handleChangeInput}
 					/>
 					<small className={cn.small} onClick={() => setTypeCfPass(!typeCfPass)}>
-						{typeCfPass ? "Hide" : "Show"}
+						{typeCfPass ? 'Hide' : 'Show'}
 					</small>
 				</div>
 			</div>

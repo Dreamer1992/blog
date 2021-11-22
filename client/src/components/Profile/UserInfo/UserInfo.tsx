@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { FormSubmit, InputChange, IUserProfile, RootStore } from "../../../types/Types";
-import cn from "./UserInfo.module.css";
-import NotFoundPage from "../../../pages/NotFoundPage";
-import { resetPassword, updateUser } from "../../../redux/actions/profileAction";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { FormSubmit, InputChange, IUserProfile, RootStore } from '../../../types/Types';
+import cn from './UserInfo.module.css';
+import NotFoundPage from '../../../pages/NotFoundPage';
+import { resetPassword, updateUser } from '../../../redux/actions/profileAction';
 
-import { CONSTANTS } from "../../../utils/consts";
+import { CONSTANTS } from '../../../utils/consts';
 
 const UserInfo = () => {
 	const initialState = {
-		name: "",
-		account: "",
-		avatar: "",
-		password: "",
-		cf_password: "",
+		name: '',
+		account: '',
+		avatar: '',
+		password: '',
+		cf_password: '',
 	};
 
 	const dispatch = useDispatch();
@@ -116,7 +116,7 @@ const UserInfo = () => {
 
 				<div className={cn.pass}>
 					<input
-						type={typePass ? "text" : "password"}
+						type={typePass ? 'text' : 'password'}
 						className="form-control"
 						id="password"
 						name="password"
@@ -135,7 +135,7 @@ const UserInfo = () => {
 
 				<div className={cn.pass}>
 					<input
-						type={typeCfPass ? "text" : "password"}
+						type={typeCfPass ? 'text' : 'password'}
 						className="form-control"
 						id="cf_password"
 						name="cf_password"

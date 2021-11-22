@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from "react";
-import cn from "./Category.module.css";
-import { FormSubmit } from "../../types/Types";
-import { useDispatch } from "react-redux";
-import { CONSTANTS } from "../../utils/consts";
-import NotFoundPage from "../../pages/NotFoundPage";
+import React, { useEffect, useState } from 'react';
+import cn from './Category.module.css';
+import { FormSubmit } from '../../types/Types';
+import { useDispatch } from 'react-redux';
+import { CONSTANTS } from '../../utils/consts';
+import NotFoundPage from '../../pages/NotFoundPage';
 import {
 	createCategory,
 	deleteCategory,
 	getCategories,
 	updateCategory,
-} from "../../redux/actions/categoryAction";
-import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { ICategory } from "../../types/CategoryTypes";
+} from '../../redux/actions/categoryAction';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { ICategory } from '../../types/CategoryTypes';
 
 const Category = () => {
 	const auth = useTypedSelector((state) => state.auth);
 	const categories = useTypedSelector((state) => state.categories);
 	const dispatch = useDispatch();
 
-	const [name, setName] = useState("");
+	const [name, setName] = useState('');
 	const [edit, setEdit] = useState<ICategory | null>(null);
 
 	const handleSubmit = (e: FormSubmit) => {
@@ -34,7 +34,7 @@ const Category = () => {
 			dispatch(createCategory(name, auth.access_token));
 		}
 
-		setName("");
+		setName('');
 		setEdit(null);
 	};
 
@@ -45,7 +45,7 @@ const Category = () => {
 	};
 
 	const clearEdit = () => {
-		setName("");
+		setName('');
 		setEdit(null);
 	};
 
@@ -76,12 +76,12 @@ const Category = () => {
 					{edit && (
 						<i
 							className="fas fa-times mx-2 text-danger"
-							style={{ cursor: "pointer" }}
+							style={{ cursor: 'pointer' }}
 							onClick={clearEdit}
 						/>
 					)}
 
-					<button type="submit">{edit ? "Обновить" : "Создать"}</button>
+					<button type="submit">{edit ? 'Обновить' : 'Создать'}</button>
 				</div>
 			</form>
 

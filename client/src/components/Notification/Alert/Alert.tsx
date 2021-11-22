@@ -1,9 +1,9 @@
-import React from "react";
-import Loading from "../Loading/Loading";
-import { useSelector } from "react-redux";
-import { RootStore } from "../../../types/Types";
-import Toast from "../Toast/Toast";
-import cn from "./Alert.module.css";
+import React from 'react';
+import Loading from '../Loading/Loading';
+import { useSelector } from 'react-redux';
+import { RootStore } from '../../../types/Types';
+import Toast from '../Toast/Toast';
+import cn from './Alert.module.css';
 
 export const Alert = () => {
 	const { alert } = useSelector((state: RootStore) => state);

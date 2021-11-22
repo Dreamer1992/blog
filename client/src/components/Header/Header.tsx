@@ -1,8 +1,8 @@
-import React from "react";
-import { CONSTANTS } from "../../utils/consts";
-import { Link } from "react-router-dom";
-import Search from "./Search/Search";
-import Menu from "./Menu/Menu";
+import React from 'react';
+import { CONSTANTS } from '../../utils/consts';
+import { Link } from 'react-router-dom';
+import Search from './Search/Search';
+import Menu from './Menu/Menu';
 
 const Header = () => {
 	return (

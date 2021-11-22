@@ -1,7 +1,7 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import cn from "./Toast.module.css";
-import { ALERT } from "../../../redux/types/alertType";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import cn from './Toast.module.css';
+import { ALERT } from '../../../redux/types/alertType';
 
 interface IProps {
 	title: string;
@@ -34,7 +34,7 @@ const Toast = ({ title, body, bgColor }: IProps) => {
 				/>
 			</div>
 			<div className="toast-body">
-				{typeof body === "string" ? (
+				{typeof body === 'string' ? (
 					body
 				) : (
 					<ul>

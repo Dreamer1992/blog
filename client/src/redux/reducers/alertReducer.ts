@@ -1,4 +1,4 @@
-import { ALERT, IAlert, IAlertAction } from "../types/alertType";
+import { ALERT, IAlert, IAlertAction } from '../types/alertType';
 
 const alertReducer = (state: IAlert = {}, action: IAlertAction): IAlert => {
 	switch (action.type) {

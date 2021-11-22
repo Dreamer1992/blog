@@ -1,4 +1,4 @@
-import { CONSTANTS } from "./utils/consts";
+import { CONSTANTS } from './utils/consts';
 import {
 	ActivationPage,
 	CategoryPage,
@@ -7,7 +7,7 @@ import {
 	NotFoundPage,
 	ProfilePage,
 	RegisterPage,
-} from "./pages";
+} from './pages';
 
 const { HOME, LOGIN, REGISTER, ACTIVATION, PROFILE, CATEGORY } = CONSTANTS.ROUTES;
 
@@ -43,7 +43,7 @@ export const routes = [
 		exact: true,
 	},
 	{
-		path: "*",
+		path: '*',
 		Component: NotFoundPage,
 		exact: true,
 	},
