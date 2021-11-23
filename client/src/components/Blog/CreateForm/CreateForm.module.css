@@ -1,0 +1,11 @@
+.characterCounter {
+    position: absolute;
+    bottom: 0;
+    right: 3px;
+    color: #6c757d;
+    opacity: .5;
+}
+
+.description {
+    resize: none;
+}

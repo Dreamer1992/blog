@@ -4,7 +4,12 @@ import { FormSubmit } from '../../types/Types';
 import { useDispatch } from 'react-redux';
 import { CONSTANTS } from '../../utils/consts';
 import NotFoundPage from '../../pages/NotFoundPage';
-import { createCategory, deleteCategory, getCategories, updateCategory } from '../../redux/actions/categoryAction';
+import {
+	createCategory,
+	deleteCategory,
+	getCategories,
+	updateCategory,
+} from '../../redux/actions/categoryAction';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { ICategory } from '../../types/CategoryTypes';
 
@@ -69,9 +74,10 @@ const Category = () => {
 					/>
 
 					{edit && (
-						<i className='fas fa-times mx-2 text-danger'
-						   style={{ cursor: 'pointer' }}
-						   onClick={clearEdit}
+						<i
+							className='fas fa-times mx-2 text-danger'
+							style={{ cursor: 'pointer' }}
+							onClick={clearEdit}
 						/>
 					)}
 

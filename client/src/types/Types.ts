@@ -3,6 +3,10 @@ import rootReducer from '../redux/reducers/index';
 
 export type InputChange = ChangeEvent<HTMLInputElement>;
 
+export type TextAreaChange = ChangeEvent<HTMLTextAreaElement>;
+
+export type SelectChange = ChangeEvent<HTMLSelectElement>;
+
 export type FormSubmit = FormEvent<HTMLFormElement>;
 
 export type RootStore = ReturnType<typeof rootReducer>;

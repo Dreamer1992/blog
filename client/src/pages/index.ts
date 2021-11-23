@@ -5,6 +5,7 @@ import LoginPage from './LoginPage';
 import NotFoundPage from './NotFoundPage';
 import ProfilePage from './ProfilePage';
 import RegisterPage from './RegisterPage';
+import CreateBlogPage from './BlogPages/CreateBlogPage';
 
 export {
 	ActivationPage,
@@ -14,4 +15,5 @@ export {
 	NotFoundPage,
 	ProfilePage,
 	RegisterPage,
+	CreateBlogPage,
 };

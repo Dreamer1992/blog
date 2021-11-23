@@ -2,6 +2,7 @@ import { CONSTANTS } from './utils/consts';
 import {
 	ActivationPage,
 	CategoryPage,
+	CreateBlogPage,
 	HomePage,
 	LoginPage,
 	NotFoundPage,
@@ -9,7 +10,7 @@ import {
 	RegisterPage,
 } from './pages';
 
-const { HOME, LOGIN, REGISTER, ACTIVATION, PROFILE, CATEGORY } = CONSTANTS.ROUTES;
+const { HOME, LOGIN, REGISTER, ACTIVATION, PROFILE, CATEGORY, CREATE_BLOG } = CONSTANTS.ROUTES;
 
 export const routes = [
 	{
@@ -40,6 +41,11 @@ export const routes = [
 	{
 		path: CATEGORY,
 		Component: CategoryPage,
+		exact: true,
+	},
+	{
+		path: CREATE_BLOG,
+		Component: CreateBlogPage,
 		exact: true,
 	},
 	{
