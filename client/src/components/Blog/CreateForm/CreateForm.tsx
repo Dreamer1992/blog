@@ -37,45 +37,45 @@ const CreateForm: FC<IProps> = ({ blog, setBlog }) => {
 
 	return (
 		<form>
-			<div className='form-group position-relative'>
+			<div className="form-group position-relative">
 				<input
-					type='text'
-					className='form-control'
-					name='title'
+					type="text"
+					className="form-control"
+					name="title"
 					value={blog.title}
 					onChange={handleChangeInput}
 				/>
 				<small className={cn.characterCounter}>{blog.title.length}/50</small>
 			</div>
 
-			<div className='form-group my-3'>
+			<div className="form-group my-3">
 				<input
-					type='file'
-					className='form-control'
-					accept='image/*'
+					type="file"
+					className="form-control"
+					accept="image/*"
 					onChange={handleChangeThumbnail}
 				/>
 			</div>
 
-			<div className='form-group position-relative'>
+			<div className="form-group position-relative">
 				<textarea
 					className={`${cn.description} form-control`}
 					rows={4}
-					name='description'
+					name="description"
 					value={blog.description}
 					onChange={handleChangeInput}
 				/>
 				<small className={cn.characterCounter}>{blog.description.length}/200</small>
 			</div>
 
-			<div className='form-group my-3'>
+			<div className="form-group my-3">
 				<select
-					className='form-control text-capitalize'
-					name='category'
+					className="form-control text-capitalize"
+					name="category"
 					value={blog.category}
 					onChange={handleChangeInput}
 				>
-					<option value=''>Выберите категорию</option>
+					<option value="">Выберите категорию</option>
 					{categories.map((category) => (
 						<option key={category._id} value={category._id}>
 							{category.name}

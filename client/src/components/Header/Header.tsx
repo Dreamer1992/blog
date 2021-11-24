@@ -7,21 +7,21 @@ import Menu from './Menu/Menu';
 const Header = () => {
 	return (
 		<header>
-			<nav className='navbar navbar-expand-lg navbar-dark bg-dark p-3'>
-				<Link className='navbar-brand' to={CONSTANTS.ROUTES.HOME}>
+			<nav className="navbar navbar-expand-lg navbar-dark bg-dark p-3">
+				<Link className="navbar-brand" to={CONSTANTS.ROUTES.HOME}>
 					Блог веб-разработки
 				</Link>
 
 				<button
-					className='navbar-toggler'
-					type='button'
-					data-bs-toggle='collapse'
-					data-bs-target='#navbarNav'
-					aria-controls='navbarNav'
-					aria-expanded='false'
-					aria-label='Toggle navigation'
+					className="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarNav"
+					aria-controls="navbarNav"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
 				>
-					<span className='navbar-toggler-icon' />
+					<span className="navbar-toggler-icon" />
 				</button>
 
 				<div className="collapse navbar-collapse" id="navbarNav">

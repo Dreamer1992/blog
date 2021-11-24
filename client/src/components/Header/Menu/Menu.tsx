@@ -24,10 +24,10 @@ const Menu = () => {
 		<ul className="navbar-nav mb-2 mb-lg-0">
 			{!auth.access_token &&
 				bfLoginLinks.map((link, index) => (
-					<li key={index} className='nav-item'>
+					<li key={index} className="nav-item">
 						<Link
-							className={`nav-link ${isActive(link.path) ? 'text-danger' : 'text-secondary'}`}
-							style={{ whiteSpace: 'nowrap' }}
+							className={`nav-link ${isActive(link.path) ? "text-danger" : "text-secondary"}`}
+							style={{ whiteSpace: "nowrap" }}
 							to={link.path}
 						>
 							{link.label}
@@ -49,10 +49,10 @@ const Menu = () => {
 							className="img-thumbnail"
 							alt="avatar"
 							style={{
-								width: '30px',
-								height: '30px',
-								borderRadius: '50%',
-								marginRight: '5px',
+								width: "30px",
+								height: "30px",
+								borderRadius: "50%",
+								marginRight: "5px",
 							}}
 						/>
 						{auth.user.name}

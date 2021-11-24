@@ -75,13 +75,13 @@ const Category = () => {
 
 					{edit && (
 						<i
-							className='fas fa-times mx-2 text-danger'
-							style={{ cursor: 'pointer' }}
+							className="fas fa-times mx-2 text-danger"
+							style={{ cursor: "pointer" }}
 							onClick={clearEdit}
 						/>
 					)}
 
-					<button type='submit'>{edit ? 'Обновить' : 'Создать'}</button>
+					<button type="submit">{edit ? "Обновить" : "Создать"}</button>
 				</div>
 			</form>
 

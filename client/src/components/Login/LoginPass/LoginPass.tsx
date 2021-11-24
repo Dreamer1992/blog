@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { FormSubmit, InputChange } from '../../../types/Types';
-import cn from './LoginPass.module.css';
-import { login } from '../../../redux/actions/authAction';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { FormSubmit, InputChange } from "../../../types/Types";
+import cn from "./LoginPass.module.css";
+import { login } from "../../../redux/actions/authAction";
 
 const LoginPass = () => {
-	const initialState = { account: '', password: '' };
+	const initialState = { account: "", password: "" };
 	const [userLogin, setUserLogin] = useState(initialState);
 	const { account, password } = userLogin;
 
@@ -41,15 +41,15 @@ const LoginPass = () => {
 				<label htmlFor="account">Пароль</label>
 				<div className={cn.pass}>
 					<input
-						type={typePass ? 'text' : 'password'}
-						className='form-control'
-						id='password'
-						name='password'
+						type={typePass ? "text" : "password"}
+						className="form-control"
+						id="password"
+						name="password"
 						value={password}
 						onChange={handleChangeInput}
 					/>
 					<small className={cn.small} onClick={() => setTypePass(!typePass)}>
-						{typePass ? <i className='far fa-eye-slash' /> : <i className='far fa-eye' />}
+						{typePass ? <i className="far fa-eye-slash" /> : <i className="far fa-eye" />}
 					</small>
 				</div>
 			</div>

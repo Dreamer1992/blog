@@ -1,9 +1,9 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { CONSTANTS } from '../../utils/consts';
-import { useSelector } from 'react-redux';
-import { RootStore } from '../../types/Types';
-import cn from './Sidebar.module.css';
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import { CONSTANTS } from "../../utils/consts";
+import { useSelector } from "react-redux";
+import { RootStore } from "../../types/Types";
+import cn from "./Sidebar.module.css";
 
 const Sidebar = () => {
 	const { pathname } = useLocation();
@@ -11,10 +11,10 @@ const Sidebar = () => {
 
 	const { CREATE_BLOG, CATEGORY } = CONSTANTS.ROUTES;
 
-	const afLoginLinks = [{ label: 'Создать блог', path: CREATE_BLOG }];
+	const afLoginLinks = [{ label: "Создать блог", path: CREATE_BLOG }];
 
 	const isActive = (pn: string) => {
-		if (pn === pathname) return 'active';
+		if (pn === pathname) return "active";
 	};
 
 	if (!auth.access_token) return null;
@@ -25,10 +25,10 @@ const Sidebar = () => {
 				<div className="position-sticky pt-3">
 					<ul className="nav flex-column">
 						{auth.user?.role === CONSTANTS.ROLE.ADMIN && (
-							<li className={`nav-item ${isActive('/category')}`}>
+							<li className={`nav-item ${isActive("/category")}`}>
 								<Link
-									className={`nav-link ${isActive(CATEGORY) ? 'text-danger' : 'text-secondary'}`}
-									to='/category'
+									className={`nav-link ${isActive(CATEGORY) ? "text-danger" : "text-secondary"}`}
+									to="/category"
 								>
 									Категории
 								</Link>
@@ -38,8 +38,8 @@ const Sidebar = () => {
 						{afLoginLinks.map((link, index) => (
 							<li key={index} className="nav-item">
 								<Link
-									className={`nav-link ${isActive(link.path) ? 'text-danger' : 'text-secondary'}`}
-									style={{ whiteSpace: 'nowrap' }}
+									className={`nav-link ${isActive(link.path) ? "text-danger" : "text-secondary"}`}
+									style={{ whiteSpace: "nowrap" }}
 									to={link.path}
 								>
 									{link.label}

@@ -8,7 +8,6 @@ import { IBlog } from "../../types/BlogTypes";
 import Quill from "./Editor/Quill";
 import { validateCreateBlog } from "../../utils/validate";
 import { ALERT } from "../../redux/types/alertType";
-import { imageUpload } from "../../redux/actions/profileAction";
 import { createBlog } from "../../redux/actions/blogAction";
 
 const CreateBlog = () => {
@@ -37,7 +36,7 @@ const CreateBlog = () => {
 
 		const content = div?.innerHTML as string;
 		setBlog({ ...blog, content });
-	}, [body]);
+	}, [body, blog]);
 
 	const handleSubmit = async () => {
 		if (!auth.access_token) return;
