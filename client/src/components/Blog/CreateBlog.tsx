@@ -4,6 +4,7 @@ import { NotFoundPage } from '../../pages';
 import CreateForm from './CreateForm/CreateForm';
 import CardHoriz from './CardHoriz/CardHoriz';
 import { IBlog } from '../../types/BlogTypes';
+import Quill from './Editor/Quill';
 
 const CreateBlog = () => {
 	const initState = {
@@ -17,6 +18,7 @@ const CreateBlog = () => {
 	};
 
 	const [blog, setBlog] = useState<IBlog>(initState);
+	const [body, setBody] = useState('');
 
 	const { auth } = useTypedSelector((state) => state);
 
@@ -33,6 +35,14 @@ const CreateBlog = () => {
 				<div className='col-md-6'>
 					<h5>Превью</h5>
 					<CardHoriz blog={blog} />
+				</div>
+
+				<Quill setBody={setBody} />
+
+				<div className='col-12'>
+					<button className='btn btn-success mt-3 d-block mx-auto'>
+						Создать пост
+					</button>
 				</div>
 			</div>
 		</div>
