@@ -1,7 +1,8 @@
 import { IBlog } from "../../types/BlogTypes";
 import { Dispatch } from "redux";
 import { ALERT, AlertType } from "../types/alertType";
-import { imageUpload } from "./profileAction";
+import { imageUpload } from './profileAction';
+import { postAPI } from '../../api/FetchData';
 
 export const createBlog = (blog: IBlog, token: string) => async (dispatch: Dispatch<AlertType>) => {
 	try {
@@ -9,7 +10,7 @@ export const createBlog = (blog: IBlog, token: string) => async (dispatch: Dispa
 
 		let url = "";
 
-		if (typeof blog.thumbnail !== "string") {
+		if (typeof blog.thumbnail !== 'string') {
 			const photo = await imageUpload(blog.thumbnail);
 			url = photo.url;
 		} else {
@@ -17,6 +18,8 @@ export const createBlog = (blog: IBlog, token: string) => async (dispatch: Dispa
 		}
 
 		let newBlog = { ...blog, thumbnail: url };
+
+		const res = await postAPI('blog/create', newBlog, token);
 
 		dispatch({ type: ALERT, payload: { loading: false } });
 		console.log({ newBlog, token });

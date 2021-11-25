@@ -36,7 +36,7 @@ const CreateBlog = () => {
 
 		const content = div?.innerHTML as string;
 		setBlog({ ...blog, content });
-	}, [body, blog]);
+	}, [body]);
 
 	const handleSubmit = async () => {
 		if (!auth.access_token) return;
