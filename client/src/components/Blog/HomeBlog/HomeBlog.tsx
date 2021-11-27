@@ -14,33 +14,31 @@ const HomeBlog: FC<IProps> = ({ blogs }) => {
 			{
 				blogs?.map(blog => (
 					<div key={blog._id}>
-						<>
-							<h3>
-								<Link to={`/blogs/${(blog.name).toLowerCase()}`}>
-									{blog.name}
-									<small>({blog.count})</small>
-								</Link>
-							</h3>
-							<hr className="mt-1" />
+						<h3>
+							<Link to={`/blogs/${(blog.name).toLowerCase()}`}>
+								{blog.name}
+								<small>({blog.count})</small>
+							</Link>
+						</h3>
+						<hr className="mt-1" />
 
-							<div className={cn.homeBlogs}>
-								{
-									blog.blogs?.map(blogItem => (
-										<CartVert key={blogItem._id} blog={blogItem} />
-									))
-								}
-							</div>
-
+						<div className={cn.homeBlogs}>
 							{
-								blog.count > 4 && (
-									<Link className="text-end d-block mt-2 mb-3"
-										  to={`/blogs/${blog.name}`}
-									>
-										Все блоги &gt;&gt;
-									</Link>
-								)
+								blog.blogs?.map(blogItem => (
+									<CartVert key={blogItem._id} blog={blogItem} />
+								))
 							}
-						</>
+						</div>
+
+						{
+							blog.count > 4 && (
+								<Link className="text-end d-block mt-2 mb-3"
+									  to={`/blogs/${blog.name}`}
+								>
+									Все блоги &gt;&gt;
+								</Link>
+							)
+						}
 					</div>
 				))
 			}
