@@ -3,7 +3,7 @@ import {
 	ActivationPage,
 	CategoryPage,
 	CreateBlogPage,
-	HomePage,
+	BlogHomePage,
 	LoginPage,
 	NotFoundPage,
 	ProfilePage,
@@ -15,7 +15,7 @@ const { HOME, LOGIN, REGISTER, ACTIVATION, PROFILE, CATEGORY, CREATE_BLOG } = CO
 export const routes = [
 	{
 		path: HOME,
-		Component: HomePage,
+		Component: BlogHomePage,
 		exact: true,
 	},
 	{

@@ -1,10 +1,10 @@
 import React, { FC, useEffect } from 'react';
 import cn from './CreateForm.module.css';
-import { useTypedSelector } from '../../../hooks/useTypedSelector';
+import { useTypedSelector } from '../../../../hooks/useTypedSelector';
 import { useDispatch } from 'react-redux';
-import { getCategories } from '../../../redux/actions/categoryAction';
-import { IBlog } from '../../../types/BlogTypes';
-import { InputChange, TextAreaChange, SelectChange } from '../../../types/Types';
+import { getCategories } from '../../../../redux/actions/categoryAction';
+import { IBlog } from '../../../../types/BlogTypes';
+import { InputChange, TextAreaChange, SelectChange } from '../../../../types/Types';
 
 interface IProps {
 	blog: IBlog;

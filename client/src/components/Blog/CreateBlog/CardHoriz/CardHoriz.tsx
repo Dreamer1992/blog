@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { IBlog } from '../../../types/BlogTypes';
+import { IBlog } from '../../../../types/BlogTypes';
 
 interface IProps {
 	blog: IBlog;

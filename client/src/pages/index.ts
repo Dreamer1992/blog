@@ -1,6 +1,6 @@
 import ActivationPage from './ActivationPage';
 import CategoryPage from './CategoryPage';
-import HomePage from './HomePage';
+import BlogHomePage from './BlogPages/BlogHomePage';
 import LoginPage from './LoginPage';
 import NotFoundPage from './NotFoundPage';
 import ProfilePage from './ProfilePage';
@@ -10,7 +10,7 @@ import CreateBlogPage from './BlogPages/CreateBlogPage';
 export {
 	ActivationPage,
 	CategoryPage,
-	HomePage,
+	BlogHomePage,
 	LoginPage,
 	NotFoundPage,
 	ProfilePage,
