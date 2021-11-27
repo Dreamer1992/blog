@@ -1,5 +1,5 @@
-import { ChangeEvent, FormEvent } from 'react';
-import rootReducer from '../redux/reducers/index';
+import { ChangeEvent, FormEvent } from "react";
+import rootReducer from "../redux/reducers/index";
 
 export type InputChange = ChangeEvent<HTMLInputElement>;
 
@@ -37,4 +37,8 @@ export interface IUserProfile extends IUserRegister {
 
 export interface IActivationParams {
 	active_token: string;
+}
+
+export interface IBlogsSpecificCategoryParams {
+	category_name: string;
 }

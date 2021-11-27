@@ -1,6 +1,6 @@
-import { IUser } from '../../types/Types';
+import { IUser } from "../../types/Types";
 
-export const AUTH = 'AUTH';
+export const AUTH = "AUTH";
 
 export interface IAuth {
 	msg?: string;

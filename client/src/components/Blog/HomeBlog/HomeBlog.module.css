@@ -8,6 +8,7 @@
     text-decoration: none;
     letter-spacing: 1px;
     margin-top: 1rem;
+
     cursor: pointer;
     transition: all .3s ease-out;
 }

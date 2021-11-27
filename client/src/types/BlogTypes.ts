@@ -1,4 +1,4 @@
-import { IUser } from './Types';
+import { IUser } from "./Types";
 
 export interface IBlog {
 	_id?: string;
@@ -9,4 +9,17 @@ export interface IBlog {
 	thumbnail: string | File;
 	category: string;
 	createdAt: string;
+}
+
+export interface IBlogs {
+	_id: string,
+	name: string,
+	count: number,
+	blogs: IBlog[],
+}
+
+export interface IBlogByCategoryId {
+	id: string;
+	blogs: IBlog[];
+	total: number;
 }

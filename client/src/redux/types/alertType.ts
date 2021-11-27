@@ -1,4 +1,4 @@
-export const ALERT = 'ALERT';
+export const ALERT = "ALERT";
 
 export interface IAlert {
 	loading?: boolean;

@@ -1,16 +1,17 @@
-import { CONSTANTS } from './utils/consts';
+import { CONSTANTS } from "./utils/consts";
 import {
 	ActivationPage,
+	BlogHomePage,
+	BlogsSpecificCategoryPage,
 	CategoryPage,
 	CreateBlogPage,
-	BlogHomePage,
 	LoginPage,
 	NotFoundPage,
 	ProfilePage,
 	RegisterPage,
-} from './pages';
+} from "./pages";
 
-const { HOME, LOGIN, REGISTER, ACTIVATION, PROFILE, CATEGORY, CREATE_BLOG } = CONSTANTS.ROUTES;
+const { HOME, LOGIN, REGISTER, ACTIVATION, PROFILE, CATEGORY, CREATE_BLOG, BLOGS_SPECIFIC_CATEGORY } = CONSTANTS.ROUTES;
 
 export const routes = [
 	{
@@ -49,7 +50,12 @@ export const routes = [
 		exact: true,
 	},
 	{
-		path: '*',
+		path: BLOGS_SPECIFIC_CATEGORY,
+		Component: BlogsSpecificCategoryPage,
+		exact: true,
+	},
+	{
+		path: "*",
 		Component: NotFoundPage,
 		exact: true,
 	},

@@ -1,18 +1,19 @@
-import { IBlog } from "../../types/BlogTypes";
+import { IBlogByCategoryId, IBlogs } from "../../types/BlogTypes";
 
 export const GET_BLOGS = "GET_BLOGS";
-
-export interface IBlogs {
-	_id: string,
-	name: string,
-	count: number,
-	blogs: IBlog[],
-}
+export const GET_BLOGS_BY_CATEGORY_ID = "GET_BLOGS_BY_CATEGORY_ID";
 
 export interface IGetBlogs {
-	type: typeof GET_BLOGS,
-	payload: IBlogs[],
+	type: typeof GET_BLOGS;
+	payload: IBlogs[];
 }
 
-export type BlogTypes = IGetBlogs;
+export interface IGetBlogsByCategoryId {
+	type: typeof GET_BLOGS_BY_CATEGORY_ID;
+	payload: IBlogByCategoryId;
+}
+
+export type BlogTypes =
+	| IGetBlogs
+	| IGetBlogsByCategoryId;
 

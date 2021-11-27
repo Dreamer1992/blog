@@ -4,8 +4,8 @@ import Blogs from "../models/blogModel";
 import { IReqAuth } from "../config/interfaces";
 
 const Pagination = (req: IReqAuth) => {
-	let page = Number(req.query.page) * 1 || 1;
-	let limit = Number(req.query.limit) * 1 || 4;
+	let page = Number(req.query.page) || 1;
+	let limit = Number(req.query.limit) || 4;
 	let skip = (page - 1) * limit;
 
 	return { page, limit, skip };

@@ -11,7 +11,7 @@ const BlogHomePage = () => {
 		dispatch(getBlogs());
 	}, [dispatch]);
 
-	const blogs = useTypedSelector(state => state.blogs);
+	const { blogs } = useTypedSelector(state => state.blogs);
 
 	return <HomeBlog blogs={blogs} />;
 };

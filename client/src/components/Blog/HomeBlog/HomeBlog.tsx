@@ -1,8 +1,8 @@
 import React, { FC } from "react";
-import { IBlogs } from "../../../redux/types/blogType";
 import { Link } from "react-router-dom";
 import CartVert from "./CartVert/CartVert";
 import cn from "./HomeBlog.module.css";
+import { IBlogs } from "../../../types/BlogTypes";
 
 interface IProps {
 	blogs: IBlogs[],
