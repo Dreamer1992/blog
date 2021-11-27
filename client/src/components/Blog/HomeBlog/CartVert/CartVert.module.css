@@ -1,0 +1,20 @@
+.image {
+    text-align: center;
+    background: #484d51;
+}
+
+.image img {
+    max-width: 375px;
+    max-height: 211px;
+    margin: 0 auto;
+    object-fit: cover;
+}
+
+.cardText a {
+    display: block;
+    text-decoration: none;
+}
+
+.cardText a:first-letter {
+    text-transform: uppercase;
+}

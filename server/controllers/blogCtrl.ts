@@ -76,7 +76,7 @@ const blogCtrl = {
 				},
 			]);
 
-			res.json({ blogs });
+			res.json(blogs);
 		} catch (e: any) {
 			return res.status(500).json({ msg: e.message });
 		}

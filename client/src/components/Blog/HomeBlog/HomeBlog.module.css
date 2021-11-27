@@ -1,0 +1,30 @@
+.homeBlogPage {
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.homeBlogPage h3 a {
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 1px;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: all .3s ease-out;
+}
+
+.homeBlogPage h3 a:hover {
+    color: #dc3545;
+}
+
+.homeBlogPage h3 a small {
+    margin-left: 10px;
+    font-size: 1.2rem;
+}
+
+.homeBlogs {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 10px;
+    margin-bottom: 15px;
+}
