@@ -11,7 +11,16 @@ import {
 	RegisterPage,
 } from "./pages";
 
-const { HOME, LOGIN, REGISTER, ACTIVATION, PROFILE, CATEGORY, CREATE_BLOG, BLOGS_SPECIFIC_CATEGORY } = CONSTANTS.ROUTES;
+const {
+	HOME,
+	LOGIN,
+	REGISTER,
+	ACTIVATION,
+	PROFILE,
+	CATEGORY,
+	CREATE_BLOG,
+	BLOGS_SPECIFIC_CATEGORY,
+} = CONSTANTS.ROUTES;
 
 export const routes = [
 	{
@@ -52,7 +61,7 @@ export const routes = [
 	{
 		path: BLOGS_SPECIFIC_CATEGORY,
 		Component: BlogsSpecificCategoryPage,
-		exact: true,
+		exact: false,
 	},
 	{
 		path: "*",

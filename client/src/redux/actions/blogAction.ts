@@ -42,13 +42,16 @@ export const getBlogs = () => async (dispatch: Dispatch<AlertType | BlogTypes>) 
 	}
 };
 
-export const getBlogsByCategoryId = (id: string) => async (dispatch: Dispatch<AlertType | BlogTypes>) => {
+export const getBlogsByCategoryId = (id: string, search: string) => async (dispatch: Dispatch<AlertType | BlogTypes>) => {
 	try {
+		let limit = 4;
+		let page = search ? search : `?page=${1}`;
+
 		dispatch({ type: ALERT, payload: { loading: true } });
 
-		const res = await getAPI(`blogs/${id}`);
+		const res = await getAPI(`blogs/${id}${page}&limit=${limit}`);
 
-		dispatch({ type: GET_BLOGS_BY_CATEGORY_ID, payload: { ...res.data, id } });
+		dispatch({ type: GET_BLOGS_BY_CATEGORY_ID, payload: { ...res.data, id, search } });
 
 		dispatch({ type: ALERT, payload: { loading: false } });
 	} catch (e: any) {

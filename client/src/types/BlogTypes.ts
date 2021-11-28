@@ -22,4 +22,5 @@ export interface IBlogByCategoryId {
 	id: string;
 	blogs: IBlog[];
 	total: number;
+	search: string;
 }
