@@ -1,11 +1,11 @@
-import { Response } from 'express';
-import { IReqAuth } from '../config/interfaces';
-import Users from '../models/userModel';
-import bcrypt from 'bcrypt';
+import { Request, Response } from "express";
+import { IReqAuth } from "../config/interfaces";
+import Users from "../models/userModel";
+import bcrypt from "bcrypt";
 
 const userCtrl = {
   updateUser: async (req: IReqAuth, res: Response) => {
-    if (!req.user) return res.status(500).json({ msg: 'Ошибка авторизации' });
+    if (!req.user) return res.status(500).json({ msg: "Ошибка авторизации" });
 
     try {
       const { avatar, name } = req.body;
@@ -18,7 +18,7 @@ const userCtrl = {
           },
       );
 
-      res.json({ msg: 'Данные пользователя обновлены' });
+      res.json({ msg: "Данные пользователя обновлены" });
     } catch (e: any) {
       return res.status(500).json({ msg: e.message });
     }
@@ -26,9 +26,9 @@ const userCtrl = {
 
   resetPassword: async (req: IReqAuth, res: Response) => {
     if (!req.user)
-      return res.status(400).json({ msg: 'Ошибка обновления пароля' });
+      return res.status(400).json({ msg: "Ошибка обновления пароля" });
 
-    if (req.user.type !== 'register')
+    if (req.user.type !== "register")
       return res.status(400).json({
         msg: `Изменение пароля недоступно с учетной записью ${req.user.type}`,
       });
@@ -44,7 +44,17 @@ const userCtrl = {
           },
       );
 
-      res.json({ msg: 'Пароль обновлен' });
+      res.json({ msg: "Пароль обновлен" });
+    } catch (e: any) {
+      return res.status(500).json({ msg: e.message });
+    }
+  },
+
+  getUser: async (req: Request, res: Response) => {
+    try {
+      const user = await Users.findById(req.params.id).select("-password");
+
+      res.json(user);
     } catch (e: any) {
       return res.status(500).json({ msg: e.message });
     }

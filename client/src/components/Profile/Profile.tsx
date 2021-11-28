@@ -1,23 +1,25 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootStore } from '../../types/Types';
-import UserInfo from './UserInfo/UserInfo';
-import OtherInfo from './OtherInfo/OtherInfo';
-import UserBlogs from './UserBlogs/UserBlogs';
+import React, { FC } from "react";
+import UserInfo from "./UserInfo/UserInfo";
+import OtherInfo from "./OtherInfo/OtherInfo";
+import UserBlogs from "./UserBlogs/UserBlogs";
+import { IAuth } from "../../redux/types/authType";
 
-interface IParams {
+interface IProps {
+	auth: IAuth;
 	id: string;
 }
 
-const Profile = () => {
-	const { id }: IParams = useParams();
-	const { auth } = useSelector((state: RootStore) => state);
-
+const Profile: FC<IProps> = ({ auth, id }) => {
 	return (
 		<div className="container">
 			<div className="row my-3">
-				<div className="col-md-5 mb-3">{auth.user?._id === id ? <UserInfo /> : <OtherInfo />}</div>
+				<div className="col-md-5 mb-3">
+					{
+						auth.user?._id === id
+							? <UserInfo />
+							: <OtherInfo id={id} />
+					}
+				</div>
 
 				<div className="col-md-7">
 					<UserBlogs />
