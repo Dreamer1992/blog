@@ -95,18 +95,6 @@ export const loginSMS = (phone: string) => async (dispatch: Dispatch<AuthType | 
 	}
 };
 
-export const getOtherInfo = (id: string) => async (dispatch: Dispatch<AlertType>) => {
-	try {
-		dispatch({ type: ALERT, payload: { loading: true } });
-
-		const res = await getAPI(`user/${id}`);
-
-		dispatch({ type: ALERT, payload: { loading: false } });
-	} catch (e: any) {
-		dispatch({ type: ALERT, payload: { errors: e.response.data.msg } });
-	}
-};
-
 const verifySMS = async (phone: string, dispatch: Dispatch<AuthType | AlertType>) => {
 	const code = prompt("Введите ваш код");
 	if (!code) return;

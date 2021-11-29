@@ -1,15 +1,16 @@
-import { AUTH, AuthType, IAuth } from '../types/authType';
-import { Dispatch } from 'redux';
-import { ALERT, AlertType } from '../types/alertType';
-import { checkImage } from '../../utils/imageUpload';
-import { patchAPI } from '../../api/FetchData';
-import { checkPassword } from '../../utils/validate';
+import { AUTH, AuthType, IAuth } from "../types/authType";
+import { Dispatch } from "redux";
+import { ALERT, AlertType } from "../types/alertType";
+import { checkImage } from "../../utils/imageUpload";
+import { getAPI, patchAPI } from "../../api/FetchData";
+import { checkPassword } from "../../utils/validate";
+import { GET_OTHER_INFO, ProfileTypes } from "../types/profileType";
 
 export const updateUser =
 	(avatar: File, name: string, auth: IAuth) => async (dispatch: Dispatch<AlertType | AuthType>) => {
 		if (!auth.access_token || !auth.user) return;
 
-		let url = '';
+		let url = "";
 
 		try {
 			dispatch({ type: ALERT, payload: { loading: true } });
@@ -36,7 +37,7 @@ export const updateUser =
 			});
 
 			const res = await patchAPI(
-				'user',
+				"user",
 				{
 					avatar: url ? url : auth.user.avatar,
 					name: name ? name : auth.user.name,
@@ -59,7 +60,7 @@ export const resetPassword =
 			try {
 				dispatch({ type: ALERT, payload: { loading: true } });
 
-				const res = await patchAPI('reset_password', { password }, token);
+				const res = await patchAPI("reset_password", { password }, token);
 
 				dispatch({ type: ALERT, payload: { success: res.data.msg } });
 			} catch (e: any) {
@@ -69,15 +70,29 @@ export const resetPassword =
 
 export const imageUpload = async (file: File) => {
 	const formData = new FormData();
-	formData.append('file', file);
-	formData.append('upload_preset', 'povleg10');
-	formData.append('cloud_name', 'drw46ajkt');
+	formData.append("file", file);
+	formData.append("upload_preset", "povleg10");
+	formData.append("cloud_name", "drw46ajkt");
 
-	const res = await fetch('https://api.cloudinary.com/v1_1/drw46ajkt/image/upload', {
-		method: 'POST',
+	const res = await fetch("https://api.cloudinary.com/v1_1/drw46ajkt/image/upload", {
+		method: "POST",
 		body: formData,
 	});
 
 	const data = await res.json();
 	return { public_id: data.public_id, url: data.secure_url };
+};
+
+export const getOtherInfo = (id: string) => async (dispatch: Dispatch<AlertType | ProfileTypes>) => {
+	try {
+		dispatch({ type: ALERT, payload: { loading: true } });
+
+		const res = await getAPI(`user/${id}`);
+
+		dispatch({ type: GET_OTHER_INFO, payload: res.data });
+
+		dispatch({ type: ALERT, payload: { loading: false } });
+	} catch (e: any) {
+		dispatch({ type: ALERT, payload: { errors: e.response.data.msg } });
+	}
 };

@@ -1,0 +1,22 @@
+.profileInfo {
+    background: #fff;
+    width: 100%;
+    border: 1px solid #ddd;
+    padding: 2.5rem 1.7rem;
+}
+
+.profileInfoAvatar {
+    width: 190px;
+    height: 190px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    border: 1px solid #ddd;
+}
+
+.avatarImage {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}

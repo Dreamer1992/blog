@@ -20,13 +20,13 @@ const blogReducer = (state = initialState, action: BlogTypes): InitialStateType 
 			if (state.blogsCategory.every(item => item.id !== action.payload.id)) {
 				return { ...state, blogsCategory: [action.payload] };
 			} else {
-				return {
-					...state, blogsCategory: state.blogsCategory.map(blog => (
-						blog.id === action.payload.id
-							? action.payload
-							: blog
-					)),
-				};
+				const blogsCategory = state.blogsCategory.map(blog => (
+					blog.id === action.payload.id
+						? action.payload
+						: blog
+				));
+
+				return { ...state, blogsCategory };
 			}
 
 		default:

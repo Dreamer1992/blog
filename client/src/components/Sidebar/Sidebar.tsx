@@ -9,9 +9,12 @@ const Sidebar = () => {
 	const { pathname } = useLocation();
 	const { auth } = useSelector((state: RootStore) => state);
 
-	const { CREATE_BLOG, CATEGORY } = CONSTANTS.ROUTES;
+	const { HOME, CREATE_BLOG, CATEGORY } = CONSTANTS.ROUTES;
 
-	const afLoginLinks = [{ label: "Создать блог", path: CREATE_BLOG }];
+	const afLoginLinks = [
+		{ label: "Блоги", path: HOME },
+		{ label: "Создать блог", path: CREATE_BLOG },
+	];
 
 	const isActive = (pn: string) => {
 		if (pn === pathname) return "active";
