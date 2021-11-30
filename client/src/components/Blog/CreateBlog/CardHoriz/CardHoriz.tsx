@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
-import { IBlog } from '../../../../types/BlogTypes';
+import React, { FC } from "react";
+import { Link } from "react-router-dom";
+import { IBlog } from "../../../../types/BlogTypes";
 
 interface IProps {
 	blog: IBlog;
@@ -12,10 +12,13 @@ const CardHoriz: FC<IProps> = ({ blog }) => {
 			<div className="row g-0">
 				<div className="col-md-4 py-4">
 					{blog.thumbnail && (
-						<>
+						<div style={{ maxHeight: 211, overflow: "hidden" }}>
 							{typeof blog.thumbnail === "string" ? (
 								<Link to={`/blog/${blog._id}`}>
-									<img src={blog.thumbnail} className="img-fluid" alt="thumbnail" />
+									<img src={blog.thumbnail}
+										 className="img-fluid"
+										 alt="thumbnail"
+									/>
 								</Link>
 							) : (
 								<img
@@ -24,13 +27,20 @@ const CardHoriz: FC<IProps> = ({ blog }) => {
 									alt="thumbnail"
 								/>
 							)}
-						</>
+						</div>
 					)}
 				</div>
 
 				<div className="col-md-8">
 					<div className="card-body">
-						<h5 className="card-title">{blog.title}</h5>
+						<h5 className="card-title">
+							<Link
+								to={`/blog/${blog._id}`}
+								className="text-decoration-none"
+							>
+								{blog.title}
+							</Link>
+						</h5>
 						<p className="card-text">{blog.description}</p>
 						<p className="card-text">
 							<small className="text-muted">{new Date(blog.createdAt).toLocaleString()}</small>

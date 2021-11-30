@@ -24,3 +24,17 @@ export interface IBlogByCategoryId {
 	total: number;
 	search: string;
 }
+
+export interface IBlogByUserId {
+	id: string;
+	blogs: IBlog[];
+	total: number;
+	search: string;
+}
+
+export interface IBlogByUserId {
+	id: string;
+	blogs: IBlog[];
+	total: number;
+	search: string;
+}
