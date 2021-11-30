@@ -8,6 +8,7 @@ export const CONSTANTS = {
 		PROFILE: "/profile/:id",
 		CATEGORY: "/category",
 		BLOGS_SPECIFIC_CATEGORY: "/blogs/:category_name",
+		DETAIL_BLOG: "/blog/:id",
 	},
 	REGISTER_TYPES: {
 		REGISTER: "register",

@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
-import { getOtherInfo } from "../../../redux/actions/profileAction";
+import { getOtherInfo } from "../../../redux/actions/userAction";
 import cn from "./OtherInfo.module.css";
 
 interface IProps {

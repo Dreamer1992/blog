@@ -5,6 +5,7 @@ import {
 	BlogsSpecificCategoryPage,
 	CategoryPage,
 	CreateBlogPage,
+	DetailBlogPage,
 	LoginPage,
 	NotFoundPage,
 	ProfilePage,
@@ -20,6 +21,7 @@ const {
 	CATEGORY,
 	CREATE_BLOG,
 	BLOGS_SPECIFIC_CATEGORY,
+	DETAIL_BLOG,
 } = CONSTANTS.ROUTES;
 
 export const routes = [
@@ -62,6 +64,11 @@ export const routes = [
 		path: BLOGS_SPECIFIC_CATEGORY,
 		Component: BlogsSpecificCategoryPage,
 		exact: false,
+	},
+	{
+		path: DETAIL_BLOG,
+		Component: DetailBlogPage,
+		exact: true,
 	},
 	{
 		path: "*",

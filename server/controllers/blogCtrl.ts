@@ -220,6 +220,19 @@ const blogCtrl = {
 			return res.status(500).json({ msg: e.message });
 		}
 	},
+
+	getBlogDetail: async (req: Request, res: Response) => {
+		try {
+			const blog = await Blogs.findOne({ _id: req.params.id })
+				.populate("user", "-password");
+
+			if (!blog) return res.status(400).json({ msg: "Такого блога не существует" });
+
+			return res.json(blog);
+		} catch (e: any) {
+			return res.status(400).json({ msg: "Такого блога не существует" });
+		}
+	},
 };
 
 export default blogCtrl;

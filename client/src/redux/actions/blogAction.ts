@@ -1,7 +1,7 @@
 import { IBlog } from "../../types/BlogTypes";
 import { Dispatch } from "redux";
 import { ALERT, AlertType } from "../types/alertType";
-import { imageUpload } from "./profileAction";
+import { imageUpload } from "./userAction";
 import { getAPI, postAPI } from "../../api/FetchData";
 import { BlogTypes, GET_BLOGS, GET_BLOGS_BY_CATEGORY_ID, GET_BLOGS_BY_USER_ID } from "../types/blogType";
 

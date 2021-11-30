@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FormSubmit, InputChange, IUserProfile, RootStore } from "../../../types/Types";
 import cn from "./UserInfo.module.css";
 import NotFoundPage from "../../../pages/NotFoundPage";
-import { resetPassword, updateUser } from "../../../redux/actions/profileAction";
+import { resetPassword, updateUser } from "../../../redux/actions/userAction";
 
 import { CONSTANTS } from "../../../utils/consts";
 

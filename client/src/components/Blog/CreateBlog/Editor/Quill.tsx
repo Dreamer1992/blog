@@ -4,7 +4,7 @@ import "react-quill/dist/quill.snow.css";
 import { checkImage } from "../../../../utils/imageUpload";
 import { useDispatch } from "react-redux";
 import { ALERT } from "../../../../redux/types/alertType";
-import { imageUpload } from "../../../../redux/actions/profileAction";
+import { imageUpload } from "../../../../redux/actions/userAction";
 
 interface IProps {
 	setBody: (value: string) => void;
