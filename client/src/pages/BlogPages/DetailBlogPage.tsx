@@ -40,7 +40,13 @@ const DetailBlogPage = () => {
 		</div>
 	);
 
-	return blog && <DetailBlog blog={blog} />;
+	return (
+		<>
+			{blog && <DetailBlog blog={blog} />}
+
+			<h2>Comments</h2>
+		</>
+	);
 };
 
 export default DetailBlogPage;
