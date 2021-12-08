@@ -1,10 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { CONSTANTS } from "../../utils/consts";
 import cn from "./Register.module.css";
 import RegisterForm from "./RegisterForm/RegisterForm";
 
 const Register = () => {
+	const history = useHistory();
+
 	return (
 		<div className="container">
 			<div className={cn.authPage}>
@@ -15,7 +17,9 @@ const Register = () => {
 
 					<p>
 						Есть аккаунт?
-						<Link style={{ color: "crimson", marginLeft: "8px" }} to={CONSTANTS.ROUTES.LOGIN}>
+						<Link style={{ color: "crimson", marginLeft: "8px" }}
+							  to={`${CONSTANTS.ROUTES.LOGIN}${history.location.search}`}
+						>
 							Авторизоваться
 						</Link>
 					</p>

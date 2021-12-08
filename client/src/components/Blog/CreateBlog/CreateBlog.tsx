@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { NotFoundPage } from "../../../pages";
 import CreateForm from "./CreateForm/CreateForm";
 import { IBlog } from "../../../types/BlogTypes";
-import Quill from "./Editor/Quill";
+import Quill from "../../common/Editor/Quill";
 import { validateCreateBlog } from "../../../utils/validate";
 import { ALERT } from "../../../redux/types/alertType";
 import { createBlog } from "../../../redux/actions/blogAction";
