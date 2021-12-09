@@ -1,5 +1,5 @@
 import React, { FC, useRef, useState } from "react";
-import LightQuill from "../Editor/LightQuill";
+import LightQuill from "../../Editor/LightQuill";
 
 interface IProps {
 	callback: (body: string) => void,

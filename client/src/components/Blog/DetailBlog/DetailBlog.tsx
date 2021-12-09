@@ -2,9 +2,10 @@ import React, { FC, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import { IBlog } from "../../../types/BlogTypes";
-import CommentInput from "../../common/Comments/CommentInput";
+import CommentInput from "../../common/Comments/CommentInput/CommentInput";
 import { IUser } from "../../../types/Types";
 import { IComment } from "../../../types/CommentTypes";
+import Comments from "../../common/Comments/Comments";
 
 interface IProps {
 	blog: IBlog;
@@ -16,7 +17,7 @@ const DetailBlog: FC<IProps> = ({ blog }) => {
 	const [showComments, setShowComments] = useState<IComment[]>([]);
 
 	const handleComment = (body: string) => {
-		if (!auth) return;
+		if (!auth.user || !auth.access_token) return;
 
 		const data = {
 			content: body,
@@ -61,6 +62,12 @@ const DetailBlog: FC<IProps> = ({ blog }) => {
 							<Link to={`/login?blog/${blog._id}`}>Авторизуйтесь</Link>, чтобы оставить комментарий
 						</h6>
 					)
+			}
+
+			{
+				showComments?.map((comment, index) => (
+					<Comments key={index} comment={comment} />
+				))
 			}
 		</div>
 	);

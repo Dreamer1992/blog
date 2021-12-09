@@ -1,0 +1,23 @@
+.avatarComment {
+    width: 70px;
+    height: 70px;
+    text-align: center;
+    padding: 5px;
+}
+
+.avatarComment img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.avatarComment small a {
+    text-decoration: none;
+    font-weight: 500;
+    transition: all .2s ease-out;
+}
+
+.avatarComment small a:hover {
+    color: crimson;
+}
