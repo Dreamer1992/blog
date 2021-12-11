@@ -10,3 +10,8 @@ export interface IComment {
 	reply_user?: string,
 	createdAt: string,
 }
+
+export interface IGetComments {
+	data: IComment[];
+	total: number;
+}
