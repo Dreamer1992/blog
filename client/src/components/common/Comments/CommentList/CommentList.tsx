@@ -16,7 +16,7 @@ const CommentList: FC<IProps> = ({ comment }) => {
 					 }} />
 
 				<div className="d-flex justify-content-between p-2">
-					<small style={{ cursor: "pointer" }}>
+					<small className="text-info" style={{ cursor: "pointer" }}>
 						Ответить
 					</small>
 

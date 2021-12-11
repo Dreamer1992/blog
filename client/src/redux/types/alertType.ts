@@ -11,4 +11,5 @@ export interface IAlertAction {
 	payload: IAlert;
 }
 
-export type AlertType = IAlertAction;
+export type AlertType =
+	| IAlertAction;

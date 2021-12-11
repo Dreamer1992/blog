@@ -16,6 +16,8 @@ const CommentInput: FC<IProps> = ({ callback }) => {
 		if (!text.trim()) return;
 
 		callback(text);
+
+		setBody("");
 	};
 
 	return (

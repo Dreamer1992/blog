@@ -1,20 +1,27 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 import { IBlog } from "../../../types/BlogTypes";
 import CommentInput from "../../common/Comments/CommentInput/CommentInput";
 import { IUser } from "../../../types/Types";
 import { IComment } from "../../../types/CommentTypes";
 import Comments from "../../common/Comments/Comments";
+import { createComment } from "../../../redux/actions/commentAction";
 
 interface IProps {
 	blog: IBlog;
 }
 
 const DetailBlog: FC<IProps> = ({ blog }) => {
-	const auth = useTypedSelector(state => state.auth);
+	const dispatch = useDispatch();
+	const { auth, comments } = useTypedSelector(state => state);
 
 	const [showComments, setShowComments] = useState<IComment[]>([]);
+
+	useEffect(() => {
+		setShowComments(comments.data);
+	}, [comments.data]);
 
 	const handleComment = (body: string) => {
 		if (!auth.user || !auth.access_token) return;
@@ -28,6 +35,7 @@ const DetailBlog: FC<IProps> = ({ blog }) => {
 		};
 
 		setShowComments([data, ...showComments]);
+		dispatch(createComment(data, auth.access_token));
 	};
 
 	return (

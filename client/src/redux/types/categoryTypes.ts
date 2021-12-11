@@ -5,28 +5,28 @@ export const GET_CATEGORIES = "GET_CATEGORIES";
 export const UPDATE_CATEGORY = "UPDATE_CATEGORY";
 export const DELETE_CATEGORY = "DELETE_CATEGORY";
 
-export interface ICreateCategory {
+export interface ICreateCategoryAction {
 	type: typeof CREATE_CATEGORY;
 	payload: ICategory;
 }
 
-export interface IGetCategories {
+export interface IGetCategoriesAction {
 	type: typeof GET_CATEGORIES;
 	payload: ICategory[];
 }
 
-export interface IUpdateCategory {
+export interface IUpdateCategoryAction {
 	type: typeof UPDATE_CATEGORY;
 	payload: ICategory;
 }
 
-export interface IDeleteCategory {
+export interface IDeleteCategoryAction {
 	type: typeof DELETE_CATEGORY;
 	payload: string;
 }
 
 export type CategoryTypes =
-	| ICreateCategory
-	| IGetCategories
-	| IUpdateCategory
-	| IDeleteCategory;
+	| ICreateCategoryAction
+	| IGetCategoriesAction
+	| IUpdateCategoryAction
+	| IDeleteCategoryAction;

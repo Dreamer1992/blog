@@ -13,4 +13,5 @@ export interface IAuthAction {
 	payload: IAuth;
 }
 
-export type AuthType = IAuthAction;
+export type AuthType =
+	| IAuthAction;
