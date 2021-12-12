@@ -4,7 +4,7 @@ import { useTypedSelector } from "../../../../hooks/useTypedSelector";
 import { IComment } from "../../../../types/CommentTypes";
 import cn from "./CommentList.module.css";
 import CommentInput from "../CommentInput/CommentInput";
-import { replyComments } from "../../../../redux/actions/commentAction";
+import { replyComments, updateComment } from "../../../../redux/actions/commentAction";
 
 interface IProps {
 	comment: IComment;
@@ -21,6 +21,8 @@ const CommentList: FC<IProps> = ({
 	const dispatch = useDispatch();
 	const { auth } = useTypedSelector(state => state);
 	const [onReply, setOnReply] = useState(false);
+
+	const [edit, setEdit] = useState<IComment>();
 
 	const handleReply = (body: string) => {
 		if (!auth.user || !auth.access_token) return;
@@ -41,27 +43,72 @@ const CommentList: FC<IProps> = ({
 		dispatch(replyComments(data, auth.access_token));
 	};
 
+	const handleUpdate = (body: string) => {
+		if (!auth.user || !auth.access_token || !edit) return;
+
+		if (body === edit.content)
+			return setEdit(undefined);
+
+		const newComment = { ...edit, content: body };
+
+		console.log(newComment);
+
+		dispatch(updateComment(newComment, auth.access_token));
+
+		setEdit(undefined);
+	};
+
+	const Nav = (comment: IComment) => {
+		return (
+			<>
+				<i className="fas fa-trash-alt mx-2" />
+				<i className="fas fa-edit me-2"
+				   onClick={() => setEdit(comment)}
+				/>
+			</>
+		);
+	};
+
 	return (
 		<div className="w-100">
-			<div className={cn.commentWrapper}>
-				<div className="p-2"
-					 dangerouslySetInnerHTML={{
-						 __html: comment.content,
-					 }} />
+			{
+				edit
+					? <CommentInput
+						callback={handleUpdate}
+						edit={edit}
+						setEdit={setEdit}
+					/>
+					: (
+						<div className={cn.commentWrapper}>
+							<div className="p-2"
+								 dangerouslySetInnerHTML={{
+									 __html: comment.content,
+								 }} />
 
-				<div className="d-flex justify-content-between p-2">
-					<small className="text-secondary"
-						   style={{ cursor: "pointer" }}
-						   onClick={() => setOnReply(!onReply)}
-					>
-						{onReply ? "Отменить" : "Ответить"}
-					</small>
+							<div className="d-flex justify-content-between p-2">
+								<small className="text-secondary"
+									   style={{ cursor: "pointer" }}
+									   onClick={() => setOnReply(!onReply)}
+								>
+									{onReply ? "Отменить" : "Ответить"}
+								</small>
 
-					<small>
-						{new Date(comment.createdAt).toLocaleString()}
-					</small>
-				</div>
-			</div>
+								<small className="d-flex">
+									<div style={{ cursor: "pointer" }}>
+										{
+											comment.blog_user_id === auth.user?._id
+												? comment.user._id === auth.user._id
+													? Nav(comment)
+													: <i className="fas fa-trash-alt mx-2" />
+												: comment.user._id === auth.user?._id && Nav(comment)
+										}
+									</div>
+									{new Date(comment.createdAt).toLocaleString()}
+								</small>
+							</div>
+						</div>
+					)
+			}
 
 			{onReply && <CommentInput callback={handleReply} />}
 

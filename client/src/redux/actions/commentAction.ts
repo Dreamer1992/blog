@@ -1,14 +1,17 @@
 import { Dispatch } from "redux";
 import { IComment } from "../../types/CommentTypes";
-import { ALERT, IAlertAction } from "../types/alertType";
+import { ALERT, AlertType, IAlertAction } from "../types/alertType";
 import { getAPI, postAPI } from "../../api/FetchData";
 import {
+	CommentTypes,
 	CREATE_COMMENT,
 	CREATE_REPLY_COMMENT,
 	GET_COMMENTS,
 	ICreateCommentAction,
 	ICreateReplyCommentAction,
 	IGetCommentsAction,
+	UPDATE_COMMENT,
+	UPDATE_REPLY_COMMENT,
 } from "../types/commentType";
 
 export const createComment = (
@@ -28,7 +31,7 @@ export const createComment = (
 };
 
 export const getComments = (
-	id: string, page: number
+	id: string, page: number,
 ) => async (dispatch: Dispatch<IAlertAction | IGetCommentsAction>) => {
 	try {
 		let limit = 4;
@@ -60,6 +63,19 @@ export const replyComments = (
 				user: data.user,
 				reply_user: data.reply_user,
 			},
+		});
+	} catch (e: any) {
+		dispatch({ type: ALERT, payload: { errors: e.response.data.msg } });
+	}
+};
+
+export const updateComment = (
+	data: IComment, token: string,
+) => async (dispatch: Dispatch<AlertType | CommentTypes>) => {
+	try {
+		dispatch({
+			type: data.comment_root ? UPDATE_COMMENT : UPDATE_REPLY_COMMENT,
+			payload: data,
 		});
 	} catch (e: any) {
 		dispatch({ type: ALERT, payload: { errors: e.response.data.msg } });

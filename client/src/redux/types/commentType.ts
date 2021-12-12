@@ -1,8 +1,10 @@
 import { IComment, IGetComments } from "../../types/CommentTypes";
 
 export const CREATE_COMMENT = "CREATE_COMMENT";
+export const UPDATE_COMMENT = "UPDATE_COMMENT";
 export const GET_COMMENTS = "GET_COMMENTS";
 export const CREATE_REPLY_COMMENT = "CREATE_REPLY_COMMENT";
+export const UPDATE_REPLY_COMMENT = "UPDATE_REPLY_COMMENT";
 
 export interface ICreateCommentAction {
 	type: typeof CREATE_COMMENT;
@@ -19,7 +21,13 @@ export interface ICreateReplyCommentAction {
 	payload: IComment;
 }
 
+export interface IUpdateReplyCommentAction {
+	type: typeof UPDATE_REPLY_COMMENT | typeof UPDATE_COMMENT;
+	payload: IComment;
+}
+
 export type CommentTypes =
 	| ICreateCommentAction
 	| IGetCommentsAction
-	| ICreateReplyCommentAction;
+	| ICreateReplyCommentAction
+	| IUpdateReplyCommentAction;

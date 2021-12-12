@@ -58,10 +58,8 @@ export const refreshToken = () => async (dispatch: Dispatch<AuthType | AlertType
 export const logout = () => async (dispatch: Dispatch<AuthType | AlertType>) => {
 	try {
 		localStorage.removeItem("logged");
-
-		dispatch({ type: ALERT, payload: {} });
-
 		await getAPI("logout");
+		window.location.href = "/";
 	} catch (e: any) {
 		dispatch({ type: ALERT, payload: { errors: e.response.data.msg } });
 	}
