@@ -49,6 +49,8 @@ const commentCtrl = {
 							{
 								$match: {
 									blog_id: new mongoose.Types.ObjectId(req.params.id),
+									comment_root: { $exists: false },
+									reply_user: { $exists: false },
 								},
 							},
 							{
@@ -60,6 +62,34 @@ const commentCtrl = {
 								},
 							},
 							{ $unwind: "$user" },
+							{
+								$lookup: {
+									"from": "comments",
+									"let": { cm_id: "$replyCM" },
+									"pipeline": [
+										{ $match: { $expr: { $in: ["$_id", "$$cm_id"] } } },
+										{
+											$lookup: {
+												"from": "users",
+												"localField": "user",
+												"foreignField": "_id",
+												"as": "user",
+											},
+										},
+										{ $unwind: "$user" },
+										{
+											$lookup: {
+												"from": "users",
+												"localField": "reply_user",
+												"foreignField": "_id",
+												"as": "reply_user",
+											},
+										},
+										{ $unwind: "$reply_user" },
+									],
+									"as": "replyCM",
+								},
+							},
 							{ $sort: { createdAt: -1 } },
 							{ $skip: skip },
 							{ $limit: limit },
@@ -68,6 +98,8 @@ const commentCtrl = {
 							{
 								$match: {
 									blog_id: new mongoose.Types.ObjectId(req.params.id),
+									comment_root: { $exists: false },
+									reply_user: { $exists: false },
 								},
 							},
 							{ $count: "count" },
@@ -85,7 +117,7 @@ const commentCtrl = {
 			const comments = data[0].totalData;
 			const count = data[0].count;
 
-			let total ;
+			let total;
 
 			if (count % limit === 0) {
 				total = count / limit;
@@ -94,6 +126,42 @@ const commentCtrl = {
 			}
 
 			res.json({ comments, total });
+		} catch (e: any) {
+			return res.status(500).json({ msg: e.message });
+		}
+	},
+
+	replyComment: async (req: IReqAuth, res: Response) => {
+		if (!req.user)
+			return res.status(400).json({ msg: "Ошибка авторизации" });
+
+		try {
+			const {
+				content,
+				blog_id,
+				blog_user_id,
+				comment_root,
+				reply_user,
+			} = req.body;
+
+			console.log("req.body", req.body);
+
+			const newComment = new Comments({
+				user: req.user._id,
+				content,
+				blog_id,
+				blog_user_id,
+				comment_root,
+				reply_user: reply_user._id,
+			});
+
+			await Comments.findOneAndUpdate({ _id: comment_root }, {
+				$push: { replyCM: newComment._id },
+			});
+
+			await newComment.save();
+
+			return res.json(newComment);
 		} catch (e: any) {
 			return res.status(500).json({ msg: e.message });
 		}

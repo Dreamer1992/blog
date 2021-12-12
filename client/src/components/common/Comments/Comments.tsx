@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { IComment } from "../../../types/CommentTypes";
 import AvatarComment from "./AvatarComment/AvatarComment";
 import CommentList from "./CommentList/CommentList";
@@ -10,6 +10,11 @@ interface IProps {
 
 const Comments: FC<IProps> = ({ comment }) => {
 	const [showReply, setShowReply] = useState<IComment[]>([]);
+
+	useEffect(() => {
+		if (!comment.replyCM) return;
+		setShowReply(comment.replyCM);
+	}, [comment.replyCM]);
 
 	return (
 		<div className="my-3 d-flex" style={{

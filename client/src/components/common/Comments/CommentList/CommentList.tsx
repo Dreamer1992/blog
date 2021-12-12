@@ -1,8 +1,10 @@
 import React, { FC, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useTypedSelector } from "../../../../hooks/useTypedSelector";
 import { IComment } from "../../../../types/CommentTypes";
 import cn from "./CommentList.module.css";
 import CommentInput from "../CommentInput/CommentInput";
+import { replyComments } from "../../../../redux/actions/commentAction";
 
 interface IProps {
 	comment: IComment;
@@ -16,6 +18,7 @@ const CommentList: FC<IProps> = ({
 									 showReply,
 									 setShowReply,
 								 }) => {
+	const dispatch = useDispatch();
 	const { auth } = useTypedSelector(state => state);
 	const [onReply, setOnReply] = useState(false);
 
@@ -28,13 +31,14 @@ const CommentList: FC<IProps> = ({
 			blog_user_id: comment.blog_user_id,
 			content: body,
 			reply_user: comment.user,
-			comment_root: comment._id,
+			comment_root: comment.comment_root || comment._id,
 			createdAt: new Date().toISOString(),
 		};
-		console.log(body);
 
 		setShowReply([...showReply, data]);
 		setOnReply(false);
+
+		dispatch(replyComments(data, auth.access_token));
 	};
 
 	return (

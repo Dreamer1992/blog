@@ -19,5 +19,5 @@
 .userName a:hover,
 .replyText a:hover {
     cursor: pointer;
-    /*color: crimson;*/
+    color: crimson;
 }

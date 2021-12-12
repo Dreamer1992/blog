@@ -8,27 +8,25 @@ interface IProps {
 	reply_user?: IUser;
 }
 
-const AvatarReply: FC<IProps> = ({ user, reply_user }) => {
-	return (
-		<div className={cn.avatarReply}>
-			<img src={user.avatar} alt="Фото" />
+const AvatarReply: FC<IProps> = ({ user, reply_user }) => (
+	<div className={cn.avatarReply}>
+		<img src={user.avatar} alt="Фото" />
 
-			<div className="ms-3">
-				<small className={cn.userName}>
-					<Link to={`/profile/${user._id}`}>
-						{user.name}
-					</Link>
-				</small>
+		<div className="ms-3">
+			<small className={cn.userName}>
+				<Link to={`/profile/${user._id}`}>
+					{user.name}
+				</Link>
+			</small>
 
-				<small className={cn.replyText}>
-					<span className="mx-1">ответил</span>
-					<Link to={`/profile/${reply_user?._id}`}>
-						{reply_user?.name}
-					</Link>
-				</small>
-			</div>
+			<small className={cn.replyText}>
+				<span className="mx-1">ответил</span>
+				<Link to={`/profile/${reply_user?._id}`}>
+					{reply_user?.name}
+				</Link>
+			</small>
 		</div>
-	);
-};
+	</div>
+);
 
 export default AvatarReply;

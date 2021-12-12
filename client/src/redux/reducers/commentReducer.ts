@@ -1,5 +1,5 @@
 import { IComment } from "../../types/CommentTypes";
-import { CommentTypes, CREATE_COMMENT, GET_COMMENTS } from "../types/commentType";
+import { CommentTypes, CREATE_COMMENT, CREATE_REPLY_COMMENT, GET_COMMENTS } from "../types/commentType";
 
 type initialStateType = {
 	data: IComment[];
@@ -17,6 +17,21 @@ const commentReducer = (state = initialState, action: CommentTypes): initialStat
 			return { ...state, data: [...state.data, action.payload] };
 		case GET_COMMENTS:
 			return action.payload;
+		case CREATE_REPLY_COMMENT:
+			return {
+				...state,
+				data: state.data.map(item => (
+					item._id === action.payload.comment_root
+						? {
+							...item,
+							replyCM: [
+								...item.replyCM as [],
+								action.payload,
+							],
+						}
+						: item
+				)),
+			};
 		default:
 			return state;
 	}
