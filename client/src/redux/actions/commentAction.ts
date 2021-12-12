@@ -22,18 +22,17 @@ export const createComment = (
 			type: CREATE_COMMENT,
 			payload: { ...res.data, user: data.user },
 		});
-		console.log(res);
 	} catch (e: any) {
 		dispatch({ type: ALERT, payload: { errors: e.response.data.msg } });
 	}
 };
 
 export const getComments = (
-	id: string,
+	id: string, page: number
 ) => async (dispatch: Dispatch<IAlertAction | IGetCommentsAction>) => {
 	try {
-		let limit = 6;
-		const res = await getAPI(`comments/blog/${id}?limit=${limit}`);
+		let limit = 4;
+		const res = await getAPI(`comments/blog/${id}?page=${page}&limit=${limit}`);
 
 		dispatch({
 			type: GET_COMMENTS,

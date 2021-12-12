@@ -10,6 +10,7 @@ interface IProps {
 
 const Comments: FC<IProps> = ({ comment }) => {
 	const [showReply, setShowReply] = useState<IComment[]>([]);
+	const [next, setNext] = useState(2);
 
 	useEffect(() => {
 		if (!comment.replyCM) return;
@@ -28,7 +29,7 @@ const Comments: FC<IProps> = ({ comment }) => {
 				setShowReply={setShowReply}
 			>
 				{
-					showReply.map((comment, index) => (
+					showReply.slice(0, next).map((comment, index) => (
 						<div key={index} style={{
 							opacity: comment._id ? 1 : .5,
 							pointerEvents: comment._id ? "initial" : "none",
@@ -45,6 +46,30 @@ const Comments: FC<IProps> = ({ comment }) => {
 						</div>
 					))
 				}
+
+				<div style={{ cursor: "pointer" }}>
+					{
+						showReply.length - next > 0
+							? (
+								<small
+									className="text-info"
+									onClick={() => setNext(next + 5)}
+								>
+									Показать больше
+								</small>
+							)
+							: showReply.length > 2 &&
+							(
+								<small
+									className="text-info"
+									onClick={() => setNext(2)}
+								>
+									Скрыть
+								</small>
+							)
+					}
+				</div>
+
 			</CommentList>
 		</div>
 	);

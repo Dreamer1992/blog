@@ -37,6 +37,7 @@ const Pagination: FC<IProps> = ({ total, callback }) => {
 				<ul className="pagination">
 					{
 						<li className={`page-item ${currentPage <= 1 && "disabled"}`}
+							style={{ cursor: "pointer" }}
 							onClick={() => handleChangePage(currentPage - 1)}
 						>
 								<span className="page-link" aria-label="Previous">
@@ -49,6 +50,7 @@ const Pagination: FC<IProps> = ({ total, callback }) => {
 						pages.map(page => (
 							<li key={page}
 								className={`page-item ${isActive(page)}`}
+								style={{ cursor: "pointer" }}
 								onClick={() => handleChangePage(page)}
 							>
 								<span className="page-link">{page}</span>
@@ -58,6 +60,7 @@ const Pagination: FC<IProps> = ({ total, callback }) => {
 
 					{
 						<li className={`page-item ${currentPage >= total && "disabled"}`}
+							style={{ cursor: "pointer" }}
 							onClick={() => handleChangePage(currentPage + 1)}
 						>
 								<span className="page-link" aria-label="Next">

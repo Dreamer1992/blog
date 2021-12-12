@@ -56,38 +56,47 @@ const commentCtrl = {
 							{
 								$lookup: {
 									from: "users",
-									localField: "user",
-									foreignField: "_id",
+									let: { user_id: "$user" },
+									pipeline: [
+										{ $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
+										{ $project: { name: 1, avatar: 1 } },
+									],
 									as: "user",
 								},
 							},
 							{ $unwind: "$user" },
 							{
 								$lookup: {
-									"from": "comments",
-									"let": { cm_id: "$replyCM" },
-									"pipeline": [
+									from: "comments",
+									let: { cm_id: "$replyCM" },
+									pipeline: [
 										{ $match: { $expr: { $in: ["$_id", "$$cm_id"] } } },
 										{
 											$lookup: {
-												"from": "users",
-												"localField": "user",
-												"foreignField": "_id",
-												"as": "user",
+												from: "users",
+												let: { user_id: "$user" },
+												pipeline: [
+													{ $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
+													{ $project: { name: 1, avatar: 1 } },
+												],
+												as: "user",
 											},
 										},
 										{ $unwind: "$user" },
 										{
 											$lookup: {
-												"from": "users",
-												"localField": "reply_user",
-												"foreignField": "_id",
+												from: "users",
+												let: { user_id: "$reply_user" },
+												pipeline: [
+													{ $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
+													{ $project: { name: 1, avatar: 1 } },
+												],
 												"as": "reply_user",
 											},
 										},
 										{ $unwind: "$reply_user" },
 									],
-									"as": "replyCM",
+									as: "replyCM",
 								},
 							},
 							{ $sort: { createdAt: -1 } },
@@ -117,7 +126,7 @@ const commentCtrl = {
 			const comments = data[0].totalData;
 			const count = data[0].count;
 
-			let total;
+			let total = 0;
 
 			if (count % limit === 0) {
 				total = count / limit;
@@ -143,8 +152,6 @@ const commentCtrl = {
 				comment_root,
 				reply_user,
 			} = req.body;
-
-			console.log("req.body", req.body);
 
 			const newComment = new Comments({
 				user: req.user._id,

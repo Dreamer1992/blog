@@ -35,7 +35,7 @@ const CommentList: FC<IProps> = ({
 			createdAt: new Date().toISOString(),
 		};
 
-		setShowReply([...showReply, data]);
+		setShowReply([data, ...showReply]);
 		setOnReply(false);
 
 		dispatch(replyComments(data, auth.access_token));
@@ -50,7 +50,7 @@ const CommentList: FC<IProps> = ({
 					 }} />
 
 				<div className="d-flex justify-content-between p-2">
-					<small className="text-info"
+					<small className="text-secondary"
 						   style={{ cursor: "pointer" }}
 						   onClick={() => setOnReply(!onReply)}
 					>

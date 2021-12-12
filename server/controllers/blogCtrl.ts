@@ -142,7 +142,7 @@ const blogCtrl = {
 			const count = data[0].count;
 
 			// Pagination
-			let total;
+			let total = 0;
 
 			if (count % limit === 0) {
 				total = count / limit;
@@ -207,7 +207,7 @@ const blogCtrl = {
 			const count = data[0].count;
 
 			// Pagination
-			let total;
+			let total = 0;
 
 			if (count % limit === 0) {
 				total = count / limit;
