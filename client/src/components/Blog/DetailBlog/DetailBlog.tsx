@@ -21,7 +21,6 @@ const DetailBlog: FC<IProps> = ({ blog }) => {
 
 	const fetchComments = useCallback(async (id: string) => {
 		await dispatch(getComments(id));
-		// setLoading(fals);
 	}, [dispatch]);
 
 	const handleComment = (body: string) => {

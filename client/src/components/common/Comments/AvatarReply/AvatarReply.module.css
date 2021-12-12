@@ -1,0 +1,23 @@
+.avatarReply {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0 0.5rem;
+}
+
+.avatarReply img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.userName a,
+.replyText a {
+    text-decoration: none;
+}
+
+.userName a:hover,
+.replyText a:hover {
+    cursor: pointer;
+    /*color: crimson;*/
+}

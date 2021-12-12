@@ -23,8 +23,6 @@ export const getComments = (id: string) => async (dispatch: Dispatch<IAlertActio
 		let limit = 6;
 		const res = await getAPI(`comments/blog/${id}?limit=${limit}`);
 
-		console.log(res);
-
 		dispatch({
 			type: GET_COMMENTS,
 			payload: {
