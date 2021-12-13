@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 import DetailBlog from "../../components/Blog/DetailBlog/DetailBlog";
 import { useParams } from "react-router-dom";
 import { IBlog } from "../../types/BlogTypes";
@@ -10,6 +11,7 @@ interface IParams {
 }
 
 const DetailBlogPage = () => {
+	const { socket } = useTypedSelector(state => state);
 	const { id } = useParams<IParams>();
 
 	const [blog, setBlog] = useState<IBlog | null>(null);
@@ -31,6 +33,16 @@ const DetailBlogPage = () => {
 
 		return () => setBlog(null);
 	}, [id]);
+
+	// Join Room
+	useEffect(() => {
+		if (!id || !socket) return;
+		socket.emit("joinRoom", id);
+
+		return () => {
+			socket.emit("outRoom", id);
+		};
+	}, [socket, id]);
 
 	if (loading) return null;
 

@@ -5,6 +5,7 @@ import categories from "./categoryReducer";
 import blogs from "./blogReducer";
 import profile from "./profileReducer";
 import comments from "./commentReducer";
+import socket from "./socketReducer";
 
 export default combineReducers({
 	auth,
@@ -13,4 +14,5 @@ export default combineReducers({
 	blogs,
 	profile,
 	comments,
+	socket,
 });

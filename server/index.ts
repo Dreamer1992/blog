@@ -7,6 +7,8 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import routes from "./routes/index";
+import {createServer} from "http";
+import {Server,Socket} from "socket.io"
 
 // Middleware
 const app = express();
@@ -21,6 +23,13 @@ app.use(
 app.use(morgan("dev"));
 app.use(cookieParser());
 
+// Socket.io
+const http = createServer(app);
+export const io = new Server(http);
+import { SocketServer } from "./config/socket";
+
+io.on("connection", (socket: Socket) => SocketServer(socket));
+
 // Routes
 app.use("/api", routes.authRouter);
 app.use("/api", routes.userRouter);
@@ -33,6 +42,6 @@ import "./config/database";
 
 // server listening
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+http.listen(PORT, () => {
 	console.log("Server is running on port", PORT);
 });
