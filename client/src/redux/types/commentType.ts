@@ -5,6 +5,8 @@ export const UPDATE_COMMENT = "UPDATE_COMMENT";
 export const GET_COMMENTS = "GET_COMMENTS";
 export const CREATE_REPLY_COMMENT = "CREATE_REPLY_COMMENT";
 export const UPDATE_REPLY_COMMENT = "UPDATE_REPLY_COMMENT";
+export const DELETE_COMMENT = "DELETE_COMMENT";
+export const DELETE_REPLY_COMMENT = "DELETE_REPLY_COMMENT";
 
 export interface ICreateCommentAction {
 	type: typeof CREATE_COMMENT;
@@ -26,8 +28,14 @@ export interface IUpdateReplyCommentAction {
 	payload: IComment;
 }
 
+export interface IDeleteCommentAction {
+	type: typeof DELETE_COMMENT | typeof DELETE_REPLY_COMMENT;
+	payload: IComment;
+}
+
 export type CommentTypes =
 	| ICreateCommentAction
 	| IGetCommentsAction
 	| ICreateReplyCommentAction
-	| IUpdateReplyCommentAction;
+	| IUpdateReplyCommentAction
+	| IDeleteCommentAction;

@@ -4,7 +4,7 @@ import { useTypedSelector } from "../../../../hooks/useTypedSelector";
 import { IComment } from "../../../../types/CommentTypes";
 import cn from "./CommentList.module.css";
 import CommentInput from "../CommentInput/CommentInput";
-import { replyComments, updateComment } from "../../../../redux/actions/commentAction";
+import { deleteComment, replyComments, updateComment } from "../../../../redux/actions/commentAction";
 
 interface IProps {
 	comment: IComment;
@@ -51,17 +51,23 @@ const CommentList: FC<IProps> = ({
 
 		const newComment = { ...edit, content: body };
 
-		console.log(newComment);
-
 		dispatch(updateComment(newComment, auth.access_token));
 
 		setEdit(undefined);
 	};
 
+	const handleDelete = (comment: IComment) => {
+		if (!auth.user || !auth.access_token) return;
+
+		dispatch(deleteComment(comment, auth.access_token));
+	};
+
 	const Nav = (comment: IComment) => {
 		return (
 			<>
-				<i className="fas fa-trash-alt mx-2" />
+				<i className="fas fa-trash-alt mx-2"
+				   onClick={() => handleDelete(comment)}
+				/>
 				<i className="fas fa-edit me-2"
 				   onClick={() => setEdit(comment)}
 				/>
@@ -93,13 +99,15 @@ const CommentList: FC<IProps> = ({
 									{onReply ? "Отменить" : "Ответить"}
 								</small>
 
-								<small className="d-flex">
-									<div style={{ cursor: "pointer" }}>
+								<small className={cn.commentNavWrapper}>
+									<div className={cn.commentNav}>
 										{
 											comment.blog_user_id === auth.user?._id
 												? comment.user._id === auth.user._id
 													? Nav(comment)
-													: <i className="fas fa-trash-alt mx-2" />
+													: <i className="fas fa-trash-alt mx-2"
+														 onClick={() => handleDelete(comment)}
+													/>
 												: comment.user._id === auth.user?._id && Nav(comment)
 										}
 									</div>
