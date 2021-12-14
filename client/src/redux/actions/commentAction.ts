@@ -4,8 +4,6 @@ import { ALERT, IAlertAction } from "../types/alertType";
 import { deleteAPI, getAPI, patchAPI, postAPI } from "../../api/FetchData";
 import {
 	CommentTypes,
-	CREATE_COMMENT,
-	CREATE_REPLY_COMMENT,
 	DELETE_COMMENT,
 	DELETE_REPLY_COMMENT,
 	GET_COMMENTS,
@@ -20,12 +18,7 @@ export const createComment = (
 	data: IComment, token: string,
 ) => async (dispatch: Dispatch<IAlertAction | ICreateCommentAction>) => {
 	try {
-		const res = await postAPI("comment", data, token);
-
-		dispatch({
-			type: CREATE_COMMENT,
-			payload: { ...res.data, user: data.user },
-		});
+		await postAPI("comment", data, token);
 	} catch (e: any) {
 		dispatch({ type: ALERT, payload: { errors: e.response.data.msg } });
 	}
@@ -54,16 +47,7 @@ export const replyComments = (
 	data: IComment, token: string,
 ) => async (dispatch: Dispatch<IAlertAction | ICreateReplyCommentAction>) => {
 	try {
-		const res = await postAPI("reply_comment", data, token);
-
-		dispatch({
-			type: CREATE_REPLY_COMMENT,
-			payload: {
-				...res.data,
-				user: data.user,
-				reply_user: data.reply_user,
-			},
-		});
+		await postAPI("reply_comment", data, token);
 	} catch (e: any) {
 		dispatch({ type: ALERT, payload: { errors: e.response.data.msg } });
 	}
@@ -78,7 +62,7 @@ export const updateComment = (
 			payload: data,
 		});
 
-		await patchAPI(`comment/${data._id}`, { content: data.content }, token);
+		await patchAPI(`comment/${data._id}`, { data }, token);
 	} catch (e: any) {
 		dispatch({ type: ALERT, payload: { errors: e.response.data.msg } });
 	}

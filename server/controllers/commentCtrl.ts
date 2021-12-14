@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
+import mongoose from "mongoose";
 import Comments from "../models/commentModel";
 import { IReqAuth } from "../config/interfaces";
-import mongoose from "mongoose";
+import { io } from "../index";
 
 const Pagination = (req: IReqAuth) => {
 	let page = Number(req.query.page) || 1;
@@ -29,6 +30,14 @@ const commentCtrl = {
 				blog_id,
 				blog_user_id,
 			});
+
+			const data = {
+				...newComment._doc,
+				user: req.user,
+				createdAt: new Date().toISOString(),
+			};
+
+			io.to(`${blog_id}`).emit("createComment", data);
 
 			await newComment.save();
 
@@ -166,6 +175,15 @@ const commentCtrl = {
 				$push: { replyCM: newComment._id },
 			});
 
+			const data = {
+				...newComment._doc,
+				user: req.user,
+				reply_user: reply_user,
+				createdAt: new Date().toISOString(),
+			};
+
+			io.to(`${blog_id}`).emit("createReplyComment", data);
+
 			await newComment.save();
 
 			return res.json(newComment);
@@ -179,14 +197,16 @@ const commentCtrl = {
 			return res.status(400).json({ msg: "Ошибка авторизации" });
 
 		try {
-			const { content } = req.body;
+			const { data } = req.body;
 
 			const comment = await Comments.findOneAndUpdate({
 				_id: req.params.id, user: req.user.id,
-			}, { content });
+			}, { content: data.content });
 
 			if (!comment)
 				return res.status(400).json({ msg: "Комментарий не найден" });
+
+			io.to(`${data.blog_id}`).emit("updateComment", data);
 
 			res.json({ msg: "Успешно обновлено" });
 		} catch (e: any) {
@@ -219,6 +239,8 @@ const commentCtrl = {
 				// delete all comments in replyCM
 				await Comments.deleteMany({ _id: { $in: comment.replyCM } });
 			}
+
+			io.to(`${comment.blog_id}`).emit("deleteComment", comment);
 
 			res.json({ msg: "Успешно обновлено" });
 		} catch (e: any) {

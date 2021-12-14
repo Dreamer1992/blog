@@ -8,6 +8,7 @@ import { routes } from "./routes";
 
 import io from "socket.io-client";
 import { SOCKET } from "./redux/types/socketTypes";
+import SocketClient from "./SocketClient";
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const App = () => {
 
 	return (
 		<Fragment>
+			<SocketClient />
 			<Router>
 				<Alert />
 				<Header />
