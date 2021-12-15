@@ -2,7 +2,7 @@ import { IBlog } from "../../types/BlogTypes";
 import { Dispatch } from "redux";
 import { ALERT, AlertType } from "../types/alertType";
 import { imageUpload } from "./userAction";
-import { getAPI, postAPI } from "../../api/FetchData";
+import { getAPI, postAPI, putAPI } from "../../api/FetchData";
 import { BlogTypes, GET_BLOGS, GET_BLOGS_BY_CATEGORY_ID, GET_BLOGS_BY_USER_ID } from "../types/blogType";
 
 export const createBlog = (blog: IBlog, token: string) => async (dispatch: Dispatch<AlertType>) => {
@@ -71,6 +71,29 @@ export const getBlogsByUserId = (id: string, search: string) => async (dispatch:
 		dispatch({ type: GET_BLOGS_BY_USER_ID, payload: { ...res.data, id, search } });
 
 		dispatch({ type: ALERT, payload: { loading: false } });
+	} catch (e: any) {
+		dispatch({ type: ALERT, payload: { errors: e.response.data.msg } });
+	}
+};
+
+export const updateBlog = (blog: IBlog, token: string) => async (dispatch: Dispatch<AlertType>) => {
+	try {
+		dispatch({ type: ALERT, payload: { loading: true } });
+
+		let url;
+
+		if (typeof blog.thumbnail !== "string") {
+			const photo = await imageUpload(blog.thumbnail);
+			url = photo.url;
+		} else {
+			url = blog.thumbnail;
+		}
+
+		let newBlog = { ...blog, thumbnail: url };
+
+		const res = await putAPI(`blog/${newBlog._id}`, newBlog, token);
+
+		dispatch({ type: ALERT, payload: { success: res.data.msg } });
 	} catch (e: any) {
 		dispatch({ type: ALERT, payload: { errors: e.response.data.msg } });
 	}

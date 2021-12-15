@@ -8,6 +8,7 @@ import RegisterPage from "./RegisterPage";
 import CreateBlogPage from "./BlogPages/CreateBlogPage";
 import BlogsSpecificCategoryPage from "./BlogPages/BlogsSpecificCategoryPage";
 import DetailBlogPage from "./BlogPages/DetailBlogPage";
+import UpdateBlogPage from "./BlogPages/UpdateBlogPage";
 
 export {
 	ActivationPage,
@@ -20,4 +21,5 @@ export {
 	CreateBlogPage,
 	BlogsSpecificCategoryPage,
 	DetailBlogPage,
+	UpdateBlogPage,
 };

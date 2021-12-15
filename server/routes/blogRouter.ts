@@ -12,6 +12,8 @@ router.get("/blogs/category/:id", blogCtrl.getBlogsByCategory);
 
 router.get("/blogs/user/:id", blogCtrl.getBlogsByUser);
 
-router.get("/blog/:id", blogCtrl.getBlogDetail);
+router.route("/blog/:id")
+	.get(blogCtrl.getBlogDetail)
+	.put(auth, blogCtrl.updateBlog);
 
 export default router;

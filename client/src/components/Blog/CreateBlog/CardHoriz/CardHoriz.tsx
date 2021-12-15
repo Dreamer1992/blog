@@ -1,12 +1,18 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
+import { useTypedSelector } from "../../../../hooks/useTypedSelector";
 import { IBlog } from "../../../../types/BlogTypes";
+import { CONSTANTS } from "../../../../utils/consts";
+import { IUser } from "../../../../types/Types";
+
 
 interface IProps {
 	blog: IBlog;
 }
 
 const CardHoriz: FC<IProps> = ({ blog }) => {
+	const { auth } = useTypedSelector(state => state);
+
 	return (
 		<div className="card mb-3" style={{ minWidth: "280px" }}>
 			<div className="row g-0">
@@ -42,9 +48,23 @@ const CardHoriz: FC<IProps> = ({ blog }) => {
 							</Link>
 						</h5>
 						<p className="card-text">{blog.description}</p>
-						<p className="card-text">
-							<small className="text-muted">{new Date(blog.createdAt).toLocaleString()}</small>
-						</p>
+						{
+							blog.title && (
+								<p className="card-text d-flex justify-content-between">
+									{
+										((blog.user as IUser)._id === auth.user?._id) && (
+											<small>
+												<Link to={`${CONSTANTS.ROUTES.UPDATE_BLOG}/${blog._id}`}>Обновить</Link>
+											</small>
+										)
+									}
+
+									<small className="text-muted ms-auto">
+										{new Date(blog.createdAt).toLocaleString()}
+									</small>
+								</p>
+							)
+						}
 					</div>
 				</div>
 			</div>

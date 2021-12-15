@@ -33,3 +33,11 @@ export const deleteAPI = async (url: string, token?: string) => {
 
 	return await instance.delete(`${url}`, { headers });
 };
+
+export const putAPI = async (url: string, post: object, token?: string) => {
+	if (token) {
+		headers["Authorization"] = token;
+	}
+
+	return await instance.put(`${url}`, post, { headers });
+};

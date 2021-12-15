@@ -233,6 +233,25 @@ const blogCtrl = {
 			return res.status(400).json({ msg: "Такого блога не существует" });
 		}
 	},
+
+	updateBlog: async (req: IReqAuth, res: Response) => {
+		if (!req.user)
+			return res.status(400).json({ msg: "Ошибка авторизации" });
+
+		try {
+			const blog = await Blogs.findOneAndUpdate({
+				_id: req.params.id,
+				user: req.user._id,
+			}, req.body);
+
+			if (!blog)
+				return res.status(400).json({ msg: "Блог не найден" });
+
+			res.json({ msg: "Успешно обновлено", blog });
+		} catch (e: any) {
+			return res.status(500).json({ msg: e.message });
+		}
+	},
 };
 
 export default blogCtrl;

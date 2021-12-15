@@ -5,6 +5,7 @@ export const CONSTANTS = {
 		REGISTER: "/register",
 		ACTIVATION: "/active",
 		CREATE_BLOG: "/create_blog",
+		UPDATE_BLOG: "/update_blog",
 		PROFILE: "/profile/:id",
 		CATEGORY: "/category",
 		BLOGS_SPECIFIC_CATEGORY: "/blogs/:category_name",

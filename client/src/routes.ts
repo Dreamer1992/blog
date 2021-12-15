@@ -10,6 +10,7 @@ import {
 	NotFoundPage,
 	ProfilePage,
 	RegisterPage,
+	UpdateBlogPage,
 } from "./pages";
 
 const {
@@ -20,6 +21,7 @@ const {
 	PROFILE,
 	CATEGORY,
 	CREATE_BLOG,
+	UPDATE_BLOG,
 	BLOGS_SPECIFIC_CATEGORY,
 	DETAIL_BLOG,
 } = CONSTANTS.ROUTES;
@@ -58,6 +60,11 @@ export const routes = [
 	{
 		path: CREATE_BLOG,
 		Component: CreateBlogPage,
+		exact: true,
+	},
+	{
+		path: `${UPDATE_BLOG}/:blog_id`,
+		Component: UpdateBlogPage,
 		exact: true,
 	},
 	{

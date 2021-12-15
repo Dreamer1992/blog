@@ -8,9 +8,10 @@ import { imageUpload } from "../../../redux/actions/userAction";
 
 interface IProps {
 	setBody: (value: string) => void;
+	body: string;
 }
 
-const Quill: FC<IProps> = ({ setBody }) => {
+const Quill: FC<IProps> = ({ setBody, body }) => {
 	const dispatch = useDispatch();
 	const quillRef = useRef<ReactQuill>(null);
 
@@ -82,6 +83,7 @@ const Quill: FC<IProps> = ({ setBody }) => {
 				modules={modules}
 				placeholder="Введите описание"
 				onChange={(e) => setBody(e)}
+				value={body}
 				ref={quillRef}
 			/>
 		</div>
