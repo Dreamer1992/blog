@@ -43,7 +43,7 @@ export interface IReqAuth extends Request {
     user?: IUser;
 }
 
-export interface IComment {
+export interface IComment extends Document{
     user: string,
     blog_id: string,
     blog_user_id: string,
@@ -51,5 +51,15 @@ export interface IComment {
     replyCM: string[],
     reply_user: string,
     comment_root: string,
+    _doc: object,
+}
+
+export interface IBlog {
+    user: string,
+    title: string,
+    content: string,
+    description: string,
+    thumbnail: string,
+    category: string,
     _doc: object,
 }

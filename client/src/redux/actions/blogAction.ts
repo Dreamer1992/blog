@@ -2,10 +2,19 @@ import { IBlog } from "../../types/BlogTypes";
 import { Dispatch } from "redux";
 import { ALERT, AlertType } from "../types/alertType";
 import { imageUpload } from "./userAction";
-import { getAPI, postAPI, putAPI } from "../../api/FetchData";
-import { BlogTypes, GET_BLOGS, GET_BLOGS_BY_CATEGORY_ID, GET_BLOGS_BY_USER_ID } from "../types/blogType";
+import { deleteAPI, getAPI, postAPI, putAPI } from "../../api/FetchData";
+import {
+	BlogTypes,
+	CREATE_BLOG_BY_USER_ID,
+	DELETE_BLOG_BY_USER_ID,
+	GET_BLOGS,
+	GET_BLOGS_BY_CATEGORY_ID,
+	GET_BLOGS_BY_USER_ID,
+	ICreateBlogByUserIdAction,
+	IDeleteBlogByUserIdAction,
+} from "../types/blogType";
 
-export const createBlog = (blog: IBlog, token: string) => async (dispatch: Dispatch<AlertType>) => {
+export const createBlog = (blog: IBlog, token: string) => async (dispatch: Dispatch<AlertType | ICreateBlogByUserIdAction>) => {
 	try {
 		dispatch({ type: ALERT, payload: { loading: true } });
 
@@ -20,9 +29,14 @@ export const createBlog = (blog: IBlog, token: string) => async (dispatch: Dispa
 
 		let newBlog = { ...blog, thumbnail: url };
 
-		await postAPI("blog/create", newBlog, token);
+		const res = await postAPI("blog/create", newBlog, token);
 
-		dispatch({ type: ALERT, payload: { loading: false } });
+		dispatch({
+			type: CREATE_BLOG_BY_USER_ID,
+			payload: res.data,
+		});
+
+		dispatch({ type: ALERT, payload: { success: "Блог успешно создан" } });
 	} catch (e: any) {
 		dispatch({ type: ALERT, payload: { errors: e.response.data.msg } });
 	}
@@ -92,6 +106,23 @@ export const updateBlog = (blog: IBlog, token: string) => async (dispatch: Dispa
 		let newBlog = { ...blog, thumbnail: url };
 
 		const res = await putAPI(`blog/${newBlog._id}`, newBlog, token);
+
+		dispatch({ type: ALERT, payload: { success: res.data.msg } });
+	} catch (e: any) {
+		dispatch({ type: ALERT, payload: { errors: e.response.data.msg } });
+	}
+};
+
+export const deleteBlog = (blog: IBlog, token: string) => async (dispatch: Dispatch<AlertType | IDeleteBlogByUserIdAction>) => {
+	try {
+		dispatch({ type: ALERT, payload: { loading: true } });
+
+		dispatch({
+			type: DELETE_BLOG_BY_USER_ID,
+			payload: blog,
+		});
+
+		const res = await deleteAPI(`blog/${blog._id}`, token);
 
 		dispatch({ type: ALERT, payload: { success: res.data.msg } });
 	} catch (e: any) {

@@ -1,9 +1,11 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useTypedSelector } from "../../../../hooks/useTypedSelector";
 import { IBlog } from "../../../../types/BlogTypes";
-import { CONSTANTS } from "../../../../utils/consts";
 import { IUser } from "../../../../types/Types";
+import { CONSTANTS } from "../../../../utils/consts";
+import { deleteBlog } from "../../../../redux/actions/blogAction";
 
 
 interface IProps {
@@ -12,6 +14,17 @@ interface IProps {
 
 const CardHoriz: FC<IProps> = ({ blog }) => {
 	const { auth } = useTypedSelector(state => state);
+	const dispatch = useDispatch();
+
+	const handleDelete = (blog: IBlog) => {
+		if (!auth.user || !auth.access_token) return;
+
+		// if ((blog.user as IUser)._id !== auth.user._id) {}
+
+		if (window.confirm("Вы действительно хотите удалить этот пост?")) {
+			dispatch(deleteBlog(blog, auth.access_token));
+		}
+	};
 
 	return (
 		<div className="card mb-3" style={{ minWidth: "280px" }}>
@@ -50,19 +63,27 @@ const CardHoriz: FC<IProps> = ({ blog }) => {
 						<p className="card-text">{blog.description}</p>
 						{
 							blog.title && (
-								<p className="card-text d-flex justify-content-between">
+								<div className="card-text d-flex justify-content-between align-items-center">
 									{
 										((blog.user as IUser)._id === auth.user?._id) && (
-											<small>
-												<Link to={`${CONSTANTS.ROUTES.UPDATE_BLOG}/${blog._id}`}>Обновить</Link>
-											</small>
+											<div>
+												<Link to={`${CONSTANTS.ROUTES.UPDATE_BLOG}/${blog._id}`}>
+													<i className="fas fa-edit" title="Обновить" />
+												</Link>
+
+												<i className="fas fa-trash text-danger mx-2"
+												   title="Удалить"
+												   role="button"
+												   onClick={() => handleDelete(blog)}
+												/>
+											</div>
 										)
 									}
 
 									<small className="text-muted ms-auto">
 										{new Date(blog.createdAt).toLocaleString()}
 									</small>
-								</p>
+								</div>
 							)
 						}
 					</div>

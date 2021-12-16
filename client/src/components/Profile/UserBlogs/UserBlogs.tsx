@@ -43,7 +43,9 @@ const UserBlogs = () => {
 		dispatch(getBlogsByUserId(id, search));
 	};
 
-	if (!blogs.length) return null;
+	if (blogs.length === 0 && total < 1) return (
+		<h3 className="text-center">Блогов нет</h3>
+	);
 
 	return (
 		<div>
@@ -55,13 +57,7 @@ const UserBlogs = () => {
 				}
 			</div>
 
-			<div>
-				{
-					total > 1 && (
-						<Pagination total={total} callback={handleChangePage} />
-					)
-				}
-			</div>
+			<Pagination total={total} callback={handleChangePage} />
 		</div>
 	);
 };

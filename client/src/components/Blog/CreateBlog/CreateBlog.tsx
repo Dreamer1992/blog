@@ -49,10 +49,20 @@ const CreateBlog: FC<IProps> = ({ id }) => {
 			})
 			.catch(e => console.log(e));
 
+		const initData = {
+			user: "",
+			title: "",
+			content: "",
+			description: "",
+			thumbnail: "",
+			category: "",
+			createdAt: new Date().toISOString(),
+		};
+
 		return () => {
-			setBlog(initState);
+			setBlog(initData);
 			setBody("");
-			setOldData(initState);
+			setOldData(initData);
 		};
 	}, [id]);
 

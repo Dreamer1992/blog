@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import mongoose from "mongoose";
 import Blogs from "../models/blogModel";
+import Comments from "../models/commentModel";
 import { IReqAuth } from "../config/interfaces";
 
 const Pagination = (req: IReqAuth) => {
@@ -28,7 +29,10 @@ const blogCtrl = {
 			});
 
 			await newBlog.save();
-			res.json({ newBlog });
+			res.json({
+				...newBlog._doc,
+				user: req.user,
+			});
 		} catch (e: any) {
 			return res.status(500).json({ msg: e.message });
 		}
@@ -248,6 +252,29 @@ const blogCtrl = {
 				return res.status(400).json({ msg: "Блог не найден" });
 
 			res.json({ msg: "Успешно обновлено", blog });
+		} catch (e: any) {
+			return res.status(500).json({ msg: e.message });
+		}
+	},
+
+	deleteBlog: async (req: IReqAuth, res: Response) => {
+		if (!req.user)
+			return res.status(400).json({ msg: "Ошибка авторизации" });
+
+		try {
+			// Delete Blog
+			const blog = await Blogs.findOneAndDelete({
+				_id: req.params.id,
+				user: req.user._id,
+			});
+
+			if (!blog)
+				return res.status(400).json({ msg: "Ошибка авторизации" });
+
+			// Delete Comments
+			await Comments.deleteMany({ blog_id: blog._id });
+
+			res.json({ msg: "Блог удален" });
 		} catch (e: any) {
 			return res.status(500).json({ msg: e.message });
 		}
