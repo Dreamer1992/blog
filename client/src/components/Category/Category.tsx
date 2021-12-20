@@ -1,24 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import cn from './Category.module.css';
-import { FormSubmit } from '../../types/Types';
-import { useDispatch } from 'react-redux';
-import { CONSTANTS } from '../../utils/consts';
-import NotFoundPage from '../../pages/NotFoundPage';
-import {
-	createCategory,
-	deleteCategory,
-	getCategories,
-	updateCategory,
-} from '../../redux/actions/categoryAction';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
-import { ICategory } from '../../types/CategoryTypes';
+import React, { useEffect, useState } from "react";
+import cn from "./Category.module.css";
+import { FormSubmit } from "../../types/Types";
+import { useDispatch } from "react-redux";
+import { CONSTANTS } from "../../utils/consts";
+import NotFoundPage from "../../pages/NotFoundPage";
+import { createCategory, deleteCategory, getCategories, updateCategory } from "../../redux/actions/categoryAction";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { ICategory } from "../../types/CategoryTypes";
 
 const Category = () => {
 	const auth = useTypedSelector((state) => state.auth);
 	const categories = useTypedSelector((state) => state.categories);
 	const dispatch = useDispatch();
 
-	const [name, setName] = useState('');
+	const [name, setName] = useState("");
 	const [edit, setEdit] = useState<ICategory | null>(null);
 
 	const handleSubmit = (e: FormSubmit) => {
@@ -34,18 +29,20 @@ const Category = () => {
 			dispatch(createCategory(name, auth.access_token));
 		}
 
-		setName('');
+		setName("");
 		setEdit(null);
 	};
 
 	const handleDelete = (id: string) => {
 		if (!auth.access_token) return;
 
-		dispatch(deleteCategory(id, auth.access_token));
+		if (window.confirm("Вы действительно хотите удалить эту категорию?")) {
+			dispatch(deleteCategory(id, auth.access_token));
+		}
 	};
 
 	const clearEdit = () => {
-		setName('');
+		setName("");
 		setEdit(null);
 	};
 

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 
+import Blogs from "../models/blogModel";
 import Categories from "../models/categoryModel";
 import { IReqAuth } from "../config/interfaces";
 
@@ -68,7 +69,13 @@ const categoryCtrl = {
 			return res.status(400).json({ msg: "Недостаточно прав" });
 
 		try {
-			await Categories.findByIdAndDelete(req.params.id);
+			const blog = await Blogs.findOne({ category: req.params.id });
+			if (blog)
+				return res.status(400).json({ msg: "Категория содержит блоги. Удаление невозможно" });
+
+			const category = await Categories.findByIdAndDelete(req.params.id);
+			if (!category)
+				return res.status(400).json({ msg: "Категории не существует" });
 
 			res.json({ msg: "Успешно удалено" });
 		} catch (e: any) {

@@ -6,7 +6,7 @@ import sendEmail from "../config/sendMail";
 import { sendSms, smsOTP, smsVerify } from "../config/sendSMS";
 import { validateEmail, validatePhone } from "../middleware/validate";
 import jwt from "jsonwebtoken";
-import { IDecodedToken, IGgPayload, IUser, IUserParams } from "../config/interfaces";
+import { IDecodedToken, IGgPayload, IReqAuth, IUser, IUserParams } from "../config/interfaces";
 import { OAuth2Client } from "google-auth-library";
 
 const client = new OAuth2Client(`${process.env.MAIL_CLIENT_ID}`);
@@ -87,9 +87,17 @@ const authCtrl = {
 		}
 	},
 
-	logout: async (req: Request, res: Response) => {
+	logout: async (req: IReqAuth, res: Response) => {
+		if (!req.user)
+			return res.status(400).json({ msg: "Ошибка авторизации" });
+
 		try {
 			res.clearCookie("refresh_token", { path: `/` });
+
+			await Users.findOneAndUpdate({ _id: req.user._id }, {
+				rf_token: "",
+			});
+
 			return res.json({ msg: "Успешно разлогинены" });
 		} catch (e: any) {
 			return res.status(500).json({ msg: e.message });
@@ -112,11 +120,19 @@ const authCtrl = {
 					.status(400)
 					.json({ msg: "Пожалуйста, авторизуйтесь на сайте" });
 
-			const user = await Users.findById(decoded.id).select("-password");
+			const user = await Users.findById(decoded.id).select("-password +rf_token");
 			if (!user)
 				return res.status(400).json({ msg: "Такого аккаунта не существует" });
 
+			if (rf_token !== user.rf_token)
+				return res.status(400).json({ msg: "Пожалуйста, авторизуйтесь на сайте" });
+
 			const access_token = generateAccessToken({ id: user._id });
+			const refresh_token = generateRefreshToken({ id: user._id }, res);
+
+			await Users.findOneAndUpdate({ _id: user._id }, {
+				rf_token: refresh_token,
+			});
 
 			res.json({ access_token, user });
 		} catch (e: any) {
@@ -216,12 +232,10 @@ const loginUser = async (user: IUser, password: string, res: Response) => {
 	}
 
 	const access_token = generateAccessToken({ id: user._id });
-	const refresh_token = generateRefreshToken({ id: user._id });
+	const refresh_token = generateRefreshToken({ id: user._id }, res);
 
-	res.cookie("refresh_token", refresh_token, {
-		httpOnly: true,
-		path: `/`,
-		maxAge: 30 * 24 * 60 * 60 * 1000, // 30days
+	await Users.findOneAndUpdate({ _id: user._id }, {
+		rf_token: refresh_token,
 	});
 
 	res.json({
@@ -233,16 +247,12 @@ const loginUser = async (user: IUser, password: string, res: Response) => {
 
 const registerUser = async (user: IUserParams, res: Response) => {
 	const newUser = new Users(user);
-	await newUser.save();
 
 	const access_token = generateAccessToken({ id: newUser._id });
-	const refresh_token = generateRefreshToken({ id: newUser._id });
+	const refresh_token = generateRefreshToken({ id: newUser._id }, res);
 
-	res.cookie("refresh_token", refresh_token, {
-		httpOnly: true,
-		path: `/`,
-		maxAge: 30 * 24 * 60 * 60 * 1000, // 30days
-	});
+	newUser.rf_token = refresh_token;
+	await newUser.save();
 
 	res.json({
 		msg: "Успешно авторизованы",

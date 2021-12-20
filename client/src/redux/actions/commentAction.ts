@@ -13,12 +13,16 @@ import {
 	UPDATE_COMMENT,
 	UPDATE_REPLY_COMMENT,
 } from "../types/commentType";
+import { checkTokenExp } from "../../utils/checkTokenExp";
 
 export const createComment = (
 	data: IComment, token: string,
 ) => async (dispatch: Dispatch<IAlertAction | ICreateCommentAction>) => {
+	const result = await checkTokenExp(token, dispatch);
+	const access_token = result ? result : token;
+
 	try {
-		await postAPI("comment", data, token);
+		await postAPI("comment", data, access_token);
 	} catch (e: any) {
 		dispatch({ type: ALERT, payload: { errors: e.response.data.msg } });
 	}
@@ -46,8 +50,11 @@ export const getComments = (
 export const replyComments = (
 	data: IComment, token: string,
 ) => async (dispatch: Dispatch<IAlertAction | ICreateReplyCommentAction>) => {
+	const result = await checkTokenExp(token, dispatch);
+	const access_token = result ? result : token;
+
 	try {
-		await postAPI("reply_comment", data, token);
+		await postAPI("reply_comment", data, access_token);
 	} catch (e: any) {
 		dispatch({ type: ALERT, payload: { errors: e.response.data.msg } });
 	}
@@ -56,13 +63,16 @@ export const replyComments = (
 export const updateComment = (
 	data: IComment, token: string,
 ) => async (dispatch: Dispatch<IAlertAction | CommentTypes>) => {
+	const result = await checkTokenExp(token, dispatch);
+	const access_token = result ? result : token;
+
 	try {
 		dispatch({
 			type: data.comment_root ? UPDATE_REPLY_COMMENT : UPDATE_COMMENT,
 			payload: data,
 		});
 
-		await patchAPI(`comment/${data._id}`, { data }, token);
+		await patchAPI(`comment/${data._id}`, { data }, access_token);
 	} catch (e: any) {
 		dispatch({ type: ALERT, payload: { errors: e.response.data.msg } });
 	}
@@ -71,13 +81,16 @@ export const updateComment = (
 export const deleteComment = (
 	data: IComment, token: string,
 ) => async (dispatch: Dispatch<IAlertAction | CommentTypes>) => {
+	const result = await checkTokenExp(token, dispatch);
+	const access_token = result ? result : token;
+
 	try {
 		dispatch({
 			type: data.comment_root ? DELETE_REPLY_COMMENT : DELETE_COMMENT,
 			payload: data,
 		});
 
-		await deleteAPI(`comment/${data._id}`, token);
+		await deleteAPI(`comment/${data._id}`, access_token);
 	} catch (e: any) {
 		dispatch({ type: ALERT, payload: { errors: e.response.data.msg } });
 	}

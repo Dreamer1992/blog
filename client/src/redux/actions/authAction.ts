@@ -4,6 +4,7 @@ import { getAPI, postAPI } from "../../api/FetchData";
 import { AUTH, AuthType } from "../types/authType";
 import { ALERT, AlertType } from "../types/alertType";
 import { validatePhone, validateRegister } from "../../utils/validate";
+import { checkTokenExp } from "../../utils/checkTokenExp";
 
 export const login =
 	(userLogin: IUserLogin) => async (dispatch: Dispatch<AuthType | AlertType>) => {
@@ -55,10 +56,13 @@ export const refreshToken = () => async (dispatch: Dispatch<AuthType | AlertType
 	}
 };
 
-export const logout = () => async (dispatch: Dispatch<AuthType | AlertType>) => {
+export const logout = (token: string) => async (dispatch: Dispatch<AuthType | AlertType>) => {
+	const result = await checkTokenExp(token, dispatch);
+	const access_token = result ? result : token;
+
 	try {
 		localStorage.removeItem("logged");
-		await getAPI("logout");
+		await getAPI("logout", access_token);
 		window.location.href = "/";
 	} catch (e: any) {
 		dispatch({ type: ALERT, payload: { errors: e.response.data.msg } });

@@ -20,6 +20,11 @@ const Menu = () => {
 		{ label: "Зарегистрироваться", path: REGISTER },
 	];
 
+	const handleLogout = () => {
+		if (!auth.access_token) return;
+		dispatch(logout(auth.access_token));
+	};
+
 	return (
 		<ul className="navbar-nav mb-2 mb-lg-0">
 			{!auth.access_token &&
@@ -69,7 +74,7 @@ const Menu = () => {
 							<hr className="dropdown-divider" />
 						</li>
 						<li>
-							<Link className="dropdown-item" to="/" onClick={() => dispatch(logout())}>
+							<Link className="dropdown-item" to="/" onClick={handleLogout}>
 								Выйти
 							</Link>
 						</li>
