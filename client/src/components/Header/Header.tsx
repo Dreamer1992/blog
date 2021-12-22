@@ -7,7 +7,9 @@ import Menu from './Menu/Menu';
 const Header = () => {
 	return (
 		<header>
-			<nav className="navbar navbar-expand-lg navbar-dark bg-dark p-3">
+			<nav className="navbar navbar-expand-lg navbar-dark bg-dark p-3"
+				style={{position: "sticky", top: 0, left: 0, zIndex: 9}}
+			>
 				<Link className="navbar-brand" to={CONSTANTS.ROUTES.HOME}>
 					Блог веб-разработки
 				</Link>

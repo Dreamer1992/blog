@@ -7,7 +7,6 @@ import { IUser } from "../../../../types/Types";
 import { CONSTANTS } from "../../../../utils/consts";
 import { deleteBlog } from "../../../../redux/actions/blogAction";
 
-
 interface IProps {
 	blog: IBlog;
 }
@@ -18,8 +17,6 @@ const CardHoriz: FC<IProps> = ({ blog }) => {
 
 	const handleDelete = (blog: IBlog) => {
 		if (!auth.user || !auth.access_token) return;
-
-		// if ((blog.user as IUser)._id !== auth.user._id) {}
 
 		if (window.confirm("Вы действительно хотите удалить этот пост?")) {
 			dispatch(deleteBlog(blog, auth.access_token));
@@ -65,7 +62,7 @@ const CardHoriz: FC<IProps> = ({ blog }) => {
 							blog.title && (
 								<div className="card-text d-flex justify-content-between align-items-center">
 									{
-										((blog.user as IUser)._id === auth.user?._id) && (
+										((blog?.user as IUser)?._id === auth.user?._id) && (
 											<div>
 												<Link to={`${CONSTANTS.ROUTES.UPDATE_BLOG}/${blog._id}`}>
 													<i className="fas fa-edit" title="Обновить" />

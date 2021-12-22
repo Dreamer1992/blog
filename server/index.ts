@@ -31,11 +31,7 @@ import { SocketServer } from "./config/socket";
 io.on("connection", (socket: Socket) => SocketServer(socket));
 
 // Routes
-app.use("/api", routes.authRouter);
-app.use("/api", routes.userRouter);
-app.use("/api", routes.categoryRouter);
-app.use("/api", routes.blogRouter);
-app.use("/api", routes.comment)
+app.use("/api", routes);
 
 // Database
 import "./config/database";
