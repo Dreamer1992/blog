@@ -1,61 +1,31 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { FormSubmit, InputChange } from "../../../types/Types";
-import cn from "./RegisterForm.module.css";
-import { register } from "../../../redux/actions/authAction";
+import { FormSubmit } from "../../types/Types";
+import cn from "../../components/Register/RegisterForm/RegisterForm.module.css";
+import { resetPassword } from "../../redux/actions/userAction";
 
-const RegisterForm = () => {
-	const initialState = {
-		name: "",
-		account: "",
-		password: "",
-		cf_password: "",
-	};
-	const [userRegister, setUserRegister] = useState(initialState);
-	const { name, account, password, cf_password } = userRegister;
+interface IParams {
+	token: string;
+}
 
+const ResetPasswordPage = () => {
+	const { token } = useParams<IParams>();
+	const dispatch = useDispatch();
+
+	const [password, setPassword] = useState("");
+	const [cf_password, setCfPassword] = useState("");
 	const [typePass, setTypePass] = useState(false);
 	const [typeCfPass, setTypeCfPass] = useState(false);
 
-	const dispatch = useDispatch();
-
-	const handleChangeInput = (e: InputChange) => {
-		const { value, name } = e.target;
-		setUserRegister({ ...userRegister, [name]: value });
-	};
-
 	const handleSubmit = (e: FormSubmit) => {
 		e.preventDefault();
-		dispatch(register(userRegister));
+		dispatch(resetPassword(password, cf_password, token));
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<div className="form-group mb-3">
-				<label htmlFor="name">Имя</label>
-				<input
-					type="text"
-					className="form-control"
-					id="name"
-					name="name"
-					value={name}
-					placeholder="Иван"
-					onChange={handleChangeInput}
-				/>
-			</div>
-
-			<div className="form-group mb-3">
-				<label htmlFor="account">Почта или номер телефона</label>
-				<input
-					type="text"
-					className="form-control"
-					id="account"
-					name="account"
-					placeholder="ivan@gmail.com / +79381112233"
-					value={account}
-					onChange={handleChangeInput}
-				/>
-			</div>
+		<form onSubmit={handleSubmit} className="col-4 my-4 mx-auto">
+			<h3 className="text-uppercase text-center">Сбросить пароль</h3>
 
 			<div className="form-group mb-4">
 				<label htmlFor="account">Пароль</label>
@@ -66,7 +36,7 @@ const RegisterForm = () => {
 						id="password"
 						name="password"
 						value={password}
-						onChange={handleChangeInput}
+						onChange={e => setPassword(e.target.value)}
 					/>
 					<small className={cn.small} onClick={() => setTypePass(!typePass)}>
 						{typePass ? <i className="far fa-eye-slash" /> : <i className="far fa-eye" />}
@@ -83,7 +53,7 @@ const RegisterForm = () => {
 						id="cf_password"
 						name="cf_password"
 						value={cf_password}
-						onChange={handleChangeInput}
+						onChange={e => setCfPassword(e.target.value)}
 					/>
 					<small className={cn.small} onClick={() => setTypeCfPass(!typeCfPass)}>
 						{typeCfPass ? <i className="far fa-eye-slash" /> : <i className="far fa-eye" />}
@@ -98,4 +68,4 @@ const RegisterForm = () => {
 	);
 };
 
-export default RegisterForm;
+export default ResetPasswordPage;

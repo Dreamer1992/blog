@@ -17,7 +17,6 @@ const Search = () => {
 			try {
 				const res = await getAPI(`search/blogs?title=${search}`);
 				setBlogs(res.data);
-				console.log(blogs);
 			} catch (e) {
 				console.log(e);
 			}

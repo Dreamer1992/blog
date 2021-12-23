@@ -10,6 +10,8 @@ export const CONSTANTS = {
 		CATEGORY: "/category",
 		BLOGS_SPECIFIC_CATEGORY: "/blogs/:category_name",
 		DETAIL_BLOG: "/blog/:id",
+		FORGOT_PASSWORD: "/forgot_password",
+		RESET_PASSWORD: "/reset_password/:token",
 	},
 	REGISTER_TYPES: {
 		REGISTER: "register",

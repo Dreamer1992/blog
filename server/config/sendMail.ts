@@ -1,43 +1,43 @@
-const nodemailer = require('nodemailer')
-import {OAuth2Client} from 'google-auth-library'
+const nodemailer = require("nodemailer");
+import { OAuth2Client } from "google-auth-library";
 
-const OAUTH_PLAYGROUND = 'https://developers.google.com/oauthplayground'
+const OAUTH_PLAYGROUND = "https://developers.google.com/oauthplayground";
 
-const CLIENT_ID = `${process.env.MAIL_CLIENT_ID}`
-const CLIENT_SECRET = `${process.env.MAIL_CLIENT_SECRET}`
-const REFRESH_TOKEN = `${process.env.MAIL_REFRESH_TOKEN}`
-const SENDER_MAIL = `${process.env.SENDER_EMAIL_ADDRESS}`
+const CLIENT_ID = `${process.env.MAIL_CLIENT_ID}`;
+const CLIENT_SECRET = `${process.env.MAIL_CLIENT_SECRET}`;
+const REFRESH_TOKEN = `${process.env.MAIL_REFRESH_TOKEN}`;
+const SENDER_MAIL = `${process.env.SENDER_EMAIL_ADDRESS}`;
 
 // send mail
 const sendEmail = async (to: string, url: string, text: string) => {
-    const oAuth2Client = new OAuth2Client(
-        CLIENT_ID,
-        CLIENT_SECRET,
-        OAUTH_PLAYGROUND
-    )
+	const oAuth2Client = new OAuth2Client(
+		CLIENT_ID,
+		CLIENT_SECRET,
+		OAUTH_PLAYGROUND,
+	);
 
-    oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN})
+	oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
-    try {
-        const access_token = await oAuth2Client.getAccessToken();
+	try {
+		const access_token = await oAuth2Client.getAccessToken();
 
-        const transport = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                type: 'OAuth2',
-                user: SENDER_MAIL,
-                clientId: CLIENT_ID,
-                clientSecret: CLIENT_SECRET,
-                refreshToken: REFRESH_TOKEN,
-                access_token
-            }
-        })
+		const transport = nodemailer.createTransport({
+			service: "gmail",
+			auth: {
+				type: "OAuth2",
+				user: SENDER_MAIL,
+				clientId: CLIENT_ID,
+				clientSecret: CLIENT_SECRET,
+				refreshToken: REFRESH_TOKEN,
+				access_token,
+			},
+		});
 
-        const mailOptions = {
-            from: SENDER_MAIL,
-            to,
-            subject: 'Блог веб-разработки',
-            html: `
+		const mailOptions = {
+			from: SENDER_MAIL,
+			to,
+			subject: "Блог веб-разработки",
+			html: `
                 <div style="max-width: 700px; margin: auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%">
                     <h2 style="text-transform: uppercase; color: teal;">
                         Добро пожаловать на блог по веб-разработке
@@ -50,13 +50,13 @@ const sendEmail = async (to: string, url: string, text: string) => {
                     <p>Если кнопка по какой-либо причине не работает, вы также можете нажать на ссылку ниже</p>
                     <div>${url}</div>
                 </div>
-            `
-        }
+            `,
+		};
 
-        return await transport.sendMail(mailOptions);
-    } catch (e) {
-        console.log(e)
-    }
-}
+		return await transport.sendMail(mailOptions);
+	} catch (e) {
+		console.log({ e });
+	}
+};
 
 export default sendEmail;

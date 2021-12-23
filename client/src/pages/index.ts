@@ -9,6 +9,8 @@ import CreateBlogPage from "./BlogPages/CreateBlogPage";
 import BlogsSpecificCategoryPage from "./BlogPages/BlogsSpecificCategoryPage";
 import DetailBlogPage from "./BlogPages/DetailBlogPage";
 import UpdateBlogPage from "./BlogPages/UpdateBlogPage";
+import ForgotPasswordPage from "./ResetPassword/ForgotPasswordPage";
+import ResetPasswordPage from "./ResetPassword/ResetPasswordPage";
 
 export {
 	ActivationPage,
@@ -22,4 +24,6 @@ export {
 	BlogsSpecificCategoryPage,
 	DetailBlogPage,
 	UpdateBlogPage,
+	ForgotPasswordPage,
+	ResetPasswordPage,
 };

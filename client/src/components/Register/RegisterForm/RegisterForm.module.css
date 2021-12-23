@@ -5,7 +5,7 @@
 .small {
     position: absolute;
     top: 50%;
-    right: 5px;
+    right: 10px;
     transform: translateY(-50%);
     cursor: pointer;
     opacity: .5;

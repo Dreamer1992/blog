@@ -3,6 +3,7 @@ import Users from "../models/userModel";
 import bcrypt from "bcrypt";
 import { generateAccessToken, generateActiveToken, generateRefreshToken } from "../config/generateToken";
 import sendEmail from "../config/sendMail";
+import sendMail from "../config/sendMail";
 import { sendSms, smsOTP, smsVerify } from "../config/sendSMS";
 import { validateEmail, validatePhone } from "../middleware/validate";
 import jwt from "jsonwebtoken";
@@ -217,6 +218,38 @@ const authCtrl = {
 			}
 		} catch (e: any) {
 			return res.status(500).json({ msg: e.message });
+		}
+	},
+
+	forgotPassword: async (req: Request, res: Response) => {
+		try {
+			const { account } = req.body;
+
+			const user = await Users.findOne({ account });
+			if (!user)
+				return res.status(400).json({ msg: "Такого аккаунта не сущестсвует" });
+
+			if (user.type !== "register")
+				return res.status(400).json({
+					msg: `Учетная запись с ${user.type} не может использовать эту функцию`,
+				});
+
+			const access_token = generateAccessToken({ id: user._id });
+
+			const url = `${CLIENT_URL}/reset_password/${access_token}`;
+
+			if (validatePhone(account)) {
+				await sendSms(account, url, "Забыли пароль?");
+
+				return res.json({ msg: "Успешно! Пожалуйста, проверьте ваш телефон" });
+
+			} else if (validateEmail(account)) {
+				await sendMail(account, url, "Восстановление пароля");
+
+				return res.json({ msg: "Успешно! Пожалуйста, проверьте вашу почту" });
+			}
+		} catch (err: any) {
+			return res.status(500).json({ msg: err.message });
 		}
 	},
 };

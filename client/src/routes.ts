@@ -5,12 +5,13 @@ import {
 	BlogsSpecificCategoryPage,
 	CategoryPage,
 	CreateBlogPage,
-	DetailBlogPage,
+	DetailBlogPage, ForgotPasswordPage,
 	LoginPage,
 	NotFoundPage,
 	ProfilePage,
-	RegisterPage,
+	RegisterPage, ResetPasswordPage,
 	UpdateBlogPage,
+
 } from "./pages";
 
 const {
@@ -24,6 +25,8 @@ const {
 	UPDATE_BLOG,
 	BLOGS_SPECIFIC_CATEGORY,
 	DETAIL_BLOG,
+	FORGOT_PASSWORD,
+	RESET_PASSWORD,
 } = CONSTANTS.ROUTES;
 
 export const routes = [
@@ -40,6 +43,16 @@ export const routes = [
 	{
 		path: REGISTER,
 		Component: RegisterPage,
+		exact: true,
+	},
+	{
+		path: FORGOT_PASSWORD,
+		Component: ForgotPasswordPage,
+		exact: true,
+	},
+	{
+		path: RESET_PASSWORD,
+		Component: ResetPasswordPage,
 		exact: true,
 	},
 	{

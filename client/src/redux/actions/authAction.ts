@@ -119,3 +119,17 @@ const verifySMS = async (phone: string, dispatch: Dispatch<AuthType | AlertType>
 		}, 100);
 	}
 };
+
+export const forgotPassword = (account: string) =>
+	async (dispatch: Dispatch<AuthType | AlertType>) => {
+		try {
+			dispatch({ type: ALERT, payload: { loading: true } });
+
+			const res = await postAPI("forgot_password", { account });
+			console.log({res});
+
+			dispatch({ type: ALERT, payload: { success: res.data.msg } });
+		} catch (err: any) {
+			dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
+		}
+	};
