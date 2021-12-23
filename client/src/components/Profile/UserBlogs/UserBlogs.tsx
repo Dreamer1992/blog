@@ -48,7 +48,7 @@ const UserBlogs = () => {
 	);
 
 	return (
-		<div>
+		<>
 			<div>
 				{
 					blogs.map(blog => (
@@ -58,7 +58,7 @@ const UserBlogs = () => {
 			</div>
 
 			<Pagination total={total} callback={handleChangePage} />
-		</div>
+		</>
 	);
 };
 

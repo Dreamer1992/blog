@@ -24,9 +24,9 @@ const CardHoriz: FC<IProps> = ({ blog }) => {
 	};
 
 	return (
-		<div className="card mb-3" style={{ minWidth: "280px" }}>
+		<div className="card mb-3">
 			<div className="row g-0">
-				<div className="col-md-4 py-4">
+				<div className="col-12 col-lg-4 py-4">
 					{blog.thumbnail && (
 						<div style={{ maxHeight: 211, overflow: "hidden" }}>
 							{typeof blog.thumbnail === "string" ? (
@@ -47,7 +47,7 @@ const CardHoriz: FC<IProps> = ({ blog }) => {
 					)}
 				</div>
 
-				<div className="col-md-8">
+				<div className="col-12 col-lg-8">
 					<div className="card-body">
 						<h5 className="card-title">
 							<Link
