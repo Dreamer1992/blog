@@ -53,6 +53,7 @@ export const refreshToken = () => async (dispatch: Dispatch<AuthType | AlertType
 		dispatch({ type: ALERT, payload: {} });
 	} catch (e: any) {
 		dispatch({ type: ALERT, payload: { errors: e.response.data.msg } });
+		localStorage.removeItem("logged");
 	}
 };
 

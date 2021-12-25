@@ -24,7 +24,7 @@ const CardHoriz: FC<IProps> = ({ blog }) => {
 	};
 
 	return (
-		<div className="card mb-3">
+		<div className="card shadow mb-3">
 			<div className="row g-0">
 				<div className="col-12 col-lg-4 py-4">
 					{blog.thumbnail && (

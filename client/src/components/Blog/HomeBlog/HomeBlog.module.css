@@ -18,14 +18,17 @@
 }
 
 .homeBlogPage h3 a small {
+    color: #fff;
+    background: #0d6efd;
+    padding: 0 5px;
     margin-left: 10px;
-    font-size: 1.2rem;
+    border-radius: 0.25rem;
 }
 
 .homeBlogs {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(296px, 1fr));
     grid-gap: 10px;
     margin-bottom: 15px;
 }

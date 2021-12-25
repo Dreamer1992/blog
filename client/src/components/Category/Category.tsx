@@ -78,7 +78,7 @@ const Category = () => {
 						/>
 					)}
 
-					<button type="submit">{edit ? "Обновить" : "Создать"}</button>
+					<button type="submit" className="btn btn-success">{edit ? "Обновить" : "Создать"}</button>
 				</div>
 			</form>
 

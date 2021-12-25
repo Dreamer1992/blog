@@ -55,7 +55,7 @@ const UserInfo = () => {
 	if (!auth.user) return <NotFoundPage />;
 
 	return (
-		<form className={cn.profileInfo} onSubmit={handleSubmit}>
+		<form className={`${cn.profileInfo} shadow`} onSubmit={handleSubmit}>
 			<div className={cn.profileInfoAvatar}>
 				<img
 					className={cn.avatarImage}

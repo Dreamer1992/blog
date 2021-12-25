@@ -43,8 +43,8 @@ const App = () => {
 
 							<div
 								className={`${
-									!auth.access_token ? "col-12" : "col-md-9 col-lg-10"
-								} ms-sm-auto px-md-4`}
+									!auth.access_token ? "col-12 col-md-8" : "col-md-9 col-lg-10"
+								} mx-auto px-md-4`}
 							>
 								<Switch>
 									{routes.map(({ path, Component, exact }) => (

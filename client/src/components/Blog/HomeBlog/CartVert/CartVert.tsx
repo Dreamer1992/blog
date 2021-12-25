@@ -9,7 +9,7 @@ interface IProps {
 
 const CartVert: FC<IProps> = ({ blog }) => {
 	return (
-		<div className="card">
+		<div className="card shadow">
 			<div className={cn.image}>
 				{
 					typeof (blog.thumbnail) === "string" && (
@@ -20,7 +20,7 @@ const CartVert: FC<IProps> = ({ blog }) => {
 					)
 				}
 			</div>
-			<div className="card-body">
+			<div className="card-body d-flex flex-column">
 				<h5 className={`${cn.cardText} card-title`}>
 					<Link to={`/blog/${blog._id}`}>
 						{blog.title.slice(0, 50) + "..."}
@@ -30,7 +30,7 @@ const CartVert: FC<IProps> = ({ blog }) => {
 					{blog.description.slice(0, 100) + "..."}
 				</p>
 
-				<p className="card-text d-flex justify-content-between">
+				<p className="card-text mt-auto d-flex justify-content-between">
 					<small className="text-muted">
 						{
 							typeof (blog.user) !== "string" && (

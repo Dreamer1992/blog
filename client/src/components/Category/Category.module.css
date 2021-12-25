@@ -16,12 +16,15 @@
     margin-bottom: 1rem;
 }
 
-.categoryForm input,
-.categoryForm button {
+.categoryForm input {
     height: 35px;
     border: none;
     outline: none;
     border-bottom: 1px solid #555;
+}
+
+.categoryForm button {
+    height: 35px;
 }
 
 .categoryForm input {
@@ -29,8 +32,6 @@
 }
 
 .categoryForm button {
-    background-color: #555;
-    color: white;
     margin-left: 10px;
     padding: 0 15px;
 }

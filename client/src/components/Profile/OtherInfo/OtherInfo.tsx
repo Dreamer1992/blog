@@ -19,7 +19,7 @@ const OtherInfo: FC<IProps> = ({ id }) => {
 	if (!info) return null;
 
 	return (
-		<div className={`${cn.profileInfo} text-center`}>
+		<div className={`${cn.profileInfo} shadow text-center`}>
 			<div className={cn.profileInfoAvatar}>
 				<img
 					className={cn.avatarImage}

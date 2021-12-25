@@ -17,7 +17,7 @@ const HomeBlog: FC<IProps> = ({ blogs }) => {
 						<h3>
 							<Link to={`/blogs/${(blog.name).toLowerCase()}`}>
 								{blog.name}
-								<small>({blog.count})</small>
+								<small>{blog.count}</small>
 							</Link>
 						</h3>
 						<hr className="mt-1" />
