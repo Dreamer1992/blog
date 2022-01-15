@@ -43,12 +43,10 @@ const sendEmail = async (to: string, url: string, text: string) => {
                         Добро пожаловать на блог по веб-разработке
                     </h2>
                     <p>Почти готово</p>
-                    <a href="${url}" style="background: crimson; text-decoration: none; color: white; padding: 10px 20px;
+                    <a href="${url}" style="background: "#dc143c"; text-decoration: none; color: "#ffffff"; padding: 10px 20px;
                         margin: 10px 0; display: inline-block;">
                         ${text}
                     </a>
-                    <p>Если кнопка по какой-либо причине не работает, вы также можете нажать на ссылку ниже</p>
-                    <div>${url}</div>
                 </div>
             `,
 		};

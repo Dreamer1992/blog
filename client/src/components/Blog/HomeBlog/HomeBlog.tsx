@@ -12,7 +12,7 @@ const HomeBlog: FC<IProps> = ({ blogs }) => {
 	return (
 		<div className={cn.homeBlogPage}>
 			{
-				blogs?.map(blog => (
+				blogs && blogs.map(blog => (
 					<div key={blog._id}>
 						<h3>
 							<Link to={`/blogs/${(blog.name).toLowerCase()}`}>

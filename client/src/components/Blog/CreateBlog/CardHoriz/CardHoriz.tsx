@@ -62,7 +62,7 @@ const CardHoriz: FC<IProps> = ({ blog }) => {
 							blog.title && (
 								<div className="card-text d-flex justify-content-between align-items-center">
 									{
-										((blog?.user as IUser)?._id === auth.user?._id) && (
+										(blog && blog.user && (blog.user as IUser)._id === auth.user?._id) && (
 											<div>
 												<Link to={`${CONSTANTS.ROUTES.UPDATE_BLOG}/${blog._id}`}>
 													<i className="fas fa-edit" title="Обновить" />

@@ -21,17 +21,19 @@
 + Комментируйте в реальном времени с Socket.io
 + Пагинация, поиск с автозаполнением Mongodb
 
-### Установить зависимости для service: `npm install`
+### Демо: https://blog-dev-prod.herokuapp.com
+
+### Установить зависимости для server: `npm install`
 
 ### Установить зависимости для client: cd client => `npm install`
 
 ### Подключитесь к своему mongodb и добавьте информацию в .env
 
-### Запускайте только Express server: `npm run dev`
+### Запуск Express server: `npm run dev`
 
-### Запустите только client React: cd client => `npm start`
+### Запуск client React: cd client => `npm start`
 
-### Сервер работает на http://localhost:5000, а клиент - на http://localhost:3000.
+### Сервер работает на http://localhost:5000, <br> клиент - на http://localhost:3000.
 
 ### Скриншот
 ![alt](https://res.cloudinary.com/drw46ajkt/image/upload/v1640464696/blog-dev/blogdev_xfj1fv.jpg)
